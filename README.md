@@ -26,5 +26,5 @@ Install [`deno`](https://deno.land/), which is a secure javascript runtime.
 2. Run the following script
 
 ```
-deno run --allow-read --allow-write --unstable scripts/process-returns.ts "<path to returns xlsx>"
+deno run --allow-read --allow-write --unstable scripts/process-returns-xxxx.ts "<path to returns xlsx>"
 ```

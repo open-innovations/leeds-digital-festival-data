@@ -1,3 +1,4 @@
+// deno-lint-ignore-file camelcase
 import { xlsx, readXLSX, writeJSON } from 'https://deno.land/x/flat/mod.ts'
 import { setupData } from './util.ts';
 
@@ -54,22 +55,39 @@ const processData = (data: any) => {
   for (let [k, v] of Object.entries(fieldMap)) {
     const processor = v.processor || function (x) { return x };
     p = { ...p, [v.name]: processor(data[k]) };
-  };
+  }
   return p;
 }
 const calculateTurnout = (data: any) => ({ ...data, turnout: parseFloat((data['attended'] / data['registered']).toFixed(2)) })
-const summarise = (acc: {
-  total_returns: number,
-  first_time_ldf_host: number,
-  first_time_online_host: number,
-  will_submit_september: number,
-  registered: number[],
-  attended: number[],
-  turnout: number[],
+
+type ProcessedReturn = {
+  first_time_ldf_host: boolean,
+  first_time_online_host: boolean,
+  will_submit_september: boolean,
+  registered: number,
+  attended: number,
+  turnout: number,
   international_attendees: string[],
-  platform_used: string[],
-  prefer_physical_virtual: { [key: string]: number },
-}, data: any) => {
+  platform_used: string,
+  prefer_physical_virtual: string,
+};
+
+type ReturnSummary = {
+  total_returns: number;
+  first_time_ldf_host: number;
+  first_time_online_host: number;
+  will_submit_september: number;
+  registered: number[];
+  attended: number[];
+  turnout: number[];
+  international_attendees: string[];
+  platform_used: string[];
+  prefer_physical_virtual: {
+    [key: string]: number;
+  };
+};
+
+const summarise = (acc: ReturnSummary, data: ProcessedReturn) => {
   acc['total_returns']++;
   acc['first_time_ldf_host'] += data['first_time_ldf_host'] ? 1 : 0;
   acc['first_time_online_host'] += data['first_time_online_host'] ? 1 : 0;
@@ -79,6 +97,9 @@ const summarise = (acc: {
   acc['turnout'].push(data['turnout']);
   acc['platform_used'].push(data['platform_used']);
   acc['international_attendees'].push(...data['international_attendees']);
+  const pv = data['prefer_physical_virtual'];
+  if (!acc['prefer_physical_virtual'][pv]) acc['prefer_physical_virtual'][pv] = 0
+  acc['prefer_physical_virtual'][pv]++;
   return acc;
 }
 
