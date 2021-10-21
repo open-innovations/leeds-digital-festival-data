@@ -54,7 +54,7 @@ const fieldMap: { [originalFieldName: string]: { name: string, processor: (x: st
   },
   "How did you hear about Leeds Digital Festival?": {
     name: 'how_found_out',
-    processor: listMapper,
+    processor: identityMapper,
   }
 };
 
@@ -117,6 +117,7 @@ const summarise = (acc: ReturnSummary, data: ProcessedReturn) => {
   acc['international_attendees'].push(...data['international_attendees']);
   acc['platform_used'].push(data['platform_used']);
   acc['preferred_format'].push(data['preferred_format']);
+  acc['event_format'].push(data['event_format']);
   acc['how_found_out'].push(data['how_found_out']);
   return acc;
 }
