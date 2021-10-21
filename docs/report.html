@@ -76,7 +76,7 @@
 							r = regions[data.host.json.uk_region_attendees[i]];
 							if(r) counts[r]++;
 						}
-						panels.push('<li style="grid-row: auto / span 2;"><span class="title">UK region attendees</span>'+data.UK.text.replace(/<svg/,'<svg id="UK-map"')+'</li>');
+						panels.push('<li style="grid-row: auto / span 2;"><span class="title">UK region attendees</span>'+data.UK.text.replace(/<svg/,'<svg id="UK-map" style="max-width:100%;height:auto;" ')+'</li>');
 					}
 				}
 				html = '';
