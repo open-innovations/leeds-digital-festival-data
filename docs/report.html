@@ -17,7 +17,7 @@
 	.panels > li > * { line-height: 1.2em; }
 	.panels > li > span { display: block; }
 	.title { font-size: 1.2em; font-weight: bold; font-family:"brandon-grotesque"; }
-	.number { font-size: 3em; font-weight: bold; font-family:"brandon-grotesque"; }
+	.number { font-size: 6em; font-weight: bold; font-family:"brandon-grotesque"; }
 	
 	
 	.tooltip { white-space: nowrap; background-color: #061eff; color: white; padding: 0.325em 0.5em; transform: translate3d(-50%,0.5em,0); z-index: 100; position: absolute; z-index: 98; }
@@ -62,18 +62,8 @@
 					'Northern Ireland':'UKN'
 				};
 				if(data.host.json){
-					panels.push('<li><span class="title">Host returns</span><span class="number">'+data.host.json.total_returns.toLocaleString()+'</span></li>');
-					panels.push('<li><span class="title">First time host</span><span class="number">'+data.host.json.first_time_ldf_host.toLocaleString()+'</span></li>');
-					if(data.host.json.registered){
-						t = 0;
-						for(i = 0; i < data.host.json.registered.length; i++) t += data.host.json.registered[i];
-						panels.push('<li><span class="title">Registered</span><span class="number">'+t.toLocaleString()+'</span></li>');
-					}
-					if(data.host.json.attended){
-						a = 0;
-						for(i = 0; i < data.host.json.attended.length; i++) a += data.host.json.attended[i];
-						panels.push('<li><span class="title">Attended</span><span class="number">'+a.toLocaleString()+'</span></li>');
-					}
+					panels.push('<li><span class="title">Host returns</span><div class="number">'+data.host.json.total_returns.toLocaleString()+'</div></li>');
+					panels.push('<li><span class="title">First time host</span><div class="number">'+data.host.json.first_time_ldf_host.toLocaleString()+'</div></li>');
 					if(data.host.json.uk_region_attendees && data.UK.text){
 						// Work out region sums
 						for(r in regions) counts[regions[r]] = 0;
@@ -82,6 +72,16 @@
 							if(r) counts[r]++;
 						}
 						panels.push('<li style="grid-row: auto / span 2;"><span class="title">UK region attendees</span><div>'+data.UK.text.replace(/<svg/,'<svg id="UK-map" style="max-width:100%;height:auto;" ')+'</div></li>');
+					}
+					if(data.host.json.registered){
+						t = 0;
+						for(i = 0; i < data.host.json.registered.length; i++) t += data.host.json.registered[i];
+						panels.push('<li><span class="title">Registered</span><div class="number">'+t.toLocaleString()+'</div></li>');
+					}
+					if(data.host.json.attended){
+						a = 0;
+						for(i = 0; i < data.host.json.attended.length; i++) a += data.host.json.attended[i];
+						panels.push('<li><span class="title">Attended</span><div class="number">'+a.toLocaleString()+'</div></li>');
 					}
 				}
 				html = '';
