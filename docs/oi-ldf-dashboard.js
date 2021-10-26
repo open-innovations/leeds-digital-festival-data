@@ -6,6 +6,22 @@
 	var OI = root.OI || {};
 	OI.ready = function(fn){ if(document.readyState != 'loading') fn(); else document.addEventListener('DOMContentLoaded', fn); };
 
+	var regions = {
+		'North East':'UKC',
+		'North West':'UKD',
+		'Yorkshire and the Humber':'UKE',
+		'Yorkshire and The Humber':'UKE',
+		'East Midlands':'UKF',
+		'West Midlands':'UKG',
+		'East of England':'UKH',
+		'London':'UKI',
+		'South East':'UKJ',
+		'South West':'UKK',
+		'Wales':'UKL',
+		'Scotland':'UKM',
+		'Northern Ireland':'UKN'
+	};
+
 	function Report(el,opts){
 		if(!opts) opts = {};
 		var data = opts.data||{};
@@ -19,21 +35,6 @@
 			var i,panels,a,t,html;
 			panels = [];
 			var counts = {};
-			var regions = {
-				'North East':'UKC',
-				'North West':'UKD',
-				'Yorkshire and the Humber':'UKE',
-				'Yorkshire and The Humber':'UKE',
-				'East Midlands':'UKF',
-				'West Midlands':'UKG',
-				'East of England':'UKH',
-				'London':'UKI',
-				'South East':'UKJ',
-				'South West':'UKK',
-				'Wales':'UKL',
-				'Scotland':'UKM',
-				'Northern Ireland':'UKN'
-			};
 			if(data.host.json){
 				panels.push('<li><span class="title">Host returns</span><div class="number">'+data.host.json.total_returns.toLocaleString()+'</div></li>');
 				panels.push('<li><span class="title">First time host</span><div class="number">'+data.host.json.first_time_ldf_host.toLocaleString()+'</div></li>');
@@ -90,12 +91,13 @@
 		};
 		
 		this.resize = function(){
+			var i;
 			var li = el.querySelectorAll('li');
 			var scale = 1;
 			// Find minimum scale
-			for(var i = 0; i < li.length; i++) scale = Math.min(scale,li[i].offsetWidth/328);
+			for(i = 0; i < li.length; i++) scale = Math.min(scale,li[i].offsetWidth/328);
 			// Set scale
-			for(var i = 0; i < li.length; i++) li[i].style['font-size'] = scale+'em';
+			for(i = 0; i < li.length; i++) li[i].style['font-size'] = scale+'em';
 		};
 		
 		window.onresize = this.resize;
@@ -113,7 +115,6 @@
 			bb = this.getBoundingClientRect();
 			pt = parent.getBoundingClientRect();
 			tooltip.style.position = "absolute";
-			console.log(tooltip,bb.left+(bb.width/2)-pt.left,pt);
 			tooltip.style.left = (100 * (bb.left+(bb.width/2)-pt.left)/pt.width).toFixed(1)+'%';
 			tooltip.style.top = (100 * (bb.top+bb.height-pt.top)/pt.height).toFixed(1)+'%';
 		}
@@ -128,7 +129,7 @@
 			data.UK.text = text;
 			this.update();
 			return true;
-		});	
+		});
 		return this;
 	}
 	OI.report = Report;
