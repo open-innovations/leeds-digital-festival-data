@@ -20,6 +20,9 @@
 	.number { font-size: 3em; font-weight: bold; font-family:"brandon-grotesque"; }
 	
 	
+	.tooltip { white-space: nowrap; background-color: #061eff; color: white; padding: 0.325em 0.5em; transform: translate3d(-50%,0.5em,0); z-index: 100; position: absolute; z-index: 98; }
+	.tooltip:before { content: ""; border: 0.5em solid transparent; border-bottom: 0.5em solid #061eff; border-top: 0px; left: 50%; top: 0; transform: translate3d(-50%,-0.5em,0); position: absolute; display: block; width: 0px; height: 0px; }
+	
 	</style>
 	<script>
 	/**
@@ -78,7 +81,7 @@
 							r = regions[data.host.json.uk_region_attendees[i]];
 							if(r) counts[r]++;
 						}
-						panels.push('<li style="grid-row: auto / span 2;"><span class="title">UK region attendees</span>'+data.UK.text.replace(/<svg/,'<svg id="UK-map" style="max-width:100%;height:auto;" ')+'</li>');
+						panels.push('<li style="grid-row: auto / span 2;"><span class="title">UK region attendees</span><div>'+data.UK.text.replace(/<svg/,'<svg id="UK-map" style="max-width:100%;height:auto;" ')+'</div></li>');
 					}
 				}
 				html = '';
@@ -102,14 +105,31 @@
 						if(path){
 							path.setAttribute('fill','rgba(61, 242, 186,'+(counts[r]/max)+')');
 							path.innerHTML = "";
+							path.addEventListener('mouseover',makeTooltip);
 							title = document.createElementNS('http://www.w3.org/2000/svg','title');
-							title.innerHTML = counts[r]+' responses for '+region;
+							title.innerHTML = counts[r]+' response'+(counts[r]==1 ? '':'s')+' for '+region;
 							path.appendChild(title);
 						}
 					}
 				}
 			};
 
+			function makeTooltip(ev){
+				var parent = this.closest('div');
+				var tooltip = parent.querySelector('.tooltip');
+				// Clear or make a new tooltip
+				if(tooltip) tooltip.innerHTML = "";
+				else tooltip = document.createElement('div');
+				tooltip.innerHTML = this.querySelector('title').innerHTML;
+				tooltip.classList.add('tooltip');
+				parent.appendChild(tooltip);
+				parent.style.position = 'relative';
+				bb = this.getBoundingClientRect();
+				pt = parent.getBoundingClientRect();
+				tooltip.style.position = "absolute";
+				tooltip.style.left = Math.round(bb.left+(bb.width/2)-pt.left)+'px';
+				tooltip.style.top = Math.round(bb.top+bb.height-pt.top)+'px';
+			}
 			// Get the data
 			fetch(data.host.file,{cache: "no-cache"}).then(response => { return response.json(); }).then(json => {
 				data.host.json = json;
