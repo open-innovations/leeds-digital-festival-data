@@ -22,7 +22,12 @@
 	
 	.tooltip { white-space: nowrap; background-color: #061eff; color: white; padding: 0.325em 0.5em; transform: translate3d(-50%,0.5em,0); z-index: 100; position: absolute; z-index: 98; }
 	.tooltip:before { content: ""; border: 0.5em solid transparent; border-bottom: 0.5em solid #061eff; border-top: 0px; left: 50%; top: 0; transform: translate3d(-50%,-0.5em,0); position: absolute; display: block; width: 0px; height: 0px; }
-	
+	@media only screen and (max-width: 1080px){
+		.panels { grid-gap: 0.5em; }
+	}
+	@media only screen and (max-width: 700px){
+		.panels { grid-gap: 0.25em; }
+	}
 	</style>
 	<script>
 	/**
@@ -112,7 +117,20 @@
 						}
 					}
 				}
+				
+				this.resize();
 			};
+			
+			this.resize = function(){
+				var li = el.querySelectorAll('li');
+				var scale = 1;
+				// Find minimum scale
+				for(var i = 0; i < li.length; i++) scale = Math.min(scale,li[i].offsetWidth/328);
+				// Set scale
+				for(var i = 0; i < li.length; i++) li[i].style['font-size'] = scale+'em';
+			};
+			
+			window.onresize = this.resize;
 
 			function makeTooltip(ev){
 				var parent = this.closest('div');
@@ -127,13 +145,13 @@
 				bb = this.getBoundingClientRect();
 				pt = parent.getBoundingClientRect();
 				tooltip.style.position = "absolute";
-				tooltip.style.left = Math.round(bb.left+(bb.width/2)-pt.left)+'px';
-				tooltip.style.top = Math.round(bb.top+bb.height-pt.top)+'px';
+				console.log(tooltip,bb.left+(bb.width/2)-pt.left,pt);
+				tooltip.style.left = (100 * (bb.left+(bb.width/2)-pt.left)/pt.width).toFixed(1)+'%';
+				tooltip.style.top = (100 * (bb.top+bb.height-pt.top)/pt.height).toFixed(1)+'%';
 			}
 			// Get the data
 			fetch(data.host.file,{cache: "no-cache"}).then(response => { return response.json(); }).then(json => {
 				data.host.json = json;
-				console.log(json);
 				this.update();
 				return true;
 			});	
