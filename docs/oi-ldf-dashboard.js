@@ -233,6 +233,8 @@
 							// Update the UK map region colours
 							var r,svg,max,path,region,rg,title;
 							svg = this.el.querySelector('svg');
+							// Remove tooltip when mouse leaves the panel
+							this.el.addEventListener('mouseleave',removeTooltip);
 							max = 0;
 							for(r in this.counts) max = Math.max(max,this.counts[r]);
 							for(r in this.counts){
@@ -292,6 +294,10 @@
 			tooltip.style.position = "absolute";
 			tooltip.style.left = (100 * (bb.left+(bb.width/2)-pt.left)/pt.width).toFixed(1)+'%';
 			tooltip.style.top = (100 * (bb.top+bb.height-pt.top)/pt.height).toFixed(1)+'%';
+		}
+		function removeTooltip(){
+			var tooltip = document.querySelector('.tooltip');
+			if(tooltip) tooltip.parentNode.removeChild(tooltip);
 		}
 		// Get the data
 		fetch(data.host.file,{cache: "no-cache"}).then(response => { return response.json(); }).then(json => {
