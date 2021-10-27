@@ -73,16 +73,13 @@ const processData = (data: any) => {
     const processor = v.processor || function (x) { return x };
     p = { ...p, [v.name]: processor(data[k]) };
   }
-  return p;
+  return p as ProcessedReturn;
 }
 const calculateTurnout = (data: any) => ({ ...data, turnout: parseFloat((data['attended'] / data['registered']).toFixed(2)) })
 
 type ProcessedReturn = {
   first_time_ldf_host: boolean;
-  will_submit_again: boolean;
-  registered: number;
   attended: number;
-  turnout: number;
   event_format: string;
   preferred_format: string;
   uk_region_attendees: string[];
@@ -94,10 +91,7 @@ type ProcessedReturn = {
 type ReturnSummary = {
   total_returns: number;
   first_time_ldf_host: number;
-  will_submit_again: number;
-  registered: number[];
   attended: number[];
-  turnout: number[];
   uk_region_attendees: string[];
   international_attendees: string[];
   platform_used: string[];
@@ -109,10 +103,7 @@ type ReturnSummary = {
 const summarise = (acc: ReturnSummary, data: ProcessedReturn) => {
   acc['total_returns']++;
   acc['first_time_ldf_host'] += data['first_time_ldf_host'] ? 1 : 0;
-  acc['will_submit_again'] += data['will_submit_again'] ? 1 : 0;
-  acc['registered'].push(data['registered']);
   acc['attended'].push(data['attended']);
-  acc['turnout'].push(data['turnout']);
   acc['uk_region_attendees'].push(...data['uk_region_attendees']);
   acc['international_attendees'].push(...data['international_attendees']);
   acc['platform_used'].push(data['platform_used']);
@@ -125,10 +116,7 @@ const summarise = (acc: ReturnSummary, data: ProcessedReturn) => {
 const summaryData: ReturnSummary = {
   total_returns: 0,
   first_time_ldf_host: 0,
-  will_submit_again: 0,
-  registered: [],
   attended: [],
-  turnout: [],
   uk_region_attendees: [],
   international_attendees: [],
   event_format: [],
@@ -137,6 +125,6 @@ const summaryData: ReturnSummary = {
   how_found_out: [],
 };
 
-const processedData = data.map(processData).map(calculateTurnout).reduce(summarise, summaryData);
+const processedData = data.map(processData).reduce(summarise, summaryData);
 
 await writeJSON(makeDataPath('host-returns.json'), processedData);

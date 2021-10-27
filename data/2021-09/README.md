@@ -6,10 +6,7 @@ The host-returns data file is derived from the surveys that event organisers sub
 {
   "total_returns": count of returns,
   "first_time_ldf_host": count of first time LDF hosts,
-  "will_submit_again": count of will submit again,
-  "registered": [array of counts of people registered at the event],
   "attended": [array of counts of people attending the event],
-  "turnout": [array of turnout at events (between 0 and 1 where 1 is 100% turnout)],
   "uk_region_attendees": [array of reported uk regions],
   "international_attendees": [array of reported country of origin of attendees],
   "event_format": [array of submitted format of event],
