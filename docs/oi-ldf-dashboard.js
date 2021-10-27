@@ -34,6 +34,7 @@
 		if(opts.rows > 0) sty += 'grid-row:auto / span '+opts.rows+';';
 		if(opts.cols > 0) sty += 'grid-col:auto / span '+opts.cols+';';
 		this.el.setAttribute('style',sty);
+		this.el.setAttribute('tabindex',0);
 		this.set = function(dat){
 			for(var key in dat) this[key] = dat[key]||"";
 			return this;
@@ -79,6 +80,7 @@
 		if(!data.host) data.host = {"file":"https://raw.githubusercontent.com/open-innovations/leeds-digital-festival-data/main/data/2021-09/host-returns.json"};
 		if(!data.UK) data.UK = {"file":"https://raw.githubusercontent.com/open-innovations/leeds-digital-festival-data/main/docs/UK.svg"};
 		if(!data.twitter) data.twitter = {"file":"../data/twitter.tsv"};
+		if(!data.linkedin) data.linkedin = {"file":"../data/linkedin.tsv"};
 		if(!el){
 			console.warn('No element to attach report to');
 			return true;
@@ -93,17 +95,17 @@
 
 		dashboard.addPanel({'id':'events','title':"Events",'content':'','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 		dashboard.addPanel({'id':'sponsors','title':"Sponsors",'content':''});
-		dashboard.addPanel({'id':'UK-regions','title':'UK region attendees','rows':2});
-		dashboard.addPanel({'id':'registered','title':'Registered'});
-		dashboard.addPanel({'id':'attended','title':'Attended'});
+		dashboard.addPanel({'id':'UK-regions','title':'UK region attendees','rows':3});
 		dashboard.addPanel({'id':'host-returns','title':'Host returns'});
-		dashboard.addPanel({'id':'first-time','title':'First time host'});
+		dashboard.addPanel({'id':'first-time','title':'First time hosts'});
+		dashboard.addPanel({'id':'attended','title':'People attended'});
+		dashboard.addPanel({'id':'website-visits','title':"Website visits"});
 		dashboard.addPanel({'id':'tweet-impressions','title':"Tweet impressions"});
 		dashboard.addPanel({'id':'tweet-engagements','title':"Tweet engagements"});
 		dashboard.addPanel({'id':'tweet-number','title':"Tweets"});
 		dashboard.addPanel({'id':'tweet-RT','title':"Retweets"});
 		dashboard.addPanel({'id':'tweet-likes','title':"Tweet likes"});
-		dashboard.addPanel({'id':'website-visits','title':"Website visits"});
+		dashboard.addPanel({'id':'linkedin-visits','title':"LinkedIn unique visitors"});
 
 		
 		function inRange(dt,s,e){
@@ -117,6 +119,15 @@
 		this.update = function(){
 			var i,r,t,dt,html,impressions;
 			var counts = {};
+			
+			if(data.linkedin.tsv){
+				visitors = 0;
+				for(r = 0; r < data.linkedin.tsv.rows.length; r++){
+					dt = data.linkedin.tsv.rows[r].Date.replace(/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/,function(m,p1,p2,p3){ return p3+"-"+p1+"-"+p2; });
+					if(inRange(dt,range.start,range.end)) visitors += data.linkedin.tsv.rows[r]['Total unique visitors (total)'];
+				}
+				dashboard.updatePanel('linkedin-visits',{'content':'<div class="number">'+visitors.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
+			}
 
 			if(data.twitter.tsv){
 				impressions = 0;
@@ -143,7 +154,7 @@
 					tw.rate.v.push({'x':r,'y':100*engagements/impressions,'d':dt,'impressions':impressions,'engagements':engagements});
 
 					if(dt.match(/01$/)) xlabels[r] = {'label':dt.replace(/^[0-9]{4}\-([0-9]{1,2})\-.*$/,function(m,p1){ return (p1 ? months[parseInt(p1)-1]:"")})};
-					if(inRange(data.twitter.tsv.rows[r].Date,range.start,range.end)){
+					if(inRange(dt,range.start,range.end)){
 						tw.impressions.total += impressions;
 						tw.engagements.total += engagements;
 						tw.retweets.total += retweets;
@@ -157,7 +168,7 @@
 				dashboard.updatePanel('tweet-RT',{'content':'<div class="number">'+tw.retweets.total.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 				dashboard.updatePanel('tweet-likes',{'content':'<div class="number">'+tw.likes.total.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 				twitter = main.querySelector('#twitter');
-				twitter.innerHTML = '<h2>Twitter statistics</h2><p>A barchart showing the Twitter response rate:</p><div id="twitter-impressions" class="chart"></div>';
+				twitter.innerHTML = '<h2>Twitter statistics</h2><p>During the festival ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') we tweeted '+tw.tweets.total+' time'+(tw.tweets.total==1 ? '':'s')+'. These tweets received '+tw.impressions.total.toLocaleString()+' impressions and '+tw.engagements.total.toLocaleString()+' engagements including '+tw.likes.total.toLocaleString()+' likes and '+tw.retweets.total.toLocaleString()+' retweets. Below is a barchart showing the response rate (ratio of engagements to impressions) by day:</p><div id="twitter-impressions" class="chart"></div>';
 				OI.linechart(document.getElementById('twitter-impressions'),{
 					'left':40,'right':10,'top':10,'bottom':30,
 					'axis':{
@@ -216,7 +227,7 @@
 					}
 					dashboard.updatePanel('UK-regions',{
 						'content':'<div>'+data.UK.text.replace(/<svg/,'<svg id="UK-map" style="max-width:100%;height:auto;" ')+'</div>',
-						'footnote':'*Note that this is based on regions reported in host returns and doesn\'t necessarily match the regions of all attendees.',
+						'footnote':'Based on regions reported in host returns.',
 						'counts':counts,
 						'callback':function(){
 							// Update the UK map region colours
@@ -235,22 +246,17 @@
 									path.innerHTML = "";
 									path.addEventListener('mouseover',makeTooltip);
 									title = document.createElementNS('http://www.w3.org/2000/svg','title');
-									title.innerHTML = counts[r]+' response'+(this.counts[r]==1 ? '':'s')+' for '+region;
+									title.innerHTML = counts[r]+' host'+(this.counts[r]==1 ? '':'s')+' record'+(this.counts[r]==1 ? 's':'')+' '+region;
 									path.appendChild(title);
 								}
 							}
 						}
 					});
 				}
-				if(data.host.json.registered){
-					t = 0;
-					for(i = 0; i < data.host.json.registered.length; i++) t += data.host.json.registered[i];
-					dashboard.updatePanel('registered',{'content':'<div class="number">'+t.toLocaleString()+'</div>'});
-				}
 				if(data.host.json.attended){
 					t = 0;
 					for(i = 0; i < data.host.json.attended.length; i++) t += data.host.json.attended[i];
-					dashboard.updatePanel('attended',{'content':'<div class="number">'+t.toLocaleString()+'</div>'});
+					dashboard.updatePanel('attended',{'content':'<div class="number">'+t.toLocaleString()+'</div>','footnote':'From '+data.host.json.total_returns.toLocaleString()+' host returns'});
 				}
 			}
 			
@@ -302,6 +308,12 @@
 		// Get the data
 		fetch(data.twitter.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
 			data.twitter.tsv = parseTSV(text);
+			this.update();
+			return true;
+		});
+		// Get the data
+		fetch(data.linkedin.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
+			data.linkedin.tsv = parseTSV(text);
 			this.update();
 			return true;
 		});
