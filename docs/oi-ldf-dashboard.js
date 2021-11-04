@@ -77,10 +77,10 @@
 	function Report(el,opts){
 		if(!opts) opts = {};
 		var data = opts.data||{};
-		if(!data.host) data.host = {"file":"https://raw.githubusercontent.com/open-innovations/leeds-digital-festival-data/main/data/2021-09/host-returns.json"};
-		if(!data.UK) data.UK = {"file":"https://raw.githubusercontent.com/open-innovations/leeds-digital-festival-data/main/docs/UK.svg"};
-		if(!data.twitter) data.twitter = {"file":"../data/2021-09/twitter.csv"};
-		if(!data.linkedin) data.linkedin = {"file":"../data/2021-09/linkedin-visitors.csv"};
+		if(!data.host) data.host = {"file":"data/2021-09/host-returns.json"};
+		if(!data.UK) data.UK = {"file":"docs/UK.svg"};
+		if(!data.twitter) data.twitter = {"file":"data/2021-09/twitter.csv"};
+		if(!data.linkedin) data.linkedin = {"file":"data/2021-09/linkedin-visitors.csv"};
 		if(!el){
 			console.warn('No element to attach report to');
 			return true;
