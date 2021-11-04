@@ -8,6 +8,7 @@ const files = Deno.args;
 function parseDay(raw: { [key: string]: any }) {
   const {
     Date: date,
+    "Tweets published": tweets_published,
     impressions,
     engagements,
     retweets,
@@ -22,6 +23,7 @@ function parseDay(raw: { [key: string]: any }) {
 
   return {
     date,
+    tweets_published,
     impressions,    
     promoted_impressions,
     engagements,
