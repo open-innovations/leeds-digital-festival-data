@@ -79,8 +79,8 @@
 		var data = opts.data||{};
 		if(!data.host) data.host = {"file":"https://raw.githubusercontent.com/open-innovations/leeds-digital-festival-data/main/data/2021-09/host-returns.json"};
 		if(!data.UK) data.UK = {"file":"https://raw.githubusercontent.com/open-innovations/leeds-digital-festival-data/main/docs/UK.svg"};
-		if(!data.twitter) data.twitter = {"file":"../data/twitter.tsv"};
-		if(!data.linkedin) data.linkedin = {"file":"../data/linkedin.tsv"};
+		if(!data.twitter) data.twitter = {"file":"../data/2021-09/twitter.csv"};
+		if(!data.linkedin) data.linkedin = {"file":"../data/2021-09/linkedin-visitors.csv"};
 		if(!el){
 			console.warn('No element to attach report to');
 			return true;
@@ -120,35 +120,36 @@
 			var i,r,t,dt,html,impressions;
 			var counts = {};
 			
-			if(data.linkedin.tsv){
+			if(data.linkedin.csv){
 				visitors = 0;
-				for(r = 0; r < data.linkedin.tsv.rows.length; r++){
-					dt = data.linkedin.tsv.rows[r].Date.replace(/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/,function(m,p1,p2,p3){ return p3+"-"+p1+"-"+p2; });
-					if(inRange(dt,range.start,range.end)) visitors += data.linkedin.tsv.rows[r]['Total unique visitors (total)'];
+				for(r = 0; r < data.linkedin.csv.rows.length; r++){
+					dt = data.linkedin.csv.rows[r].date.replace(/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/,function(m,p1,p2,p3){ return p3+"-"+p1+"-"+p2; });
+					if(inRange(dt,range.start,range.end)) visitors += data.linkedin.csv.rows[r]['total_unique_visitors_total'];
 				}
 				dashboard.updatePanel('linkedin-visits',{'content':'<div class="number">'+visitors.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 			}
 
-			if(data.twitter.tsv){
+			if(data.twitter.csv){
 				impressions = 0;
 				tweets = 0;
 				retweets = 0;
 				likes = 0;
 				engagements = 0;
 				xlabels = {};
+				console.log(data.twitter.csv)
 				tw = {'tweets':{'total':0,'v':[]},'impressions':{'total':0,'v':[]},'retweets':{'total':0,'v':[]},'likes':{'total':0,'v':[]},'engagements':{'total':0,'v':[]},'rate':{'v':[]}};
 				months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-				for(r = 0; r < data.twitter.tsv.rows.length; r++){
-					dt = data.twitter.tsv.rows[r].Date.replace(/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})/,function(m,p1,p2,p3){ return p3+"-"+(p1<10?"0":"")+p1+"-"+(p2<10?"0":"")+p2; });
-					impressions = data.twitter.tsv.rows[r].impressions + data.twitter.tsv.rows[r]['promoted impressions'];
-					engagements = data.twitter.tsv.rows[r].engagements + data.twitter.tsv.rows[r]['promoted engagements'];
-					retweets = data.twitter.tsv.rows[r].retweets + data.twitter.tsv.rows[r]['promoted retweets'];
-					likes = data.twitter.tsv.rows[r].likes + data.twitter.tsv.rows[r]['promoted likes'];
-					tweets = data.twitter.tsv.rows[r]['Tweets published'];
+				for(r = 0; r < data.twitter.csv.rows.length; r++){
+					dt = data.twitter.csv.rows[r].date.replace(/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})/,function(m,p1,p2,p3){ return p3+"-"+(p1<10?"0":"")+p1+"-"+(p2<10?"0":"")+p2; });
+					impressions = data.twitter.csv.rows[r].impressions + data.twitter.csv.rows[r]['promoted_impressions'];
+					engagements = data.twitter.csv.rows[r].engagements + data.twitter.csv.rows[r]['promoted_engagements'];
+					retweets = data.twitter.csv.rows[r].retweets + data.twitter.csv.rows[r]['promoted_retweets'];
+					likes = data.twitter.csv.rows[r].likes + data.twitter.csv.rows[r]['promoted_likes'];
+					tweets = data.twitter.csv.rows[r]['tweets_published'];
 					
 					tw.impressions.v.push({'x':r,'y':impressions,'d':dt});
 					tw.engagements.v.push({'x':r,'y':engagements,'d':dt});
-					tw.retweets.v.push({'x':r,'y':retweets,'d':data.twitter.tsv.rows[r].Date});
+					tw.retweets.v.push({'x':r,'y':retweets,'d':data.twitter.csv.rows[r].date});
 					tw.likes.v.push({'x':r,'y':likes,'d':dt});
 					tw.tweets.v.push({'x':r,'y':tweets,'d':dt});
 					tw.rate.v.push({'x':r,'y':100*engagements/impressions,'d':dt,'impressions':impressions,'engagements':engagements});
@@ -219,15 +220,15 @@
 				dashboard.updatePanel('host-returns',{'content':'<div class="number">'+data.host.json.total_returns.toLocaleString()+'</div>','footnote':'Out of XX hosts'});
 				dashboard.updatePanel('first-time',{'content':'<div class="number">'+data.host.json.first_time_ldf_host.toLocaleString()+'</div>'});
 				if(data.host.json.uk_region_attendees && data.UK.text){
+					console.log(data.host);
 					// Work out region sums
 					for(r in regions) counts[regions[r]] = 0;
-					for(i = 0; i < data.host.json.uk_region_attendees.length; i++){
-						r = regions[data.host.json.uk_region_attendees[i]];
-						if(r) counts[r]++;
+					for(r in data.host.json.uk_region_attendees){
+						if(r) counts[regions[r]] = data.host.json.uk_region_attendees[r];
 					}
 					dashboard.updatePanel('UK-regions',{
 						'content':'<div>'+data.UK.text.replace(/<svg/,'<svg id="UK-map" style="max-width:100%;height:auto;" ')+'</div>',
-						'footnote':'Based on regions reported in host returns.',
+						'footnote':'Based on regions reported in '+data.host.json.total_returns.toLocaleString()+' host returns.',
 						'counts':counts,
 						'callback':function(){
 							// Update the UK map region colours
@@ -313,17 +314,41 @@
 		});
 		// Get the data
 		fetch(data.twitter.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
-			data.twitter.tsv = parseTSV(text);
+			data.twitter.csv = parseCSV(text);
+			console.log(data.twitter.csv)
 			this.update();
 			return true;
 		});
 		// Get the data
 		fetch(data.linkedin.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
-			data.linkedin.tsv = parseTSV(text);
+			data.linkedin.csv = parseCSV(text);
 			this.update();
 			return true;
 		});
 		return this;
+	}
+	function parseCSV(text){
+		var r,c,rows,dat,row;
+		rows = text.split(/\n/);
+		for(r = rows.length-1; r >= 0 ; r--){
+			rows[r] = rows[r].replace(/[\n\r]/g,"");
+			rows[r] = rows[r].split(/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/);
+			if(rows[r].length==1) rows.splice(r,1);
+		}
+		dat = {'head':rows[0],'rows':[]};
+		for(r = 1; r < rows.length; r++){
+			row = {};
+			if(rows[r]!=""){
+				for(c = 0; c < rows[r].length; c++){
+					v = rows[r][c];
+					if(v == parseInt(v)) v = parseInt(v);
+					if(v == parseFloat(v)) v = parseFloat(v);
+					row[dat.head[c]] = v;				
+				}
+			}
+			dat.rows.push(row);
+		}
+		return dat;
 	}
 	function parseTSV(text){
 		var r,c,rows,dat,row;
