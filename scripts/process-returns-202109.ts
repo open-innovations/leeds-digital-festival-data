@@ -179,7 +179,11 @@ const summarise = (acc: ReturnSummary, data: ProcessedReturn) => {
     acc['platform_used'],
     platformMapper(data['platform_used'])
   );
-  acc['preferred_format'] = countReducer()(
+  acc['preferred_format'] = countReducer(
+    undefined, [
+      'not decided yet!'
+    ]
+  )(
     acc['preferred_format'],
     data['preferred_format']
   );
