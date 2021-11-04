@@ -1,4 +1,4 @@
-date,tweets,impressions,promoted_impressions,engagements,promoted_engagements,retweets,promoted_retweets,replies,promoted_replies,likes,promoted_likes
+date,tweets_published,impressions,promoted_impressions,engagements,promoted_engagements,retweets,promoted_retweets,replies,promoted_replies,likes,promoted_likes
 2021-08-01,0,205,3739,1,133,0,0,0,0,1,1
 2021-08-02,2,1751,5191,15,170,7,1,0,0,3,0
 2021-08-03,2,2285,2720,26,84,4,0,0,0,4,0
