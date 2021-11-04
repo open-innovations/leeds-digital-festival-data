@@ -16,11 +16,11 @@ function parseData(date: string) {
 }
 
 function processVisitors(raw: any) {
-  const { Date: date, 'Overview page views (total)': overview_page_views_total, 'Overview unique visitors (total)': overview_unique_visitors_total } = raw;
+  const { Date: date, 'Total page views (total)': total_page_views_total, 'Total unique visitors (total)': total_unique_visitors_total } = raw;
   return {
     date: parseData(date),
-    overview_page_views_total,
-    overview_unique_visitors_total,
+    total_page_views_total,
+    total_unique_visitors_total,
   };
 }
 
