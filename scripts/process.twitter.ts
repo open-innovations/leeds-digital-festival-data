@@ -6,14 +6,32 @@ const { makeDataPath } = await setupData('2021-09');
 const files = Deno.args;
 
 function parseDay(raw: { [key: string]: any }) {
-  const { Date: date, impressions, engagements, retweets, replies, likes } = raw;
-  return {
-    date,
+  const {
+    Date: date,
     impressions,
     engagements,
     retweets,
     replies,
     likes,
+    "promoted impressions": promoted_impressions,
+    "promoted engagements": promoted_engagements,
+    "promoted retweets": promoted_retweets,
+    "promoted replies": promoted_replies,
+    "promoted likes": promoted_likes,
+  } = raw;
+
+  return {
+    date,
+    impressions,    
+    promoted_impressions,
+    engagements,
+    promoted_engagements,
+    retweets,
+    promoted_retweets,
+    replies,
+    promoted_replies,
+    likes,
+    promoted_likes,
   };
 }
 
