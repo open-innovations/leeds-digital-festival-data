@@ -81,6 +81,7 @@
 		if(!data.UK) data.UK = {"file":"docs/UK.svg"};
 		if(!data.twitter) data.twitter = {"file":"data/2021-09/twitter.csv"};
 		if(!data.linkedin) data.linkedin = {"file":"data/2021-09/linkedin-visitors.csv"};
+		if(!data.website) data.website = {"file":"data/2021-09/website.csv"};
 		if(!el){
 			console.warn('No element to attach report to');
 			return true;
@@ -90,7 +91,8 @@
 		var main = document.createElement('section');
 		el.appendChild(main);
 		html = '<h2>More info here</h2>';
-		html += '<div id="twitter"></div>';
+		html += '<div id="website" class="sub-section"></div>';
+		html += '<div id="twitter" class="sub-section"></div>';
 		main.innerHTML = html;
 
 		dashboard.addPanel({'id':'events','title':"Events",'content':'','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
@@ -99,7 +101,7 @@
 		dashboard.addPanel({'id':'host-returns','title':'Host returns'});
 		dashboard.addPanel({'id':'first-time','title':'First time hosts'});
 		dashboard.addPanel({'id':'attended','title':'People attended'});
-		dashboard.addPanel({'id':'website-visits','title':"Website visits"});
+		dashboard.addPanel({'id':'website-views','title':"Website pageviews"});
 		dashboard.addPanel({'id':'tweet-impressions','title':"Tweet impressions"});
 		dashboard.addPanel({'id':'tweet-engagements','title':"Tweet engagements"});
 		dashboard.addPanel({'id':'tweet-number','title':"Tweets"});
@@ -129,6 +131,61 @@
 				dashboard.updatePanel('linkedin-visits',{'content':'<div class="number">'+visitors.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 			}
 
+			months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+			if(data.website.csv){
+				pageviews = 0;
+				totalusers = 0;
+				//for(r = 0; r < data.website.csv.rows.length; r++){
+				//	dt = data.website.csv.rows[r].date.replace(/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/,function(m,p1,p2,p3){ return p3+"-"+p1+"-"+p2; });
+				//	if(inRange(dt,range.start,range.end)) pageviews += data.website.csv.rows[r]['pageviews'];
+				//}
+				xlabels = {};
+				data.website.processed = {'views':{'total':0,'v':[]},'users':{'total':0,'v':[]}};
+				for(r = 0; r < data.website.csv.rows.length; r++){
+					dt = data.website.csv.rows[r].date.replace(/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})/,function(m,p1,p2,p3){ return p3+"-"+(p1<10?"0":"")+p1+"-"+(p2<10?"0":"")+p2; });
+					users = data.website.csv.rows[r].users;
+					views = data.website.csv.rows[r].pageviews;
+					pageviews += views;
+					totalusers += users;
+					data.website.processed.users.v.push({'x':r,'y':users,'d':dt});
+					data.website.processed.views.v.push({'x':r,'y':views,'d':dt});
+					if(dt.match(/01$/)) xlabels[r] = {'label':dt.replace(/^[0-9]{4}\-([0-9]{1,2})\-.*$/,function(m,p1){ return (p1 ? months[parseInt(p1)-1]:"")})};
+					if(inRange(dt,range.start,range.end)){
+						data.website.processed.users.total += users;
+						data.website.processed.views.total += views;
+					}
+				}
+				dashboard.updatePanel('website-views',{'content':'<div class="number">'+data.website.processed.views.total.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
+				website = main.querySelector('#website');
+				website.innerHTML = '<h2>Website statistics</h2><p>During the festival ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') there were '+data.website.processed.views.total.toLocaleString()+' pageview'+(data.website.processed.views.total==1 ? '':'s')+' from '+data.website.processed.users.total.toLocaleString()+' users. Below is a barchart showing the number of pageviews per day:</p><div id="website-views" class="chart"></div>';
+				OI.linechart(document.getElementById('website-views'),{
+					'left':40,'right':10,'top':10,'bottom':30,
+					'axis':{
+						'x':{ 'labels': xlabels, 'line':{'stroke': '#0C0C33', 'stroke-width': 1.5} },
+						'y':{
+							'line': {'show':false},
+							'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
+							'labels':{
+								0: {'label':0},
+								250: {'label':'250'},
+								500: {'label':'500'},
+								750: {'label':'750'}
+							}
+						}
+					}
+				}).addSeries(data.website.processed.views.v,{
+					'title': 'Views',
+					'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
+					'line':{ 'color': 'rgba(61,242,186,1)' },
+					'tooltip':{
+						'label': function label(d){
+							return ''+(new Date(d.data.d)).toLocaleDateString()+'\nViews: '+d.data.y+'';
+						}
+					}
+				}).draw();
+			}
+
 			if(data.twitter.csv){
 				impressions = 0;
 				tweets = 0;
@@ -136,7 +193,6 @@
 				likes = 0;
 				engagements = 0;
 				xlabels = {};
-				console.log(data.twitter.csv)
 				tw = {'tweets':{'total':0,'v':[]},'impressions':{'total':0,'v':[]},'retweets':{'total':0,'v':[]},'likes':{'total':0,'v':[]},'engagements':{'total':0,'v':[]},'rate':{'v':[]}};
 				months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 				for(r = 0; r < data.twitter.csv.rows.length; r++){
@@ -168,8 +224,10 @@
 				dashboard.updatePanel('tweet-engagements',{'content':'<div class="number">'+tw.engagements.total.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 				dashboard.updatePanel('tweet-RT',{'content':'<div class="number">'+tw.retweets.total.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 				dashboard.updatePanel('tweet-likes',{'content':'<div class="number">'+tw.likes.total.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
+				// More info area
 				twitter = main.querySelector('#twitter');
 				twitter.innerHTML = '<h2>Twitter statistics</h2><p>During the festival ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') we tweeted '+tw.tweets.total+' time'+(tw.tweets.total==1 ? '':'s')+'. These tweets received '+tw.impressions.total.toLocaleString()+' impressions and '+tw.engagements.total.toLocaleString()+' engagements including '+tw.likes.total.toLocaleString()+' likes and '+tw.retweets.total.toLocaleString()+' retweets. Below is a barchart showing the response rate (ratio of engagements to impressions) by day:</p><div id="twitter-impressions" class="chart"></div>';
+
 				OI.linechart(document.getElementById('twitter-impressions'),{
 					'left':40,'right':10,'top':10,'bottom':30,
 					'axis':{
@@ -186,25 +244,7 @@
 							}
 						}
 					}
-				})/*.addSeries(tw.impressions.v,{
-					'title': 'Impressions',
-					'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
-					'line':{ 'color': 'rgba(61,242,186,1)' },
-					'tooltip':{
-						'label': function label(d){
-							return ''+d.data.d+'\n'+d.series.title+': '+d.data.y;
-						}
-					}
-				}).addSeries(tw.engagements.v,{
-					'title': 'Engagements',
-					'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
-					'line':{ 'color': 'rgba(61,242,186,1)' },
-					'tooltip':{
-						'label': function label(d){
-							return ''+d.data.d+'\n'+d.series.title+': '+d.data.y;
-						}
-					}
-				})*/.addSeries(tw.rate.v,{
+				}).addSeries(tw.rate.v,{
 					'title': 'Response rate',
 					'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
 					'line':{ 'color': 'rgba(61,242,186,1)' },
@@ -220,7 +260,6 @@
 				dashboard.updatePanel('host-returns',{'content':'<div class="number">'+data.host.json.total_returns.toLocaleString()+'</div>','footnote':'Out of XX hosts'});
 				dashboard.updatePanel('first-time',{'content':'<div class="number">'+data.host.json.first_time_ldf_host.toLocaleString()+'</div>'});
 				if(data.host.json.uk_region_attendees && data.UK.text){
-					console.log(data.host);
 					// Work out region sums
 					for(r in regions) counts[regions[r]] = 0;
 					for(r in data.host.json.uk_region_attendees){
@@ -322,6 +361,12 @@
 		// Get the data
 		fetch(data.linkedin.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
 			data.linkedin.csv = parseCSV(text);
+			this.update();
+			return true;
+		});
+		// Get the data
+		fetch(data.website.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
+			data.website.csv = parseCSV(text);
 			this.update();
 			return true;
 		});
