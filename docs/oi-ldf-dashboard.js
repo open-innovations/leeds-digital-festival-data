@@ -236,7 +236,6 @@
 							'line': {'show':false},
 							'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
 							'labels':{
-								0: {'label':0},
 								1: {'label':'1%'},
 								2: {'label':'2%'},
 								3: {'label':'3%'},
