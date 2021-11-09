@@ -160,7 +160,7 @@
 				website = main.querySelector('#website');
 				website.innerHTML = '<h2>Website statistics</h2><p>During the festival ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') there were '+data.website.processed.views.total.toLocaleString()+' pageview'+(data.website.processed.views.total==1 ? '':'s')+' from '+data.website.processed.users.total.toLocaleString()+' users. Below is a barchart showing the number of pageviews per day:</p><div id="website-views" class="chart"></div>';
 				OI.linechart(document.getElementById('website-views'),{
-					'left':40,'right':10,'top':10,'bottom':30,
+					'left':50,'right':10,'top':10,'bottom':30,
 					'axis':{
 						'x':{ 'labels': xlabels, 'line':{'stroke': '#0C0C33', 'stroke-width': 1.5} },
 						'y':{
@@ -168,9 +168,9 @@
 							'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
 							'labels':{
 								0: {'label':0},
-								250: {'label':'250'},
-								500: {'label':'500'},
-								750: {'label':'750'}
+								2000: {'label':'2,000'},
+								4000: {'label':'4,000'},
+								6000: {'label':'6,000'}
 							}
 						}
 					}
