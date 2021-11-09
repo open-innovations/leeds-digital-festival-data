@@ -6,8 +6,8 @@ const filename = Deno.args[0];
 
 const websiteData = (await readCSV(filename)).map((d: any) => ({
   date: new Date(d['Day Index']).toISOString().split('T')[0],
-  users: parseInt(d['Users']),
-  pageviews: parseInt(d['Pageviews']),
+  users: parseInt(d['Users'].replace(',', '')),
+  pageviews: parseInt(d['Pageviews'].replace(',', '')),
 }));
 
 await writeCSV(makeDataPath('website.csv'), websiteData)
