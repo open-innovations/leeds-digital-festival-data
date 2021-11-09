@@ -229,7 +229,7 @@
 				twitter.innerHTML = '<h2>Twitter statistics</h2><p>During the festival ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') we tweeted '+tw.tweets.total+' time'+(tw.tweets.total==1 ? '':'s')+'. These tweets received '+tw.impressions.total.toLocaleString()+' impressions and '+tw.engagements.total.toLocaleString()+' engagements including '+tw.likes.total.toLocaleString()+' likes and '+tw.retweets.total.toLocaleString()+' retweets. Below is a barchart showing the response rate (ratio of engagements to impressions) by day:</p><div id="twitter-impressions" class="chart"></div>';
 
 				OI.linechart(document.getElementById('twitter-impressions'),{
-					'left':40,'right':10,'top':10,'bottom':30,
+					'left':50,'right':10,'top':10,'bottom':30,
 					'axis':{
 						'x':{ 'labels': xlabels, 'line':{'stroke': '#0C0C33', 'stroke-width': 1.5} },
 						'y':{
