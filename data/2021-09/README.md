@@ -19,3 +19,15 @@ The host-returns data file is derived from the surveys that event organisers sub
 ```
 
 Note that the data is returned once per organiser, including those who run more than one event. This means, for example, there is no way of knowing how many sessions had international attendees, merely that an organiser had international attendees. Likewise it is impossible to ascertain how many people attended from a given (UK or international) geography.
+
+# Website Activity
+
+_File:_ `website.csv`
+
+This is a CSV file extracted from a Google Analytics report with the following columns:
+
+| Column | Description | Format |
+|--------|-------------|--------|
+| `date` | the date being reported | ISO 8601 date formatted (`yyyy-mm-dd`) |
+| `users` | Number of unique users reported by Google Analytics | number |
+| `pageviews` | Number of pageviews reported by Google Analytics | number |
