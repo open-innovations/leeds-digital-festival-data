@@ -67,6 +67,10 @@ const fieldMap: {
     name: 'how_found_out',
     processor: identityMapper,
   },
+  events_hosted: {
+    name: 'events_hosted',
+    processor: identityMapper,
+  }
 };
 
 // Other questions - should we include these?
@@ -97,6 +101,7 @@ const calculateTurnout = (data: any) => ({
 type ProcessedReturn = {
   first_time_ldf_host: boolean;
   attended: number;
+  events_hosted: number;
   event_format: string;
   preferred_format: string;
   uk_region_attendees: string[];
@@ -111,6 +116,7 @@ type ReturnSummary = {
   total_returns: number;
   first_time_ldf_host: number;
   attended: number[];
+  events_hosted: number[];
   uk_region_attendees: KeyedCount;
   international_attendees: KeyedCount;
   platform_used: KeyedCount;
@@ -147,6 +153,7 @@ const summarise = (acc: ReturnSummary, data: ProcessedReturn) => {
   acc['total_returns']++;
   acc['first_time_ldf_host'] += data['first_time_ldf_host'] ? 1 : 0;
   acc['attended'].push(data['attended']);
+  acc['events_hosted'].push(data['events_hosted']);
   acc['uk_region_attendees'] = data['uk_region_attendees'].reduce(
     countReducer(ukRegions),
     acc['uk_region_attendees']
@@ -179,11 +186,7 @@ const summarise = (acc: ReturnSummary, data: ProcessedReturn) => {
     acc['platform_used'],
     platformMapper(data['platform_used'])
   );
-  acc['preferred_format'] = countReducer(
-    undefined, [
-      'not decided yet!'
-    ]
-  )(
+  acc['preferred_format'] = countReducer(undefined, ['not decided yet!'])(
     acc['preferred_format'],
     data['preferred_format']
   );
@@ -202,6 +205,7 @@ const summaryData: ReturnSummary = {
   total_returns: 0,
   first_time_ldf_host: 0,
   attended: [],
+  events_hosted: [],
   uk_region_attendees: {},
   international_attendees: {},
   event_format: {},
@@ -210,6 +214,17 @@ const summaryData: ReturnSummary = {
   how_found_out: {},
 };
 
-const processedData = data.map(processData).reduce(summarise, summaryData);
+const eventsPerHost: any = (await xlsx.utils
+  .sheet_to_json(workbook.Sheets[workbook.SheetNames[1]]))
+  .reduce((acc: any, r: any) => ({
+    ...acc,
+    [r['Full Name']]: r['Number of Events Hosted'],
+  }), {});
 
-await writeJSON(makeDataPath('host-returns.json'), processedData);
+const addEventsPerHost = ((r:any) => ({
+  ...r,
+  events_hosted: eventsPerHost[r['Full Name']],
+}))
+
+const processedData = data.map(addEventsPerHost).map(processData).reduce(summarise, summaryData);
+await writeJSON(makeDataPath('host-returns.json'), processedData, undefined, 2);
