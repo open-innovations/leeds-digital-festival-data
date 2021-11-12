@@ -1,10 +1,27 @@
+# Events
+
+_File:_ `events.json`
+
+A JSON file containing details of the events.
+
+TODO: Add further details of the events extracted from CMS.
+
+```json
+{
+  "total": {
+    "events": <number of events scheduled>
+    "hosts": <number of hosts>
+  }
+}
+```
+
 # Host Returns
 
 _File:_ `host-returns.json`
 
 The host-returns data file is derived from the surveys that event organisers submitted after the event.
 
-```yaml
+```json
 {
   "total_returns": count of returns,
   "first_time_ldf_host": count of first time LDF hosts,
