@@ -1,5 +1,5 @@
 # Host Returns
-|  |
+
 _File:_ `host-returns.json`
 
 The host-returns data file is derived from the surveys that event organisers submitted after the event.
@@ -53,3 +53,16 @@ This is summarised on a daily basis.
 | `promoted_replies` | Promoted version of the above | number |
 | `likes` | Times the tweet was liked | number |
 | `promoted_likes` | Promoted version of the above | number |
+
+# LinkedIn Engagement
+
+Currently the dataset only includes visitor statistics.
+
+_File:_ `linkedin_visitors.csv`
+
+
+| Column | Description | Format |
+|--------|-------------|--------|
+| date | Date of report | ISO 8601 `yyyy-mm-dd` |
+| total_page_views_total | Number of pageviews of Leeds Digital Festival LinkedIn pages | number |
+| total_unique_visitors_total | Number of unique visitors across Leeds Digital Festival LinkedIn pages | number |
