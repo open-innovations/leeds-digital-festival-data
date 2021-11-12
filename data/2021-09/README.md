@@ -1,5 +1,5 @@
 # Host Returns
-
+|  |
 _File:_ `host-returns.json`
 
 The host-returns data file is derived from the surveys that event organisers submitted after the event.
@@ -28,6 +28,28 @@ This is a CSV file extracted from a Google Analytics report with the following c
 
 | Column | Description | Format |
 |--------|-------------|--------|
-| `date` | the date being reported | ISO 8601 date formatted (`yyyy-mm-dd`) |
+| `date` | the date being reported | ISO 8601 `yyyy-mm-dd` |
 | `users` | Number of unique users reported by Google Analytics | number |
 | `pageviews` | Number of pageviews reported by Google Analytics | number |
+
+# Twitter Engagement Stats
+
+_File:_ `twitter.csv`
+
+This CSV is extracted from the Twitter dashboard, extracting the following fields for both organic and promoted engagement.
+This is summarised on a daily basis.
+
+| Column | Description | Format |
+|--------|-------------|--------|
+| `date` | Date of report | ISO 8601 `yyyy-mm-dd` |
+| `tweets_published` | Tweets published during day | number |
+| `impressions` | Times that the tweet has been seen | number |
+| `promoted_impressions` | Promoted version of the above | number |
+| `engagements` | Times that the tweet has been interacted with | number |
+| `promoted_engagements` | Promoted version of the above | number |
+| `retweets` | Times the tweet was retweeted | number |
+| `promoted_retweets` | Promoted version of the above | number |
+| `replies` | Times the tweet was replied to | number |
+| `promoted_replies` | Promoted version of the above | number |
+| `likes` | Times the tweet was liked | number |
+| `promoted_likes` | Promoted version of the above | number |
