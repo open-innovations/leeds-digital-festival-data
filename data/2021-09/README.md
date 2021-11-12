@@ -66,3 +66,20 @@ _File:_ `linkedin_visitors.csv`
 | date | Date of report | ISO 8601 `yyyy-mm-dd` |
 | total_page_views_total | Number of pageviews of Leeds Digital Festival LinkedIn pages | number |
 | total_unique_visitors_total | Number of unique visitors across Leeds Digital Festival LinkedIn pages | number |
+
+# Sponsors
+
+_File:_ `sponsors.json`
+
+This is a file containing counts of the sponsors of LDF.
+
+TODO: Consider providing arrays of sponsor details for presentation along the lines of https://open-innovations.org/dashboard/#sponsors
+
+```json
+{
+  "premier": <number of premier sponsors>,
+  "executive": <number of executive sponsors>,
+  "associate": <number of associate sponsors>,
+  "partner": <number of partner sponsors>
+}
+```
