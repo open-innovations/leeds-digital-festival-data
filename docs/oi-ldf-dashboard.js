@@ -77,11 +77,13 @@
 	function Report(el,opts){
 		if(!opts) opts = {};
 		var data = opts.data||{};
-		if(!data.host) data.host = {"file":"data/2021-09/host-returns.json"};
-		if(!data.UK) data.UK = {"file":"docs/UK.svg"};
-		if(!data.twitter) data.twitter = {"file":"data/2021-09/twitter.csv"};
-		if(!data.linkedin) data.linkedin = {"file":"data/2021-09/linkedin-visitors.csv"};
-		if(!data.website) data.website = {"file":"data/2021-09/website.csv"};
+		if(!data.host) data.host = "data/2021-09/host-returns.json";
+		if(!data.UK) data.UK = "docs/UK.svg";
+		if(!data.twitter) data.twitter = "data/2021-09/twitter.csv";
+		if(!data.linkedin) data.linkedin = "data/2021-09/linkedin-visitors.csv";
+		if(!data.website) data.website = "data/2021-09/website.csv";
+		if(!data.sponsors) data.sponsors = "data/2021-09/sponsors.json";
+		if(!data.events) data.events = "data/2021-09/events.json";
 		if(!el){
 			console.warn('No element to attach report to');
 			return true;
@@ -119,8 +121,14 @@
 		}
 
 		this.update = function(){
+			console.log(data)
 			var i,r,t,dt,html,impressions;
 			var counts = {};
+
+			if(typeof data.events==="object"){
+				console.log(data.events.total);
+				dashboard.updatePanel('events',{'content':'<div class="number">'+data.events.total.events+'</div>'});
+			}
 			
 			if(data.linkedin.csv){
 				visitors = 0;
@@ -255,18 +263,18 @@
 				}).draw();
 			}
 
-			if(data.host.json){
-				dashboard.updatePanel('host-returns',{'content':'<div class="number">'+data.host.json.total_returns.toLocaleString()+'</div>','footnote':'Out of XX hosts'});
-				dashboard.updatePanel('first-time',{'content':'<div class="number">'+data.host.json.first_time_ldf_host.toLocaleString()+'</div>'});
-				if(data.host.json.uk_region_attendees && data.UK.text){
+			if(typeof data.host==="object"){
+				dashboard.updatePanel('host-returns',{'content':'<div class="number">'+data.host.total_returns.toLocaleString()+'</div>','footnote':'Out of '+(data.events.total ? data.events.total.hosts : '?')+' hosts'});
+				dashboard.updatePanel('first-time',{'content':'<div class="number">'+data.host.first_time_ldf_host.toLocaleString()+'</div>'});
+				if(data.host.uk_region_attendees && data.UK.svg){
 					// Work out region sums
 					for(r in regions) counts[regions[r]] = 0;
-					for(r in data.host.json.uk_region_attendees){
-						if(r) counts[regions[r]] = data.host.json.uk_region_attendees[r];
+					for(r in data.host.uk_region_attendees){
+						if(r) counts[regions[r]] = data.host.uk_region_attendees[r];
 					}
 					dashboard.updatePanel('UK-regions',{
-						'content':'<div>'+data.UK.text.replace(/<svg/,'<svg id="UK-map" style="max-width:100%;height:auto;" ')+'</div>',
-						'footnote':'Based on regions reported in '+data.host.json.total_returns.toLocaleString()+' host returns.',
+						'content':'<div>'+data.UK.svg.replace(/<svg/,'<svg id="UK-map" style="max-width:100%;height:auto;" ')+'</div>',
+						'footnote':'Based on regions reported in '+data.host.total_returns.toLocaleString()+' host returns.',
 						'counts':counts,
 						'callback':function(){
 							// Update the UK map region colours
@@ -294,10 +302,10 @@
 						}
 					});
 				}
-				if(data.host.json.attended){
+				if(data.host.attended){
 					t = 0;
-					for(i = 0; i < data.host.json.attended.length; i++) t += data.host.json.attended[i];
-					dashboard.updatePanel('attended',{'content':'<div class="number">'+t.toLocaleString()+'</div>','footnote':'From '+data.host.json.total_returns.toLocaleString()+' host returns'});
+					for(i = 0; i < data.host.attended.length; i++) t += data.host.attended[i];
+					dashboard.updatePanel('attended',{'content':'<div class="number">'+t.toLocaleString()+'</div>','footnote':'From '+data.host.total_returns.toLocaleString()+' host returns'});
 				}
 			}
 			
@@ -339,36 +347,66 @@
 			if(tooltip) tooltip.parentNode.removeChild(tooltip);
 		}
 		// Get the data
-		fetch(data.host.file,{cache: "no-cache"}).then(response => { return response.json(); }).then(json => {
-			data.host.json = json;
-			this.update();
-			return true;
-		});	
+		if(typeof data.host==="string"){
+			fetch(data.host,{cache: "no-cache"}).then(response => { return response.json(); }).then(json => {
+				f = data.host;
+				data.host = json;
+				data.host._file = f;
+				this.update();
+				return true;
+			});	
+		}
 		// Get the data
-		fetch(data.UK.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
-			data.UK.text = text;
-			this.update();
-			return true;
-		});
+		if(typeof data.UK==="string"){
+			fetch(data.UK,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
+				f = data.UK;
+				data.UK = { 'svg': text,'_file':f };
+				this.update();
+				return true;
+			});
+		}
 		// Get the data
-		fetch(data.twitter.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
-			data.twitter.csv = parseCSV(text);
-			console.log(data.twitter.csv)
-			this.update();
-			return true;
-		});
+		if(typeof data.twitter==="string"){
+			fetch(data.twitter,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
+				f = data.twitter;
+				data.twitter = { 'csv':parseCSV(text) };
+				data.twitter._file = f;
+				this.update();
+				return true;
+			});
+		}
 		// Get the data
-		fetch(data.linkedin.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
-			data.linkedin.csv = parseCSV(text);
-			this.update();
-			return true;
-		});
+		if(typeof data.linkedin==="string"){
+			fetch(data.linkedin,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
+				data.linkedin = {'csv':parseCSV(text)};
+				this.update();
+				return true;
+			});
+		}
 		// Get the data
-		fetch(data.website.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
-			data.website.csv = parseCSV(text);
-			this.update();
-			return true;
-		});
+		if(typeof data.website==="string"){
+			fetch(data.website,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
+				data.website = { 'csv': parseCSV(text) };
+				this.update();
+				return true;
+			});
+		}
+		// Get the data
+		if(typeof data.sponsors==="string"){
+			fetch(data.sponsors,{cache: "no-cache"}).then(response => { return response.json(); }).then(json => {
+				data.sponsors = json;
+				this.update();
+				return true;
+			});	
+		}
+		// Get the data
+		if(typeof data.events==="string"){
+			fetch(data.events,{cache: "no-cache"}).then(response => { return response.json(); }).then(json => {
+				data.events = json;
+				this.update();
+				return true;
+			});
+		}
 		return this;
 	}
 	function parseCSV(text){
