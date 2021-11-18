@@ -262,6 +262,11 @@
 					}
 				}).draw();
 			}
+			
+			if(data.sponsors){
+				dashboard.updatePanel('sponsors',{'content':'<div class="number">'+(data.sponsors.premier + data.sponsors.executive + data.sponsors.associate + data.sponsors.partner).toLocaleString()+'</div>'});
+			}
+				
 
 			if(typeof data.host==="object"){
 				dashboard.updatePanel('host-returns',{'content':'<div class="number">'+data.host.total_returns.toLocaleString()+'</div>','footnote':'Out of '+(data.events.total ? data.events.total.hosts : '?')+' hosts'});
