@@ -300,7 +300,7 @@
 									path.innerHTML = "";
 									path.addEventListener('mouseover',makeTooltip);
 									title = document.createElementNS('http://www.w3.org/2000/svg','title');
-									title.innerHTML = counts[r]+' host'+(this.counts[r]==1 ? '':'s')+' record'+(this.counts[r]==1 ? 's':'')+' '+region;
+									title.innerHTML = Math.round(100*counts[r]/data.host.total_returns)+'% host'+(this.counts[r]==1 ? '':'s')+' record'+(this.counts[r]==1 ? 's':'')+' '+region;
 									path.appendChild(title);
 								}
 							}
