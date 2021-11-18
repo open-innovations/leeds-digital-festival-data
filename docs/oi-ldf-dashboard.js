@@ -88,7 +88,7 @@
 			console.warn('No element to attach report to');
 			return true;
 		}
-		var range = {'start':new Date("2021-07-31"),'end':new Date("2021-10-13")};
+		var range = {'start':new Date("2021-08-01"),'end':new Date("2021-10-01")};
 		var dashboard = new Dashboard(el);
 		var main = document.createElement('section');
 		el.appendChild(main);
