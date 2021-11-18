@@ -264,7 +264,7 @@
 			}
 			
 			if(data.sponsors){
-				dashboard.updatePanel('sponsors',{'content':'<div class="number">'+(data.sponsors.premier + data.sponsors.executive + data.sponsors.associate + data.sponsors.partner).toLocaleString()+'</div>'});
+				dashboard.updatePanel('sponsors',{'content':'<div class="number">'+(data.sponsors.premier + data.sponsors.executive + data.sponsors.associate + data.sponsors.partner).toLocaleString()+'</div>','footnote':'Premier/Executive/Associate/Partner'});
 			}
 				
 
