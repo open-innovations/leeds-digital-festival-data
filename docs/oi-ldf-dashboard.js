@@ -88,7 +88,7 @@
 			console.warn('No element to attach report to');
 			return true;
 		}
-		var range = {'start':new Date("2021-09-20"),'end':new Date("2021-10-01")};
+		var range = {'start':new Date("2021-07-31"),'end':new Date("2021-10-13")};
 		var dashboard = new Dashboard(el);
 		var main = document.createElement('section');
 		el.appendChild(main);
@@ -100,9 +100,9 @@
 		dashboard.addPanel({'id':'events','title':"Events",'content':'','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 		dashboard.addPanel({'id':'sponsors','title':"Sponsors",'content':''});
 		dashboard.addPanel({'id':'UK-regions','title':'UK region attendees','rows':3});
-		dashboard.addPanel({'id':'host-returns','title':'Host returns'});
-		dashboard.addPanel({'id':'first-time','title':'First time hosts'});
-		dashboard.addPanel({'id':'attended','title':'People attended'});
+		//dashboard.addPanel({'id':'host-returns','title':'Host returns'});
+		//dashboard.addPanel({'id':'first-time','title':'First time hosts'});
+		//dashboard.addPanel({'id':'attended','title':'People attended'});
 		dashboard.addPanel({'id':'website-views','title':"Website pageviews"});
 		dashboard.addPanel({'id':'tweet-impressions','title':"Tweet impressions"});
 		dashboard.addPanel({'id':'tweet-engagements','title':"Tweet engagements"});
@@ -269,8 +269,8 @@
 				
 
 			if(typeof data.host==="object"){
-				dashboard.updatePanel('host-returns',{'content':'<div class="number">'+data.host.total_returns.toLocaleString()+'</div>','footnote':'Out of '+(data.events.total ? data.events.total.hosts : '?')+' hosts'});
-				dashboard.updatePanel('first-time',{'content':'<div class="number">'+data.host.first_time_ldf_host.toLocaleString()+'</div>'});
+				//dashboard.updatePanel('host-returns',{'content':'<div class="number">'+data.host.total_returns.toLocaleString()+'</div>','footnote':'Out of '+(data.events.total ? data.events.total.hosts : '?')+' hosts'});
+				//dashboard.updatePanel('first-time',{'content':'<div class="number">'+data.host.first_time_ldf_host.toLocaleString()+'</div>'});
 				if(data.host.uk_region_attendees && data.UK.svg){
 					// Work out region sums
 					for(r in regions) counts[regions[r]] = 0;
@@ -279,7 +279,7 @@
 					}
 					dashboard.updatePanel('UK-regions',{
 						'content':'<div>'+data.UK.svg.replace(/<svg/,'<svg id="UK-map" style="max-width:100%;height:auto;" ')+'</div>',
-						'footnote':'Based on regions reported in '+data.host.total_returns.toLocaleString()+' host returns.',
+						'footnote':'Based on regions reported in '+data.host.total_returns.toLocaleString()+'/'+(data.events.total ? data.events.total.hosts : '?')+' host returns.',
 						'counts':counts,
 						'callback':function(){
 							// Update the UK map region colours
@@ -310,7 +310,7 @@
 				if(data.host.attended){
 					t = 0;
 					for(i = 0; i < data.host.attended.length; i++) t += data.host.attended[i];
-					dashboard.updatePanel('attended',{'content':'<div class="number">'+t.toLocaleString()+'</div>','footnote':'From '+data.host.total_returns.toLocaleString()+' host returns'});
+					//dashboard.updatePanel('attended',{'content':'<div class="number">'+t.toLocaleString()+'</div>','footnote':'From '+data.host.total_returns.toLocaleString()+' host returns'});
 				}
 			}
 			
