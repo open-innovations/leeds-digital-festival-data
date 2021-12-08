@@ -113,7 +113,7 @@
 		}
 		if(!data.website){
 			data.website = {
-				"file": "data/2021-09/website.csv"
+				"file": "data/services/website.csv"
 			}
 		}
 		if(!data.sponsors) data.sponsors = "data/2021-09/sponsors.json";

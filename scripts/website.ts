@@ -1,11 +1,16 @@
 import { readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
 import { setupData } from './util.ts';
-const { makeDataPath } = await setupData('2021-09');
+const { makeDataPath } = await setupData('services');
 
 const filename = Deno.args[0];
 
+const parseDate = (date: string) => {
+  const [ m, d, y ] = date.split('/')
+  return `${y}-${m}-${d}`;
+};
+
 const websiteData = (await readCSV(filename)).map((d: any) => ({
-  date: new Date(d['Day Index']).toISOString().split('T')[0],
+  date: parseDate(d['Day Index']),
   users: parseInt(d['Users'].replace(',', '')),
   pageviews: parseInt(d['Pageviews'].replace(',', '')),
 }));
