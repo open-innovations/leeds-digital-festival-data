@@ -1,7 +1,7 @@
 import { readXLSX, xlsx, writeCSV } from 'https://deno.land/x/flat/mod.ts';
 import { setupData } from './util.ts';
 
-const { makeDataPath } = await setupData('2021-09');
+const { makeDataPath } = await setupData('services');
 
 function parseDate(date: string) {
   const [m, d, y] = date.split('/');

@@ -93,7 +93,7 @@
 		}
 		if(!data.linkedin){
 			data.linkedin = {
-				"file":"data/2021-09/linkedin-visitors.csv",
+				"file":"data/services/linkedin-visitors.csv",
 				"props":{
 					"linkedin-impressions": ["impressions_total"],
 					"linkedin-clicks": ["clicks_total"],
@@ -108,7 +108,7 @@
 		}
 		if(!data.linkedinextra){
 			data.linkedinextra = {
-				"file":"data/2021-09/linkedin-updates.csv",
+				"file":"data/services/linkedin-updates.csv",
 			}
 		}
 		if(!data.website){
