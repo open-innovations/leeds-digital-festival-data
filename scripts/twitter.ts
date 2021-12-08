@@ -1,7 +1,7 @@
 import { readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
 import { setupData } from './util.ts';
 
-const { makeDataPath } = await setupData('2021-09');
+const { makeDataPath } = await setupData('services');
 
 const files = Deno.args;
 

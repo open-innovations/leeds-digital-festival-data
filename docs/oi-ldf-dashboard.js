@@ -81,7 +81,7 @@
 		if(!data.UK) data.UK = "docs/UK.svg";
 		if(!data.twitter){
 			data.twitter = {
-				"file":"data/2021-09/twitter.csv",
+				"file":"data/services/twitter.csv",
 				"props":{
 					"twitter-tweets":["tweets_published"],
 					"twitter-impressions":["impressions","promoted_impressions"],

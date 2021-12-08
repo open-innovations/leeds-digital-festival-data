@@ -1,1 +1,0 @@
-deno run --unstable --allow-read --allow-write ./scripts/process.twitter.ts ./working/daily_tweet*.csv
