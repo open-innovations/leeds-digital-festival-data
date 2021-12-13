@@ -116,6 +116,11 @@
 				"file": "data/services/website.csv"
 			}
 		}
+    if(!data.mailshots){
+      data.mailshots = {
+        "file": "data/services/automated-email-campaigns.csv",
+      }
+    }
 		if(!data.sponsors) data.sponsors = "data/2021-09/sponsors.json";
 		if(!data.events) data.events = "data/2021-09/events.json";
 		if(!el){
@@ -147,6 +152,8 @@
 		dashboard.addPanel({'id':'tweet-number','title':"Tweets"});
 		dashboard.addPanel({'id':'tweet-RT','title':"Retweets"});
 		dashboard.addPanel({'id':'tweet-likes','title':"Tweet likes"});
+    dashboard.addPanel({'id':'mailshots-emailSentCount','title':"Mailshot recipients"});
+    dashboard.addPanel({'id':'mailshots-emailUniqueOpen','title':"Mailshot opens"});
 
 		
 		function inRange(dt,s,e){
@@ -158,9 +165,10 @@
 		}
 
 		this.update = function(){
-			var i,r,t,dt,html,impressions;
+      var i,r,t,dt,html,impressions;
 			var counts = {};
 			var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var rangeString = range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString();
 
 			if(typeof data.events==="object"){
 				dashboard.updatePanel('events',{'content':'<div class="number">'+data.events.total.events+'</div>'});
@@ -221,6 +229,11 @@
 					}).draw();
 				}
 			}
+
+      if(data.json && data.json.summary['mailshots-emailSentCount']) {
+        dashboard.updatePanel('mailshots-emailSentCount', { content: '<div class="number">' + data.json.summary['mailshots-emailSentCount'].range.toLocaleString()+ '</div>', 'footnote': rangeString})
+        dashboard.updatePanel('mailshots-emailUniqueOpen', { content: '<div class="number">' + data.json.summary['mailshots-emailUniqueOpen'].range.toLocaleString()+ '</div>', 'footnote': rangeString})
+      }
 
 			if(data.json && data.json.summary['website-pageviews']){
 
@@ -459,6 +472,14 @@
 			fetch(data.website.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
 				// Make summary of Twitter data here
 				addCSVData('website',parseCSV(text));
+				this.update();
+				return true;
+			});
+		}
+		if(typeof data.mailshots.file==="string"){
+			fetch(data.mailshots.file,{cache: "no-cache"}).then(response => { return response.text(); }).then(text => {
+				// Make summary of Twitter data here
+				addCSVData('mailshots',parseCSV(text));
 				this.update();
 				return true;
 			});
