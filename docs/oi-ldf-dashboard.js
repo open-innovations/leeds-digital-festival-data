@@ -230,10 +230,10 @@
 				}
 			}
 
-      if(data.json && data.json.summary['mailshots-emailSentCount']) {
-        dashboard.updatePanel('mailshots-emailSentCount', { content: '<div class="number">' + data.json.summary['mailshots-emailSentCount'].range.toLocaleString()+ '</div>', 'footnote': rangeString})
-        dashboard.updatePanel('mailshots-emailUniqueOpen', { content: '<div class="number">' + data.json.summary['mailshots-emailUniqueOpen'].range.toLocaleString()+ '</div>', 'footnote': rangeString})
-      }
+			if(data.json && data.json.summary['mailshots-emailSentCount']) {
+				dashboard.updatePanel('mailshots-emailSentCount', { content: '<div class="number">' + data.json.summary['mailshots-emailSentCount'].range.toLocaleString()+ '</div>', 'footnote': rangeString})
+				dashboard.updatePanel('mailshots-emailUniqueOpen', { content: '<div class="number">' + data.json.summary['mailshots-emailUniqueOpen'].range.toLocaleString()+ '</div>', 'footnote': rangeString})
+			}
 
 			if(data.json && data.json.summary['website-pageviews']){
 
@@ -387,7 +387,9 @@
 			this.resize();
 			return this;
 		};
-		
+
+		this.exportData = function(){ return data.json.daily; }
+
 		this.resize = function(){
 			var i;
 			var li = el.querySelectorAll('li');
