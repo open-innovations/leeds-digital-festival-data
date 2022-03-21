@@ -25,9 +25,16 @@
     window.addEventListener('DOMContentLoaded', () => {
       var dashboard = document.getElementById('dashboard');
       window.addEventListener('message', function (e) {
-        console.log(e.data);
+        // Check that this is an expected message
+        if (
+          e.origin !== "https://open-innovations.github.io" ||
+          e.source !== dashboard.contentWindow
+        ) {
+          console.warn('Received message from unexpected source');
+          return;
+        };
+        // If we pass those checkes, set the windoe height
         dashboard.height = e.data.height;
-        // dashboard.style.height = e.data.height+'px';
       });
     })
   </script>
