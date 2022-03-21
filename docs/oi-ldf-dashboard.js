@@ -75,13 +75,15 @@
 	}
 
 	function Report(el,opts){
-		if(!opts) opts = {};
+    if(!opts) opts = {};
+    if(opts.showCharts === undefined) opts.showCharts = true;
+    if(!opts.siteRoot) opts.siteRoot = '';
 		var data = opts.data||{};
-		if(!data.host) data.host = "data/2021-09/host-returns.json";
-		if(!data.UK) data.UK = "docs/UK.svg";
+		if(!data.host) data.host = opts.siteRoot+"data/2021-09/host-returns.json";
+		if(!data.UK) data.UK = opts.siteRoot+"docs/UK.svg";
 		if(!data.twitter){
-			data.twitter = {
-				"file":"data/services/twitter.csv",
+      data.twitter = {
+        "file":opts.siteRoot+"data/services/twitter.csv",
 				"props":{
 					"twitter-tweets":["tweets_published"],
 					"twitter-impressions":["impressions","promoted_impressions"],
@@ -92,8 +94,8 @@
 			};
 		}
 		if(!data.linkedin){
-			data.linkedin = {
-				"file":"data/services/linkedin-visitors.csv",
+      data.linkedin = {
+        "file":opts.siteRoot+"data/services/linkedin-visitors.csv",
 				"props":{
 					"linkedin-impressions": ["impressions_total"],
 					"linkedin-clicks": ["clicks_total"],
@@ -107,35 +109,37 @@
 			}
 		}
 		if(!data.linkedinextra){
-			data.linkedinextra = {
-				"file":"data/services/linkedin-updates.csv",
+      data.linkedinextra = {
+        "file":opts.siteRoot+"data/services/linkedin-updates.csv",
 			}
 		}
 		if(!data.website){
-			data.website = {
-				"file": "data/services/website.csv"
+      data.website = {
+        "file": opts.siteRoot+"data/services/website.csv"
 			}
 		}
     if(!data.mailshots){
       data.mailshots = {
-        "file": "data/services/automated-email-campaigns.csv",
+        "file": opts.siteRoot+"data/services/automated-email-campaigns.csv",
       }
     }
-		if(!data.sponsors) data.sponsors = "data/2021-09/sponsors.json";
-		if(!data.events) data.events = "data/2021-09/events.json";
+    if(!data.sponsors) data.sponsors = opts.siteRoot+"data/2021-09/sponsors.json";
+		if(!data.events) data.events = opts.siteRoot+"data/2021-09/events.json";
 		if(!el){
 			console.warn('No element to attach report to');
 			return true;
 		}
 		var range = {'start':new Date("2021-08-01"),'end':new Date("2021-10-01")};
 		var dashboard = new Dashboard(el);
-		var main = document.createElement('section');
-		el.appendChild(main);
-		html = '<h2>More info here</h2>';
-		html += '<div id="website" class="sub-section"></div>';
-		html += '<div id="twitter" class="sub-section"></div>';
-		html += '<div id="linkedin" class="sub-section"></div>';
-		main.innerHTML = html;
+		if (opts.showCharts) {
+      var main = document.createElement('section');
+      el.appendChild(main);
+      html = '<h2>More info here</h2>';
+      html += '<div id="website" class="sub-section"></div>';
+      html += '<div id="twitter" class="sub-section"></div>';
+      html += '<div id="linkedin" class="sub-section"></div>';
+      main.innerHTML = html;
+    }
 
 		dashboard.addPanel({'id':'events','title':"Events",'content':'','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 		dashboard.addPanel({'id':'sponsors','title':"Sponsors",'content':''});
@@ -199,35 +203,36 @@
 						}
 					}
 					rate = sortByDate(rate);
+          if (main) {
+            // More info area
+            linkedin = main.querySelector('#linkedin');
+            linkedin.innerHTML = '<h2>LinkedIn statistics</h2><p>During the festival ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') there were '+data.json.summary['linkedin-impressions'].total.toLocaleString()+' impressions and '+data.json.summary['linkedin-clicks'].total.toLocaleString()+' engagements including '+data.json.summary['linkedin-comments'].total.toLocaleString()+' comments and '+data.json.summary['linkedin-reactions'].total.toLocaleString()+' reactions. Below is a barchart showing the response rate (ratio of engagements to impressions) by day:</p><div id="linkedin-rate" class="chart"></div>';
 
-					// More info area
-					linkedin = main.querySelector('#linkedin');
-					linkedin.innerHTML = '<h2>LinkedIn statistics</h2><p>During the festival ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') there were '+data.json.summary['linkedin-impressions'].total.toLocaleString()+' impressions and '+data.json.summary['linkedin-clicks'].total.toLocaleString()+' engagements including '+data.json.summary['linkedin-comments'].total.toLocaleString()+' comments and '+data.json.summary['linkedin-reactions'].total.toLocaleString()+' reactions. Below is a barchart showing the response rate (ratio of engagements to impressions) by day:</p><div id="linkedin-rate" class="chart"></div>';
-
-					OI.linechart(document.getElementById('linkedin-rate'),{
-						'left':50,'right':10,'top':10,'bottom':30,
-						'axis':{
-							'x':{ 'labels': xlabels, 'line':{'stroke': '#0C0C33', 'stroke-width': 1.5} },
-							'y':{
-								'line': {'show':false},
-								'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
-								'labels':{
-									5: {'label':'5%'},
-									10: {'label':'10%'}
-								}
-							}
-						}
-					}).addSeries(rate,{
-						'title': 'Response rate',
-						'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
-						'line':{ 'color': 'rgba(61,242,186,1)' },
-						'tooltip':{
-							'label': function label(d){
-								return ''+(new Date(d.data.d)).toLocaleDateString()+'\nResponse rate: '+d.data.y.toFixed(1)+'%\nEngagement: '+d.data.engagements.toLocaleString()+'\nImpressions: '+d.data.impressions.toLocaleString()+'';
-							}
-						}
-					}).draw();
-				}
+            OI.linechart(document.getElementById('linkedin-rate'),{
+              'left':50,'right':10,'top':10,'bottom':30,
+              'axis':{
+                'x':{ 'labels': xlabels, 'line':{'stroke': '#0C0C33', 'stroke-width': 1.5} },
+                'y':{
+                  'line': {'show':false},
+                  'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
+                  'labels':{
+                    5: {'label':'5%'},
+                    10: {'label':'10%'}
+                  }
+                }
+              }
+            }).addSeries(rate,{
+              'title': 'Response rate',
+              'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
+              'line':{ 'color': 'rgba(61,242,186,1)' },
+              'tooltip':{
+                'label': function label(d){
+                  return ''+(new Date(d.data.d)).toLocaleDateString()+'\nResponse rate: '+d.data.y.toFixed(1)+'%\nEngagement: '+d.data.engagements.toLocaleString()+'\nImpressions: '+d.data.impressions.toLocaleString()+'';
+                }
+              }
+            }).draw();
+          }
+        }
 			}
 
 			if(data.json && data.json.summary['mailshots-emailSentCount']) {
@@ -252,34 +257,36 @@
 
 				dashboard.updatePanel('website-views',{'content':'<div class="number">'+data.json.summary['website-pageviews'].range.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 
-				website = main.querySelector('#website');
-				website.innerHTML = '<h2>Website statistics</h2><p>During the festival period ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') there were '+data.json.summary['website-pageviews'].range.toLocaleString()+' pageview'+(data.json.summary['website-pageviews'].range==1 ? '':'s')+' from '+data.json.summary['website-users'].range.toLocaleString()+' users. Below is a barchart showing the number of pageviews per day:</p><div id="website-views" class="chart"></div>';
+        if (main) {
+          website = main.querySelector('#website');
+          website.innerHTML = '<h2>Website statistics</h2><p>During the festival period (' + range.start.toLocaleDateString() + ' to ' + range.end.toLocaleDateString() + ') there were ' + data.json.summary['website-pageviews'].range.toLocaleString() + ' pageview' + (data.json.summary['website-pageviews'].range == 1 ? '' : 's') + ' from ' + data.json.summary['website-users'].range.toLocaleString() + ' users. Below is a barchart showing the number of pageviews per day:</p><div id="website-views" class="chart"></div>';
 
-				OI.linechart(document.getElementById('website-views'),{
-					'left':50,'right':10,'top':10,'bottom':30,
-					'axis':{
-						'x':{ 'labels': xlabels, 'line':{'stroke': '#0C0C33', 'stroke-width': 1.5} },
-						'y':{
-							'line': {'show':false},
-							'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
-							'labels':{
-								0: {'label':0},
-								2000: {'label':'2,000'},
-								4000: {'label':'4,000'},
-								6000: {'label':'6,000'}
-							}
-						}
-					}
-				}).addSeries(pageviews,{
-					'title': 'Views',
-					'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
-					'line':{ 'color': 'rgba(61,242,186,1)' },
-					'tooltip':{
-						'label': function label(d){
-							return ''+(new Date(d.data.d)).toLocaleDateString()+'\nViews: '+d.data.y+'';
-						}
-					}
-				}).draw();
+          OI.linechart(document.getElementById('website-views'),{
+            'left':50,'right':10,'top':10,'bottom':30,
+            'axis':{
+              'x':{ 'labels': xlabels, 'line':{'stroke': '#0C0C33', 'stroke-width': 1.5} },
+              'y':{
+                'line': {'show':false},
+                'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
+                'labels':{
+                  0: {'label':0},
+                  2000: {'label':'2,000'},
+                  4000: {'label':'4,000'},
+                  6000: {'label':'6,000'}
+                }
+              }
+            }
+          }).addSeries(pageviews,{
+            'title': 'Views',
+            'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
+            'line':{ 'color': 'rgba(61,242,186,1)' },
+            'tooltip':{
+              'label': function label(d){
+                return ''+(new Date(d.data.d)).toLocaleDateString()+'\nViews: '+d.data.y+'';
+              }
+            }
+          }).draw();
+        }
 			}
 
 			if(data.json && data.json.summary['twitter-engagements']){
@@ -302,35 +309,37 @@
 				dashboard.updatePanel('tweet-RT',{'content':'<div class="number">'+data.json.summary['twitter-retweets'].range.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 				dashboard.updatePanel('tweet-likes',{'content':'<div class="number">'+data.json.summary['twitter-likes'].range.toLocaleString()+'</div>','footnote':range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()});
 
-				// More info area
-				twitter = main.querySelector('#twitter');
-				twitter.innerHTML = '<h2>Twitter statistics</h2><p>During the festival ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') we tweeted '+data.json.summary['twitter-tweets'].total+' time'+(data.json.summary['twitter-tweets'].total==1 ? '':'s')+'. These tweets received '+data.json.summary['twitter-impressions'].total.toLocaleString()+' impressions and '+data.json.summary['twitter-engagements'].total.toLocaleString()+' engagements including '+data.json.summary['twitter-likes'].total.toLocaleString()+' likes and '+data.json.summary['twitter-retweets'].total.toLocaleString()+' retweets. Below is a barchart showing the response rate (ratio of engagements to impressions) by day:</p><div id="twitter-rate" class="chart"></div>';
+        if (main) {
+          // More info area
+          twitter = main.querySelector('#twitter');
+          twitter.innerHTML = '<h2>Twitter statistics</h2><p>During the festival ('+range.start.toLocaleDateString()+' to '+range.end.toLocaleDateString()+') we tweeted '+data.json.summary['twitter-tweets'].total+' time'+(data.json.summary['twitter-tweets'].total==1 ? '':'s')+'. These tweets received '+data.json.summary['twitter-impressions'].total.toLocaleString()+' impressions and '+data.json.summary['twitter-engagements'].total.toLocaleString()+' engagements including '+data.json.summary['twitter-likes'].total.toLocaleString()+' likes and '+data.json.summary['twitter-retweets'].total.toLocaleString()+' retweets. Below is a barchart showing the response rate (ratio of engagements to impressions) by day:</p><div id="twitter-rate" class="chart"></div>';
 
-				OI.linechart(document.getElementById('twitter-rate'),{
-					'left':50,'right':10,'top':10,'bottom':30,
-					'axis':{
-						'x':{ 'labels': xlabels, 'line':{'stroke': '#0C0C33', 'stroke-width': 1.5} },
-						'y':{
-							'line': {'show':false},
-							'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
-							'labels':{
-								1: {'label':'1%'},
-								2: {'label':'2%'},
-								3: {'label':'3%'},
-								4: {'label':'4%'}
-							}
-						}
-					}
-				}).addSeries(rate,{
-					'title': 'Response rate',
-					'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
-					'line':{ 'color': 'rgba(61,242,186,1)' },
-					'tooltip':{
-						'label': function label(d){
-							return ''+(new Date(d.data.d)).toLocaleDateString()+'\nResponse rate: '+d.data.y.toFixed(1)+'%\nEngagement: '+d.data.engagements.toLocaleString()+'\nImpressions: '+d.data.impressions.toLocaleString()+'';
-						}
-					}
-				}).draw();
+          OI.linechart(document.getElementById('twitter-rate'),{
+            'left':50,'right':10,'top':10,'bottom':30,
+            'axis':{
+              'x':{ 'labels': xlabels, 'line':{'stroke': '#0C0C33', 'stroke-width': 1.5} },
+              'y':{
+                'line': {'show':false},
+                'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
+                'labels':{
+                  1: {'label':'1%'},
+                  2: {'label':'2%'},
+                  3: {'label':'3%'},
+                  4: {'label':'4%'}
+                }
+              }
+            }
+          }).addSeries(rate,{
+            'title': 'Response rate',
+            'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
+            'line':{ 'color': 'rgba(61,242,186,1)' },
+            'tooltip':{
+              'label': function label(d){
+                return ''+(new Date(d.data.d)).toLocaleDateString()+'\nResponse rate: '+d.data.y.toFixed(1)+'%\nEngagement: '+d.data.engagements.toLocaleString()+'\nImpressions: '+d.data.impressions.toLocaleString()+'';
+              }
+            }
+          }).draw();
+        }
 			}
 			
 			if(data.sponsors){

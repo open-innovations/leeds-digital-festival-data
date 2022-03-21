@@ -8,18 +8,15 @@
 	<title>Leeds Digital Festival Report - September 2021</title>
 	<link rel="shortcut icon" type="image/png" href="https://leedsdigitalfestival.org/wp-content/themes/leeds-digital-festival/assets/images/favicon.png" />
 	<link rel="StyleSheet" href="https://use.typekit.net/inj1tmf.css" type="text/css" />
-  <link rel="stylesheet" href="{{'style/dashboard.css' | relative_url}}">
-	<script src="{{'docs/oi-ldf-dashboard.js' | relative_url}}"></script>
+  <link rel="stylesheet" href="{{ 'style/dashboard.css' | relative_url }}">
+	<script src="{{ 'docs/oi-ldf-dashboard.js' | relative_url }}"></script>
 </head>
 <body>
 	<div class="holder">
-		<h1>Leeds Digital Festival Report - September 2021</h1>
-		<div id="report-area">
-		
-		</div>
+		<div id="report-area"></div>
 	</div>
 	<script>
-	report = new OI.report(document.getElementById('report-area'));
+	report = new OI.report(document.getElementById('report-area'), { siteRoot: '{{ site.baseurl }}/', showCharts: false });
 	</script>
 </body>
 </html>
