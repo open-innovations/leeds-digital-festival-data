@@ -407,10 +407,11 @@
 			for(i = 0; i < li.length; i++) scale = Math.min(scale,li[i].offsetWidth/328);
 			// Set scale
 			for(i = 0; i < li.length; i++) li[i].style['font-size'] = scale+'em';
+      if (typeof opts.resizeCallback === 'function') opts.resizeCallback();
 			return this;
 		};
-		
-		window.onresize = this.resize;
+
+    window.addEventListener('resize', this.resize);
 
 		function makeTooltip(ev){
 			var parent = this.closest('div');

@@ -1,0 +1,35 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LDF dashboard test</title>
+  <style>
+    body { background: lightblue; }
+    .holder { max-width: 1080px; padding: 2em; margin: auto; box-sizing: content-box; }
+    
+    #dashboard {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="holder">
+    <iframe id='dashboard' src="{{'/dashboard/' | absolute_url }}"
+    ></iframe>
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      var dashboard = document.getElementById('dashboard');
+      window.addEventListener('message', function (e) {
+        console.log(e.data);
+        dashboard.height = e.data.height;
+        // dashboard.style.height = e.data.height+'px';
+      });
+    })
+  </script>
+</body>
+</html>

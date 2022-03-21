@@ -10,13 +10,29 @@
 	<link rel="StyleSheet" href="https://use.typekit.net/inj1tmf.css" type="text/css" />
   <link rel="stylesheet" href="{{ 'style/dashboard.css' | relative_url }}">
 	<script src="{{ 'docs/oi-ldf-dashboard.js' | relative_url }}"></script>
+  <style>
+    .panels { margin: 0; }
+    body { overflow: hidden; }
+  </style>
 </head>
 <body>
-	<div class="holder">
+	<div>
 		<div id="report-area"></div>
 	</div>
 	<script>
-	report = new OI.report(document.getElementById('report-area'), { siteRoot: '{{ site.baseurl }}/', showCharts: false });
+    window.addEventListener('DOMContentLoaded', function () {
+      var body = document.querySelector('body');
+      function reportWindowSize() {
+        var rect = body.getBoundingClientRect();
+        window.parent.postMessage({ height: Math.ceil(rect.height) }, '*');
+      }
+      var report = new OI.report(document.getElementById('report-area'), {
+        siteRoot: '{{ site.baseurl }}/',
+        showCharts: false,
+        resizeCallback: reportWindowSize,
+      });
+      window.addEventListener('resize', reportWindowSize);
+    })
 	</script>
 </body>
 </html>
