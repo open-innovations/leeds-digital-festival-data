@@ -33,8 +33,8 @@
           console.warn('Received message from unexpected source');
           return;
         };
-        // If we pass those checkes, set the windoe height
-        dashboard.height = e.data.height;
+        // If we pass those checks, set the window height
+        dashboard.style.height = e.data.height+'px';
       });
     })
   </script>
