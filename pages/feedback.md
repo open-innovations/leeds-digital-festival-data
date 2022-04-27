@@ -3,7 +3,7 @@ layout: default
 permalink: design-notes/feedback
 ---
 <style>
-  p, ul {
+  p, ul, table {
     margin-top: 1em;
     margin-bottom: 1em;
   }
