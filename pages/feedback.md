@@ -62,8 +62,9 @@ The contents in the table are more or less OK.
 
 | Number | Question | Details | Comments |
 |:------:|----------|:-------:|----------|
-| Q0.1 | Your email address | Text | Allows linking to host |
-| Q0.2 | Event title | Text | Allows linking to CMS |
+| Q0.1 | Your email address | Text | Allows linking to host. Could this be pre-filled as a customised link? |
+| Q0.2 | Event title | Text | Allows linking to CMS. Make optional? |
+| Q0.3 | Date / Time of event | Datetime | Allows linking to CMS. Make optional? |
 | Q1 | What format was your event? | Physical / Virtual / Hybrid | Per-event means that the options about multiple events can be removed |
 | Q2.1 | If you hosted a Virtual or Hybrid event, which platform did you use to host your event? | Pick list of common platforms 'Other' option | Conditional on Q1, if possible |
 | Q2.2 | Why did you chose this platform? | Optional text | Conditional on Q1, if possible |
