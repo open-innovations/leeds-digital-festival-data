@@ -52,6 +52,9 @@ data dashboard. A little bit of cleaning up may be required.
 | Q10 | Do you have any tips for organisations looking to host a Leeds Digital Festival event? | | |
 | Q11 | How did you hear about Leeds Digital Festival? | | |
 | Q12 | Would you be interested in finding out more about sponsorship opportunities for the 2022 Festival | | |
+| Q13 | Were you satisfied with the number of people who registered for your events? | Y/N | |
+| Q14 | Were you satisfied with the number of people who attended your events? | Y/N | |
+| Q15 | What, if anything, do you feel could have increased the number of people who attended your events? | Optional Text | |
 
 ## Event Feedback
 
@@ -66,16 +69,13 @@ The contents in the table are more or less OK.
 | Q2.2 | Why did you chose this platform? | Optional text | Conditional on Q1, if possible |
 | Q3 | How many people were registered for your event? | Optional Numeric | Text to suggest this can be approximate |
 | Q4 | How many people attended your event? | Optional Numeric | Text to suggest this can be approximate |
-| ~Q5~ | Were you satisfied with the number of people who registered for this event? | Y/N | DO WE NEED THIS PER EVENT? |
-| ~Q6~ | Were you satisfied with the number of people who attended this event? | Y/N | DO WE NEED THIS PER EVENT? |
-| ~Q7~ | What, if anything, do you feel could have increased the number of people who attended this event? | Optional Text | DO WE NEED THIS PER EVENT? |
-| Q8 | Please outline the age break-down of your audience | Mostly older - Largely older - Balanced - Largely younger - Mostly younger | This was not useful before. Needs a simple coding. |
-| Q9 | Please outline the gender break-down of your audience | Mostly male - largely male - balanced - largely female - mostly female | This was not useful before. Needs a simple coding. |
-| Q11 | Please identify the regions within the UK that your event welcomed attendees | LIST OF UK REGIONS | |
-| Q12 | Did your event welcome any attendees from outside of the UK? | LIST OF: Europe, North America, South America, Australasia, Far East, India | Is there a good right-sized list? Do we need an Other box? |
+| Q5 | Please outline the age break-down of your audience | Mostly older - Largely older - Balanced - Largely younger - Mostly younger | This was not useful before. Needs a simple coding. |
+| Q6 | Please outline the gender break-down of your audience | Mostly male - largely male - balanced - largely female - mostly female | This was not useful before. Needs a simple coding. |
+| Q7 | Please identify the regions within the UK that your event welcomed attendees | LIST OF UK REGIONS | |
+| Q8 | Did your event welcome any attendees from outside of the UK? | LIST OF: Europe, North America, South America, Australasia, Far East, India | Is there a good right-sized list? Do we need an Other box? |
 
 
 There are some refinements that could do with being made to these fields:
 
-* Q10 Please provide any further information on the demography of your audience, where possible:
-* Q13 Were you satisfied with the demographic that your event attracted? 
+* Please provide any further information on the demography of your audience, where possible:
+* Were you satisfied with the demographic that your event attracted? 
