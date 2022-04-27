@@ -1,25 +1,15 @@
 ---
+header_parts:
+  - dashboard
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta charset="utf-8" />
-	<title>Leeds Digital Festival Report - September 2021</title>
-	<link rel="shortcut icon" type="image/png" href="https://leedsdigitalfestival.org/wp-content/themes/leeds-digital-festival/assets/images/favicon.png" />
-	<link rel="StyleSheet" href="https://use.typekit.net/inj1tmf.css" type="text/css" />
-  <link rel="stylesheet" href="{{'style/dashboard.css' | relative_url}}">
-	<script src="{{'docs/oi-ldf-dashboard.js' | relative_url}}"></script>
-</head>
-<body>
-	<div class="holder">
-		<h1>Leeds Digital Festival Report - September 2021</h1>
-		<div id="report-area">
-		
-		</div>
-	</div>
-	<script>
-	report = new OI.report(document.getElementById('report-area'));
-	</script>
-</body>
-</html>
+<div class="holder">
+  <h1>Leeds Digital Festival Report - September 2021</h1>
+  <div id="report-area">
+  
+  </div>
+</div>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    report = new OI.report(document.getElementById('report-area'));
+  });
+</script>

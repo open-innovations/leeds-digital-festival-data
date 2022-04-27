@@ -1,0 +1,22 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8" />
+	<title>Leeds Digital Festival Report - September 2021</title>
+	<link rel="shortcut icon" type="image/png" href="https://leedsdigitalfestival.org/wp-content/themes/leeds-digital-festival/assets/images/favicon.png" />
+	<link rel="StyleSheet" href="https://use.typekit.net/inj1tmf.css" type="text/css" />
+  <link rel="stylesheet" href="{{'style/dashboard.css' | relative_url}}">
+
+  {% for header_part in page.header_parts %}
+    {%- include header-parts/{{ header_part }}.html -%}
+  {% endfor -%}
+</head>
+
+<body>
+  {{ content }}
+</body>
+
+</html>
