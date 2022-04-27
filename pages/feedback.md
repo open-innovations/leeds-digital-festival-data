@@ -37,21 +37,21 @@ minimising the fields that the user needs to submit.
 The host feedback items are as follows. These are mostly OK, and are not used to drive the
 data dashboard. A little bit of cleaning up may be required.
 
-* **Name**
-* **Role**
-* **Organisation**
-* **Email**
-* **First time host?** Yes, No (Hosted at last festival), No (Hosted a year ago), No (Hosted at other time)  
-  These are OK
-* **Planning to submit again** Y/N and Why  
-  Why should be optional.
-* **What format** Physical / Virtual
-* **Was the involvement valuable?** Y / N / Other  
-  Wonder about the wisdom of Other here?
-* **Do you have any additional comments or feedback about your experience of hosting an event at Leeds Digital Festival?**
-* **Do you have any tips for organisations looking to host a Leeds Digital Festival event?**
-* **How did you hear about Leeds Digital Festival?**  
-* **Would you be interested in finding out more about sponsorship opportunities for the 2022 Festival?**
+| Number | Question | Details | Comments |
+|:------:|----------|:-------:|----------|
+| Q1 | Name | | |
+| Q2 | Role | | |
+| Q3 | Organisation | | |
+| Q3 | Email | | |
+| Q4 | Was this your first time hosting an event(s) as part of Leeds Digital Festival? | Yes, No (Hosted at last festival), No (Hosted a year ago), No (Hosted at other time) | These are OK |
+| Q6.1 | Based on your hosting experience, are you planning to submit an event for next year's Festival? | Y/N |  |
+| Q6.2 | Why? | Optional Text | |
+| Q7 | Based on your experience this year, if hosting an event at next year's Festival, what event format would you select? | Physical, Virtual, Multiple, Any, Undecided | |
+| Q8 | Was the involvement valuable to your organisation? | Y / N / Other | Wonder about the wisdom of Other here? |
+| Q9 | Do you have any additional comments or feedback about your experience of hosting an event at Leeds Digital Festival? | | |
+| Q10 | Do you have any tips for organisations looking to host a Leeds Digital Festival event? | | |
+| Q11 | How did you hear about Leeds Digital Festival? | | |
+| Q12 | Would you be interested in finding out more about sponsorship opportunities for the 2022 Festival | | |
 
 ## Event Feedback
 
@@ -66,15 +66,16 @@ The contents in the table are more or less OK.
 | Q2.2 | Why did you chose this platform? | Optional text | Conditional on Q1, if possible |
 | Q3 | How many people were registered for your event? | Optional Numeric | Text to suggest this can be approximate |
 | Q4 | How many people attended your event? | Optional Numeric | Text to suggest this can be approximate |
-| _Q5_ | Were you satisfied with the number of people who registered for this event? | Y/N | DO WE NEED THIS? |
-| _Q6_ | Were you satisfied with the number of people who attended this event? | Y/N | DO WE NEED THIS? |
-| _Q7_ | What, if anything, do you feel could have increased the number of people who attended this event? | Optional Text | BENEFIT OF THIS? |
+| ~Q5~ | Were you satisfied with the number of people who registered for this event? | Y/N | DO WE NEED THIS PER EVENT? |
+| ~Q6~ | Were you satisfied with the number of people who attended this event? | Y/N | DO WE NEED THIS PER EVENT? |
+| ~Q7~ | What, if anything, do you feel could have increased the number of people who attended this event? | Optional Text | DO WE NEED THIS PER EVENT? |
+| Q8 | Please outline the age break-down of your audience | Mostly older - Largely older - Balanced - Largely younger - Mostly younger | This was not useful before. Needs a simple coding. |
+| Q9 | Please outline the gender break-down of your audience | Mostly male - largely male - balanced - largely female - mostly female | This was not useful before. Needs a simple coding. |
+| Q11 | Please identify the regions within the UK that your event welcomed attendees | LIST OF UK REGIONS | |
+| Q12 | Did your event welcome any attendees from outside of the UK? | LIST OF: Europe, North America, South America, Australasia, Far East, India | Is there a good right-sized list? Do we need an Other box? |
+
 
 There are some refinements that could do with being made to these fields:
 
-* Please outline the age break-down of your audience in as much detail as possible eg. numbers of people aged 18-25, 26-35, 35-50, 50+:
-* Please outline the gender break-down of your audience in as much detail as possible, eg. number of female / male / other attendees:
-* Please provide any further information on the demography of your audience, where possible:
-* Please identify the regions within the UK that your event welcomed attendees from:
-* Did your event welcome any attendees from outside of the UK? Please select the countries below that your attendees viewed from, and note any countries not listed in the 'Other' box:
-* Were you satisfied with the demographic that your event attracted? 
+* Q10 Please provide any further information on the demography of your audience, where possible:
+* Q13 Were you satisfied with the demographic that your event attracted? 
