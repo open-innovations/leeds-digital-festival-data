@@ -153,11 +153,11 @@
 		dashboard.addPanel({'id':'linkedin-engagements','title':"LinkedIn engagements"});
 		dashboard.addPanel({'id':'tweet-impressions','title':"Tweet impressions"});
 		dashboard.addPanel({'id':'tweet-engagements','title':"Tweet engagements"});
-		dashboard.addPanel({'id':'tweet-number','title':"Tweets"});
-		dashboard.addPanel({'id':'tweet-RT','title':"Retweets"});
-		dashboard.addPanel({'id':'tweet-likes','title':"Tweet likes"});
-    dashboard.addPanel({'id':'mailshots-emailSentCount','title':"Mailshot recipients"});
-    dashboard.addPanel({'id':'mailshots-emailUniqueOpen','title':"Mailshot opens"});
+		//dashboard.addPanel({'id':'tweet-number','title':"Tweets"});
+		//dashboard.addPanel({'id':'tweet-RT','title':"Retweets"});
+		//dashboard.addPanel({'id':'tweet-likes','title':"Tweet likes"});
+		dashboard.addPanel({'id':'mailshots-emailSentCount','title':"Mailshot recipients"});
+		//dashboard.addPanel({'id':'mailshots-emailUniqueOpen','title':"Mailshot opens"});
 
 		
 		function inRange(dt,s,e){
