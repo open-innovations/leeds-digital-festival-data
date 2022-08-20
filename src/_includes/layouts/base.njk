@@ -14,7 +14,9 @@
 </head>
 
 <body>
-  {{ content | safe }}
+  {% block body %}
+    {{ content | safe }}
+  {% endblock %}
 </body>
 
 </html>

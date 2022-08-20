@@ -1,4 +1,7 @@
 {% extends "layouts/base.njk" %}
+
+{% block body %}
 <div class="holder">
-  {{ content }}
+  {{ content | safe }}
 </div>
+{% endblock %}
