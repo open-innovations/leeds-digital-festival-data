@@ -17,3 +17,7 @@ The following data sources will be aggregated
 * Organiser Surveys - attendance and other feedback
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">Leeds Digital Festival Data</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Leeds Digital Festival and Open Innovations</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+# Building this site
+
+The site is built using the [Lume static site generator](https://lume.land). Source for the site is in the `src` directory.

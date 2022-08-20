@@ -1,6 +1,6 @@
 ---
-layout: default
-permalink: design-notes/feedback
+layout: layouts/default.njk
+url: /design-notes/feedback/
 ---
 <style>
   p, ul, table {
