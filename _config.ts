@@ -14,4 +14,7 @@ site.copy('style');
 site.copy('docs');
 site.copy('data');
 
+// Prevent gh-pages from using jekyll
+site.copy('.nojekyll')
+
 export default site;
