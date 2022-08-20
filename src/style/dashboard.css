@@ -21,3 +21,21 @@
 	@media only screen and (max-width: 700px){
 		.panels { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-gap: 0.25em; }
 	}
+
+/* Site Header */
+.site-header {
+  font-family: 'brandon-grotesque';
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-header :first-child {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.site-header nav ul {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}

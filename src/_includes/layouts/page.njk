@@ -1,0 +1,24 @@
+{% extends "layouts/base.njk" %}
+
+{% block body %}
+  {% comp 'element.holder' %}
+  <header class='site-header'>
+    <a href='{{ "~/home.njk" | url }}'>
+      <img src='/assets/images/logo.svg' inline />
+      <h1>Leeds Digital Festival Data</h1>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="/reports/">Reports</a></li>
+        <li><a href="/metrics/">Metrics</a></li>
+      </ul
+    </nav>
+  </header>
+  {% endcomp %}
+
+  <main>
+    {% comp 'element.holder' %}
+    {{ content | safe }}
+    {% endcomp %}
+  </main>
+{% endblock %}
