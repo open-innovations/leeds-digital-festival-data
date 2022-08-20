@@ -13,7 +13,7 @@ header_parts:
       window.parent.postMessage({ height: Math.ceil(rect.height) }, '*');
     }
     var report = new OI.report(document.getElementById('report-area'), {
-      siteRoot: '{{ site.baseurl }}/',
+      siteRoot: '{{ "/" | url }}',
       showCharts: false,
       resizeCallback: reportWindowSize,
     });
