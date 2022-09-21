@@ -1,0 +1,16 @@
+---
+css: |
+  .block {
+    background: #0C0C33;
+    color:white;
+    padding: 1rem;
+  }
+  .block:focus {
+    outline: 4px solid #061eff;
+  }
+---
+{% if link %}<a href="{{ link }}">{% endif %}
+<div class='block'>
+  {{ content | safe }}
+</div>
+{% if link %}</a>{% endif %}

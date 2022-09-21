@@ -1,0 +1,16 @@
+---
+title: Reports
+url: /reports/
+layout: layouts/page.njk
+---
+
+{% comp 'layout.grid' %}
+{% for report in search.pages('report', 'date=desc')%}
+  {% comp 'layout.block', { link: report.data.url } %}
+    <article>
+      <h2>{{ report.data.title }}</h2>
+      <p>{{ report.data.date | date('HUMAN_DATE') }}</p>
+    </article>
+  {% endcomp %}
+{% endfor %}
+{% endcomp %}

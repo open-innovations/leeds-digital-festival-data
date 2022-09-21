@@ -1,14 +1,19 @@
 import lume from "lume/mod.ts";
 import base_path from "lume/plugins/base_path.ts";
 import inline from "lume/plugins/inline.ts";
+import date from "lume/plugins/date.ts";
 
 const site = lume({
   location: new URL("https://open-innovations.github.io/leeds-digital-festival-data/"),
   src: "./src",
+  components: {
+    cssFile: '/style/components.css'
+  },
 });
 
 site.use(base_path());
 site.use(inline());
+site.use(date());
 
 // Copy HTML files
 site.copy(['.html']);
