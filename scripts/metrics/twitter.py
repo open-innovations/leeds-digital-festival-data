@@ -5,6 +5,7 @@ import glob
 
 WORKING_DIR = os.path.join('working', 'twitter')
 OUTPUT_DIR = os.path.join('data', 'twitter')
+SITE_DATA_DIR = os.path.join('src', '_data', 'metrics', 'twitter')
 RAW_FILE = os.path.join(OUTPUT_DIR, 'twitter.csv')
 
 
@@ -46,5 +47,27 @@ def update_raw_data():
     save_existing(data)
 
 
+def create_summary():
+    os.makedirs(SITE_DATA_DIR, exist_ok=True)
+
+    data = read_existing()
+    data.reset_index(inplace=True)
+    data.date = pd.to_datetime(data.date)
+
+    # Save summaries
+    os.chdir(SITE_DATA_DIR)
+
+    # Create monthly summary
+    data['month'] = data.date.dt.to_period('M')
+    monthly = data.groupby('month')
+    monthly_summary = pd.DataFrame({
+      'tweets_published': monthly.tweets_published.sum(),
+      'impressions': monthly.impressions.sum(),
+      'engagements': monthly.engagements.sum(),
+    })
+    monthly_summary.to_csv('monthly.csv')
+
+
 if __name__ == '__main__':
     update_raw_data()
+    create_summary()
