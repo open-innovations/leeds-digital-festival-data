@@ -9,7 +9,10 @@ RAW_FILE = os.path.join(OUTPUT_DIR, 'twitter.csv')
 
 
 def read_existing():
-    data = None
+    try:
+        data = pd.read_csv(RAW_FILE)
+    except:
+        data = None
     return data
 
 
@@ -28,7 +31,6 @@ def load_file(filename):
 
 
 def update_raw_data():
-
     data = read_existing()
 
     files = glob.glob(os.path.join(WORKING_DIR, '*.csv'))
