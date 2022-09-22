@@ -10,7 +10,7 @@ RAW_FILE = os.path.join(OUTPUT_DIR, 'twitter.csv')
 
 def read_existing():
     try:
-        data = pd.read_csv(RAW_FILE)
+        data = pd.read_csv(RAW_FILE, index_col=['date'])
     except:
         data = None
     return data
