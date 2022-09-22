@@ -1,0 +1,14 @@
+---
+title: Metrics
+url: /metrics/
+---
+
+{% comp 'layout.grid' %}
+{% for metric in search.pages('metric', 'title')%}
+  {% comp 'layout.block', { link: metric.data.url } %}
+    <article>
+      <h2>{{ metric.data.title }}</h2>
+    </article>
+  {% endcomp %}
+{% endfor %}
+{% endcomp %}
