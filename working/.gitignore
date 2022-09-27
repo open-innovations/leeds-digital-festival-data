@@ -1,5 +1,2 @@
-*
-!.gitignore
-
-!twitter/
-twitter/*.csv
+*.csv
+*.xls*

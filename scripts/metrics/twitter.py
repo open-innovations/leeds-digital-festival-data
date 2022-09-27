@@ -4,21 +4,21 @@ import glob
 
 
 WORKING_DIR = os.path.join('working', 'twitter')
-OUTPUT_DIR = os.path.join('data', 'twitter')
-SITE_DATA_DIR = os.path.join('src', '_data', 'metrics', 'twitter')
-RAW_FILE = os.path.join(OUTPUT_DIR, 'twitter.csv')
+DATA_DIR = os.path.join('data', 'social')
+RAW_FILE = os.path.join(DATA_DIR, 'twitter.csv')
+VIEW_DIR = os.path.join('src', '_data', 'metrics', 'twitter')
 
 
 def read_existing():
     try:
-        data = pd.read_csv(RAW_FILE, index_col=['date'])
+        data = pd.read_csv(RAW_FILE, index_col=['date'], parse_dates=['date'])
     except:
-        data = None
+        data = pd.DataFrame(None)
     return data
 
 
 def save_existing(data):
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    os.makedirs(DATA_DIR, exist_ok=True)
     data.to_csv(RAW_FILE)
 
 
@@ -32,38 +32,44 @@ def load_file(filename):
 
 
 def update_raw_data():
-    data = read_existing()
-
     files = glob.glob(os.path.join(WORKING_DIR, '*.csv'))
 
     if (len(files) == 0):
         print('Nothing to do! No new files found in "{}".'.format(WORKING_DIR))
         return
 
-    if (data == None):
-        data = pd.concat([load_file(file)
-                         for file in files]).sort_values(by=['date'])
+    data = read_existing()
+    new_data = pd.concat([load_file(file)
+                          for file in files])
+
+    if (data.empty):
+        data = new_data
+    else:
+        '''Use new_data.combine_first(data)'''
+        data = new_data.combine_first(data)
+
+    data = data.sort_values(by=['date'])
 
     save_existing(data)
 
 
 def create_summary():
-    os.makedirs(SITE_DATA_DIR, exist_ok=True)
+    os.makedirs(VIEW_DIR, exist_ok=True)
 
     data = read_existing()
     data.reset_index(inplace=True)
     data.date = pd.to_datetime(data.date)
 
     # Save summaries
-    os.chdir(SITE_DATA_DIR)
+    os.chdir(VIEW_DIR)
 
     # Create monthly summary
     data['month'] = data.date.dt.to_period('M')
     monthly = data.groupby('month')
     monthly_summary = pd.DataFrame({
-      'tweets_published': monthly.tweets_published.sum(),
-      'impressions': monthly.impressions.sum(),
-      'engagements': monthly.engagements.sum(),
+        'tweets_published': monthly.tweets_published.sum(),
+        'impressions': monthly.impressions.sum(),
+        'engagements': monthly.engagements.sum(),
     })
     monthly_summary.to_csv('monthly.csv')
 
