@@ -42,11 +42,7 @@ def update_raw_data():
     new_data = pd.concat([load_file(file)
                           for file in files])
 
-    if (data.empty):
-        data = new_data
-    else:
-        '''Use new_data.combine_first(data)'''
-        data = new_data.combine_first(data)
+    data = new_data.combine_first(data)
 
     data = data.sort_values(by=['date'])
 
