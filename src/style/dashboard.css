@@ -4,6 +4,10 @@
 	h1, h2, h3 { font-family:"brandon-grotesque"; }
 	h1 + *, h2 + *, h3 + * { margin-top: 1em; }
 	
+  main > * + * {
+    margin-top: 1rem;
+  }
+
 	.sub-section { margin-bottom: 2em; }
 
 	.panels { list-style: none; margin-left: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 0.5em; margin-bottom: 2em; }

@@ -1,67 +1,60 @@
 ---
 title: September 2022
-date: 2022-09-01
-festival_dates:
-  - 2022-09-20
-  - 2022-09-30
-date_range:
-  - 2022-08-01
-  - 2022-10-01
+date: 2022-09-30
+ref: 2022-09
 ---
-
-<h1>Leeds Digital Festival Report - {{ title }}</h1>
-
-{% set festival_period = festival_dates[0] | date('HUMAN_DATE')  + ' to ' + festival_dates[1] | date('HUMAN_DATE') %} 
-{% set festival_context_period = date_range[0] | date('HUMAN_DATE')  + ' to ' + date_range[1] | date('HUMAN_DATE') %} 
-
+{%- set festival_period = festival[ref].festival_dates[0] | date('HUMAN_DATE')  + ' to ' + festival[ref].festival_dates[1] | date('HUMAN_DATE') %} 
+{%- set festival_context_period = festival[ref].date_range[0] | date('HUMAN_DATE')  + ' to ' + festival[ref].date_range[1] | date('HUMAN_DATE') %} 
+{%- set m = festival[ref].metrics %}
 {% comp 'report.panels' %}
   {% comp 'report.panel' %}
     <span class="title">Events</span>
-    <div class="number">???</div>
+    <div class="number">{{ m.events | localize }}</div>
     <p class="footnote">{{ festival_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Sponsors</span>
-    <div class="number">???</div>
+    <div class="number">{{ m.sponsors | localize }}</div>
     <p class="footnote">Premier/Executive/Associate/Partner</p>
   {% endcomp %}
   {% comp 'report.panel', { rows: 3 } %}
     <span class="title">Map</span>
+    {{ comp.map.uk({ width: '80%' }) | safe }}
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Website pageviews</span>
-    <div class="number">???</div>
+    <div class="number">{{ m.website.pageviews | localize }}</div>
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">LinkedIn unique visitors</span>
-    <div class="number">???</div>
+    <div class="number">{{ m.linkedin.visitors  | localize }}</div>
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">LinkedIn impressions</span>
-    <div class="number">???</div>
+    <div class="number">{{ m.linkedin.impressions  | localize }}</div>
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">LinkedIn engagements</span>
-    <div class="number">???</div>
+    <div class="number">{{ m.linkedin.engagements  | localize }}</div>
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Tweet impressions</span>
-    <div class="number">???</div>
+    <div class="number">{{ m.twitter.impressions  | localize }}</div>
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Tweet engagements</span>
-    <div class="number">???</div>
+    <div class="number">{{ m.twitter.engagements  | localize }}</div>
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Mailshot recipients</span>
-    <div class="number">???</div>
+    <div class="number">{{ m.mailing_list.recipients | localize }}</div>
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
 {% endcomp %}

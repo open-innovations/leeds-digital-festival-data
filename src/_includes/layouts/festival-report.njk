@@ -1,0 +1,13 @@
+---
+layout: layouts/page.njk
+---
+
+<h1>Leeds Digital Festival Report - {{ title }}</h1>
+
+<p>
+  This is the report for the edition of the Leeds Digital Festival which ran
+  from {{ festival[ref].festival_dates[0] | date('HUMAN_DATE') }}
+  to {{ festival[ref].festival_dates[1] | date('HUMAN_DATE') }}.
+</p>
+
+{{ content | safe }}

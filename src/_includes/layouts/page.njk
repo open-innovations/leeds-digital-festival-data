@@ -1,24 +1,23 @@
-{% extends "layouts/base.njk" %}
+---
+layout: layouts/base.njk
+---
+{% comp 'element.holder' %}
+<header class='site-header'>
+  <a href='{{ "~/home.njk" | url }}'>
+    <img src='/assets/images/logo.svg' inline />
+    <h1>Leeds Digital Festival Data</h1>
+  </a>
+  <nav>
+    <ul>
+      <li><a href="{{ "~/pages/reports.njk" | url }}">Reports</a></li>
+      <li><a href="{{ "~/pages/metrics.njk" | url }}">Metrics</a></li>
+    </ul
+  </nav>
+</header>
+{% endcomp %}
 
-{% block body %}
-  {% comp 'element.holder' %}
-  <header class='site-header'>
-    <a href='{{ "~/home.njk" | url }}'>
-      <img src='/assets/images/logo.svg' inline />
-      <h1>Leeds Digital Festival Data</h1>
-    </a>
-    <nav>
-      <ul>
-        <li><a href="{{ "~/pages/reports.njk" | url }}">Reports</a></li>
-        <li><a href="{{ "~/pages/metrics.njk" | url }}">Metrics</a></li>
-      </ul
-    </nav>
-  </header>
-  {% endcomp %}
-
-  <main>
-    {% comp 'element.holder' %}
-    {{ content | safe }}
-    {% endcomp %}
+{% comp 'element.holder' %}
+  <main role='main'>
+  {{ content | safe }}
   </main>
-{% endblock %}
+{% endcomp %}

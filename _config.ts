@@ -16,6 +16,9 @@ site.use(base_path());
 site.use(inline());
 site.use(date());
 
+// Add filters
+site.filter('localize', (num) => num.toLocaleString())
+
 // Copy HTML files
 site.copy(['.html']);
 site.copy('style');
