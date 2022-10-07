@@ -1,7 +1,9 @@
 {%- set festival_period = festival_data.dates.festival[0] | date('HUMAN_DATE')  + ' to ' + festival_data.dates.festival[1] | date('HUMAN_DATE') %} 
 {%- set festival_context_period = festival_data.dates.extract[0] | date('HUMAN_DATE')  + ' to ' + festival_data.dates.extract[1] | date('HUMAN_DATE') %} 
 
-{{ festival_data || dump }}
+<code><pre>
+{{ festival_data | dump(2) }}
+</pre></code>
 
 {# {% comp 'report.panels' %}
   {% comp 'report.panel' %}
