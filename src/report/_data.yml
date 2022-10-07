@@ -2,6 +2,3 @@ layout: layouts/festival-report.njk
 report_style: festival
 tags:
   - report
-
-mergedKeys:
-  metrics: object

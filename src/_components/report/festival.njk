@@ -4,12 +4,12 @@
 {% comp 'report.panels' %}
   {% comp 'report.panel' %}
     <span class="title">Events</span>
-    <div class="number">{{ metrics.events | localize }}</div>
+    <div class="number">{{ statistics.events | localize }}</div>
     <p class="footnote">{{ festival_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Sponsors</span>
-    <div class="number">{{ metrics.sponsors | localize }}</div>
+    <div class="number">{{ statistics.sponsors | localize }}</div>
     <p class="footnote">Premier/Executive/Associate/Partner</p>
   {% endcomp %}
   {% comp 'report.panel', { rows: 3 } %}

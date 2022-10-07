@@ -11,6 +11,6 @@ dates:
   - 2022-10-01
 
 # TODO REPLACE THESE WITH REAL STATS
-metrics:
+statistics:
   events: 305
   sponsors: 42

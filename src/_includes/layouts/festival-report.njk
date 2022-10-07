@@ -13,7 +13,7 @@ layout: layouts/page.njk
 {# Adds a dashboard of based on the report_style setting, which defaults to 'festival' #}
 {{ comp.report[report_style]({
   dates: dates,
-  metrics: metrics,
+  statistics: statistics,
   social: social
 }) | safe }}
 
