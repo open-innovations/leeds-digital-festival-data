@@ -1,7 +1,8 @@
-festival_dates:
-  - 2022-09-20
-  - 2022-09-30
-extract_dates:
+dates:
+  festival:
+    - 2022-09-20
+    - 2022-09-30
+  extract:
   - 2022-08-01
   - 2022-10-01
 
@@ -9,15 +10,3 @@ extract_dates:
 metrics:
   events: 305
   sponsors: 42
-  website:
-    pageviews: 109320
-  linkedin:
-    visitors: 2843
-    impressions: 87562
-    engagements: 2009
-  twitter:
-    impressions: 1038470
-    engagements: 26248
-  mailing_list:
-    recipients: 25760
-    

@@ -1,12 +1,16 @@
-festival_dates:
-  - 2021-09-20
-  - 2021-10-01
-extract_dates:
-  - 2021-08-01
-  - 2021-10-01
+dates:
+  festival:
+    - 2021-09-20
+    - 2021-10-01
+  extract:
+    - 2021-08-01
+    - 2021-10-01
+
 metrics:
   events: 305
   sponsors: 42
+
+social:
   website:
     pageviews: 109320
   linkedin:
