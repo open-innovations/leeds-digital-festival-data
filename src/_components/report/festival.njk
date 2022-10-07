@@ -1,6 +1,9 @@
 {%- set festival_period = festival_data.dates.festival[0] | date('HUMAN_DATE')  + ' to ' + festival_data.dates.festival[1] | date('HUMAN_DATE') %} 
 {%- set festival_context_period = festival_data.dates.extract[0] | date('HUMAN_DATE')  + ' to ' + festival_data.dates.extract[1] | date('HUMAN_DATE') %} 
-{% comp 'report.panels' %}
+
+{{ festival_data || dump }}
+
+{# {% comp 'report.panels' %}
   {% comp 'report.panel' %}
     <span class="title">Events</span>
     <div class="number">{{ festival_data.metrics.events | localize }}</div>
@@ -51,4 +54,4 @@
     <div class="number">{{ festival_data.social.mailing_list.recipients | localize }}</div>
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
-{% endcomp %}
+{% endcomp %} #}
