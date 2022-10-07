@@ -6,11 +6,15 @@ layout: layouts/page.njk
 
 <p>
   This is the report for the edition of the Leeds Digital Festival which ran
-  from {{ festival[ref].dates.festival[0] | date('HUMAN_DATE') }}
-  to {{ festival[ref].dates.festival[1] | date('HUMAN_DATE') }}.
+  from {{ dates.festival[0] | date('HUMAN_DATE') }}
+  to {{ dates.festival[1] | date('HUMAN_DATE') }}.
 </p>
 
 {# Adds a dashboard of based on the report_style setting, which defaults to 'festival' #}
-{{ comp.report[report_style]({ festival_data: festival[ref] }) | safe }}
+{{ comp.report[report_style]({
+  dates: dates,
+  metrics: metrics,
+  social: social
+}) | safe }}
 
 {{ content | safe }}
