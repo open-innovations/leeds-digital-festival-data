@@ -18,16 +18,20 @@
   <div class="holder">
     <iframe
       id='dashboard'
-      src="https://open-innovations.github.io/leeds-digital-festival-data/dashboard">
+      src="/report/september-2022/dashboard/">
     </iframe>
   </div>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       var dashboard = document.getElementById('dashboard');
       window.addEventListener('message', function (e) {
+        var expectedOrigins = [
+          "https://open-innovations.github.io",
+          "http://localhost:3000"
+        ]
         // Check that this is an expected message
         if (
-          e.origin !== "https://open-innovations.github.io" ||
+          !expectedOrigins.includes(e.origin) ||
           e.source !== dashboard.contentWindow
         ) {
           console.warn('Received message from unexpected source');
