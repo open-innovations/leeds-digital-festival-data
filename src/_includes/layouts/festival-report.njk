@@ -14,7 +14,8 @@ layout: layouts/page.njk
 {{ comp.report[report_style]({
   dates: dates,
   statistics: statistics,
-  social: social
+  social: social,
+  attendees: attendees
 }) | safe }}
 
 {{ content | safe }}

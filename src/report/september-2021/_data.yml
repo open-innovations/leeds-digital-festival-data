@@ -9,6 +9,9 @@ dates:
 statistics:
   events: 305
   sponsors: 42
+  hosts: 157
+  total_returns: 31
+  max_attendees: 23
 
 social:
   website:

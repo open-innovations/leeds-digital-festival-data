@@ -35,3 +35,33 @@
   align-items: center;
   gap: 1rem;
 }
+
+.popup {
+  padding: 0.325em 0.5em;
+  --bg-colour: #061eff;
+  position: fixed;
+  color: white;
+  background-color: var(--bg-colour);
+  z-index: 1000;
+  padding: 0.5rem;
+  display: inline-block;
+  transition: left 0.1s linear, top 0.1s linear, opacity 0.5s ease-in-out;
+  min-width: 2em;
+  max-width: 10em;
+  box-shadow: 2px 2px 4px hsla(0, 100%, 0%, 30%);
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.popup::after {
+  content: "";
+  position: absolute;
+  bottom: auto;
+  width: 0;
+  height: 0;
+  left: 50%;
+  top: 0;
+  transform: translate3d(-50%, -100%, 0);
+  border: 0.5rem solid #ffffff00;
+  border-bottom-color: var(--bg-colour);
+}

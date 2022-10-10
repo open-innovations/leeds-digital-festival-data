@@ -12,5 +12,8 @@ dates:
 
 # TODO REPLACE THESE WITH REAL STATS
 statistics:
-  events: 305
-  sponsors: 42
+  events: 0
+  sponsors: 0
+  total_returns: 1
+  max_attendees: 1
+

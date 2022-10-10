@@ -1,8 +1,11 @@
 import lume from "lume/mod.ts";
 import base_path from "lume/plugins/base_path.ts";
-import inline from "lume/plugins/inline.ts";
 import date from "lume/plugins/date.ts";
+import esbuild from 'lume/plugins/esbuild.ts';
+import inline from "lume/plugins/inline.ts";
+
 import csvLoader from 'oi-lume-utils/loaders/csv-loader.ts';
+import autoDependency from 'oi-lume-utils/processors/auto-dependency.ts';
 
 const site = lume({
   location: new URL("https://open-innovations.github.io/leeds-digital-festival-data/"),
@@ -12,9 +15,24 @@ const site = lume({
   },
 });
 
+site.process(['.html'], autoDependency);
+
 site.use(base_path());
 site.use(inline());
 site.use(date());
+site.use(esbuild({
+  extensions: [".ts", ".js"],
+  options: {
+    bundle: true,
+    format: "iife",
+    minify: true,
+    keepNames: false,
+    platform: "browser",
+    target: "es6",
+    incremental: true,
+    treeShaking: true,
+  },
+}));
 
 // Add filters
 site.filter('localize', (num) => Number(num).toLocaleString())

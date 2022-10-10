@@ -1,6 +1,10 @@
 {%- set festival_period = dates.festival[0] | date('HUMAN_DATE')  + ' to ' + dates.festival[1] | date('HUMAN_DATE') %} 
 {%- set festival_context_period = dates.extract[0] | date('HUMAN_DATE')  + ' to ' + dates.extract[1] | date('HUMAN_DATE') %} 
 
+{%- macro popup_text(label, value, total) -%}
+  {{ ((value or 0) * 100 / total) | round }}% of hosts reported attendees from {{ label }}
+{%- endmacro -%}
+
 {% comp 'report.panels' %}
   {% comp 'report.panel' %}
     <span class="title">Events</span>
@@ -14,8 +18,16 @@
   {% endcomp %}
   {% comp 'report.panel', { rows: 3 } %}
     <span class="title">Map</span>
-    {{ comp.map.uk({ width: '80%' }) | safe }}
-    <p class="footnote">{{ festival_context_period }}</p>
+    {{ comp.map.uk({
+      width: '80%',
+      values: attendees,
+      max: statistics.max_attendees,
+      total: statistics.total_returns,
+      popup_formatter: popup_text
+    }) | safe }}
+    <p class="footnote">
+      Based on regions reported in {{ statistics.total_returns }} of {{ statistics.hosts }} host returns.
+    </p>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Website pageviews</span>
