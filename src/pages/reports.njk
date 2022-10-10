@@ -4,7 +4,7 @@ url: /reports/
 ---
 
 {% comp 'layout.grid' %}
-{% for report in search.pages('report', 'date=desc')%}
+{% for report in search.pages('report layout!=layouts/plain-dashboard.njk', 'date=desc')%}
   {% comp 'layout.block', { link: report.data.url } %}
     <article>
       <h2>{{ report.data.title }}</h2>

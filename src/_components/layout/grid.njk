@@ -10,6 +10,6 @@ css: |
     display: block;
   }
 ---
-<div class='grid'>
+<{{ tag or 'div' }} class='grid {{ class }}'>
   {{ content | safe }}
-</div>
+</{{ tag or 'div' }}>
