@@ -58,7 +58,8 @@ def update_raw_data():
     save_existing(data)
 
 def post_combine_process(data):
-     return makeFloatNullableInt(data.sort_values(by=['date']))
+    return (data.sort_values(by=['date'])
+                .pipe(makeFloatsNullableInt))
 
 
 def floatContainsIntsOnly(column) -> bool:
@@ -68,7 +69,7 @@ def floatContainsIntsOnly(column) -> bool:
 
   return True
 
-def makeFloatNullableInt(df:pd.DataFrame) -> pd.DataFrame:
+def makeFloatsNullableInt(df:pd.DataFrame) -> pd.DataFrame:
   #print(df.col)
   for col in list(df.columns):
     if df[col].dtype == "float64":          
