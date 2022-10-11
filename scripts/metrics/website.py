@@ -96,7 +96,7 @@ def create_summary():
         'page_views': monthly.page_views.sum(),
         'unique_page_views': monthly.unique_page_views.sum()
     })
-    monthly_summary.to_csv('monthly.csv')
+    monthly_summary.pipe(makeFloatsNullableInt).to_csv('monthly.csv')
 
 
 if __name__ == '__main__':
