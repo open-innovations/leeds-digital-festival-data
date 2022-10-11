@@ -18,4 +18,5 @@ On the view, select the date range required, Expand the number of rows shown to 
 ## Processing the report
 
 1. Move the exported data into `working/website` (this directory). Note that the `.gitignore` in the parent directory prevents CSV files being checked in.
-2. _DAN TO COMPLETE..._
+2. Run `python ./scripts/metrics/website.py`.
+3. Cleaned data will be stored in `data\social\website.csv`, a monthly summary of the data will be stored in `src\_data\metrics\website\monthly.csv`.
