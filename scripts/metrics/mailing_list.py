@@ -4,10 +4,10 @@ import glob
 from cmath import isnan
 ### Needs xlrd
 
-WORKING_DIR = os.path.join('working', 'force24')
+WORKING_DIR = os.path.join('working', 'mailing_list')
 DATA_DIR = os.path.join('data', 'social')
-RAW_FILE = os.path.join(DATA_DIR, 'force24.csv')
-VIEW_DIR = os.path.join('src', '_data', 'metrics', 'force24')
+RAW_FILE = os.path.join(DATA_DIR, 'mailing_list.csv')
+VIEW_DIR = os.path.join('src', '_data', 'metrics', 'mailing_list')
 
 def read_existing():
     try:
