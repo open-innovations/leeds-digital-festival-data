@@ -1,12 +1,14 @@
-# TODO REPLACE THESE WITH REAL STATS
-website:
-  pageviews: 0
 linkedin:
-  visitors: 0
-  impressions: 0
-  engagements: 0
-twitter:
-  impressions: 0
-  engagements: 0
+  engagements: 9990
+  impressions: 288972
+  visitors: 3118
 mailing_list:
-  recipients: 0
+  recipients: 31396
+twitter:
+  engagements: 692
+  impressions: 23083
+  tweets_published: 53
+website:
+  pageviews: 147749
+  unique_page_views: 25838
+  users: 50115

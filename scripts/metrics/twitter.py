@@ -1,12 +1,15 @@
 import os
+from tkinter import W
 import pandas as pd
 import glob
+import yaml
 
 
 WORKING_DIR = os.path.join('working', 'twitter')
 DATA_DIR = os.path.join('data', 'social')
 RAW_FILE = os.path.join(DATA_DIR, 'twitter.csv')
 VIEW_DIR = os.path.join('src', '_data', 'metrics', 'twitter')
+LOCAL_VIEW_DIR = os.path.join('src','report','september-2022','_data')
 
 
 def read_existing():
@@ -69,7 +72,29 @@ def create_summary():
     })
     monthly_summary.to_csv('monthly.csv')
 
+def create_summary_metrics():
+    START_DATE = '2022-08-01'
+    END_DATE = '2022-10-01'
+    os.makedirs(LOCAL_VIEW_DIR, exist_ok=True)
+    os.chdir('../../../../')
+
+    data = read_existing()
+    data.reset_index(inplace=True)
+
+    os.chdir(LOCAL_VIEW_DIR)
+    data = data[data.date.between(START_DATE,END_DATE)]
+    with open('social.yml','r') as metrics_file:
+        metrics = yaml.safe_load(metrics_file)
+
+    metrics['twitter']['impressions'] = int(data.impressions.sum())
+    metrics['twitter']['engagements'] = int(data.engagements.sum())
+    metrics['twitter']['tweets_published'] = int(data.tweets_published.sum())
+
+    
+    with open('social.yml','w') as metrics_file:
+        yaml.safe_dump(metrics,metrics_file,default_flow_style=False)
 
 if __name__ == '__main__':
     update_raw_data()
     create_summary()
+    create_summary_metrics()

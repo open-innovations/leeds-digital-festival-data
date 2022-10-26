@@ -2,12 +2,15 @@ import os
 import pandas as pd
 import glob
 from cmath import isnan
-### Needs xlrd
+import yaml
+import xlrd
+
 
 WORKING_DIR = os.path.join('working', 'linkedin')
 DATA_DIR = os.path.join('data', 'social')
 RAW_FILE = os.path.join(DATA_DIR, 'linkedin.csv')
 VIEW_DIR = os.path.join('src', '_data', 'metrics', 'linkedin')
+LOCAL_VIEW_DIR = os.path.join('src','report','september-2022','_data')
 
 def read_existing():
     try:
@@ -75,6 +78,30 @@ def create_summary():
     monthly_summary.to_csv('monthly.csv')
 
 
+def create_summary_metrics():
+    START_DATE = '2022-08-01'
+    END_DATE = '2022-10-01'
+    os.makedirs(LOCAL_VIEW_DIR, exist_ok=True)
+    os.chdir('../../../../')
+
+    data = read_existing()
+    data.reset_index(inplace=True)
+
+    os.chdir(LOCAL_VIEW_DIR)
+    data = data[data.date.between(START_DATE,END_DATE)]
+    with open('social.yml','r') as metrics_file:
+        metrics = yaml.safe_load(metrics_file)
+
+    metrics['linkedin']['impressions'] = int(data["impressions_(total)"].sum())
+    metrics['linkedin']['engagements'] = int(data["engagements_total"].sum())
+    
+    with open('social.yml','w') as metrics_file:
+        yaml.safe_dump(metrics,metrics_file,default_flow_style=False)
+
 if __name__ == '__main__':
     update_raw_data()
     create_summary()
+    create_summary_metrics()
+
+
+

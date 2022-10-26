@@ -2,12 +2,14 @@ import os
 import pandas as pd
 import glob
 from cmath import isnan
+import yaml
 ### Needs xlrd
 
 WORKING_DIR = os.path.join('working', 'mailing_list')
 DATA_DIR = os.path.join('data', 'social')
 RAW_FILE = os.path.join(DATA_DIR, 'mailing_list.csv')
 VIEW_DIR = os.path.join('src', '_data', 'metrics', 'mailing_list')
+LOCAL_VIEW_DIR = os.path.join('src','report','september-2022','_data')
 
 def read_existing():
     try:
@@ -58,13 +60,11 @@ def create_summary():
     os.makedirs(VIEW_DIR, exist_ok=True)
     
     data = read_existing()
-    print(data)
     data.reset_index(inplace=True)
     data.datecreated = pd.to_datetime(data.datecreated)
 
     # Save summaries
     os.chdir(VIEW_DIR)
-    print(data.columns)
     # Create monthly summary
     data['month'] = data.datecreated.dt.to_period('M')
     monthly = data.groupby('month')
@@ -73,7 +73,28 @@ def create_summary():
     })
     monthly_summary.to_csv('monthly.csv')
 
+def create_summary_metrics():
+    START_DATE = '2022-08-01'
+    END_DATE = '2022-10-01'
+    os.makedirs(LOCAL_VIEW_DIR, exist_ok=True)
+    os.chdir('../../../../')
+
+    data = read_existing()
+    data.reset_index(inplace=True)
+
+    os.chdir(LOCAL_VIEW_DIR)
+    data = data[data.datecreated.between(START_DATE,END_DATE)]
+    with open('social.yml','r') as metrics_file:
+        metrics = yaml.safe_load(metrics_file)
+
+    metrics['mailing_list']['recipients'] = int(data.emailsentcount.sum())
+   
+
+    
+    with open('social.yml','w') as metrics_file:
+        yaml.safe_dump(metrics,metrics_file,default_flow_style=False)
 
 if __name__ == '__main__':
     update_raw_data()
     create_summary()
+    create_summary_metrics()
