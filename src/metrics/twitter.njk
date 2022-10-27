@@ -1,6 +1,658 @@
 ---
 title: Twitter
 ---
+
+<style>
+#twitter-rate {
+	height: 400px;
+}
+</style>
+
+<div id="twitter-rate"></div>
+
+<script src="/docs/oi-linechart-basic.js"></script>
+
+<script>
+OI.ready(function(){
+
+
+	var rate = [
+  {
+    "d": "2021-08-01",
+    "x": 0,
+    "y": 3.3975659229208923,
+    "impressions": 3944,
+    "engagements": 134,
+    "label": "Point 1"
+  },
+  {
+    "d": "2021-08-02",
+    "x": 1,
+    "y": 2.664938058196485,
+    "impressions": 6942,
+    "engagements": 185,
+    "label": "Point 2"
+  },
+  {
+    "d": "2021-08-03",
+    "x": 2,
+    "y": 2.197802197802198,
+    "impressions": 5005,
+    "engagements": 110,
+    "label": "Point 3"
+  },
+  {
+    "d": "2021-08-04",
+    "x": 3,
+    "y": 1.959514170040486,
+    "impressions": 6175,
+    "engagements": 121,
+    "label": "Point 4"
+  },
+  {
+    "d": "2021-08-05",
+    "x": 4,
+    "y": 1.6963673749143249,
+    "impressions": 5836,
+    "engagements": 99,
+    "label": "Point 5"
+  },
+  {
+    "d": "2021-08-06",
+    "x": 5,
+    "y": 2.4659123875834057,
+    "impressions": 3447,
+    "engagements": 85,
+    "label": "Point 6"
+  },
+  {
+    "d": "2021-08-07",
+    "x": 6,
+    "y": 3.5463917525773194,
+    "impressions": 2425,
+    "engagements": 86,
+    "label": "Point 7"
+  },
+  {
+    "d": "2021-08-08",
+    "x": 7,
+    "y": 2.1699154100772344,
+    "impressions": 5438,
+    "engagements": 118,
+    "label": "Point 8"
+  },
+  {
+    "d": "2021-08-09",
+    "x": 8,
+    "y": 1.5741145605596851,
+    "impressions": 6861,
+    "engagements": 108,
+    "label": "Point 9"
+  },
+  {
+    "d": "2021-08-10",
+    "x": 9,
+    "y": 2.591203545857484,
+    "impressions": 5866,
+    "engagements": 152,
+    "label": "Point 10"
+  },
+  {
+    "d": "2021-08-11",
+    "x": 10,
+    "y": 1.723704076497232,
+    "impressions": 7948,
+    "engagements": 137,
+    "label": "Point 11"
+  },
+  {
+    "d": "2021-08-12",
+    "x": 11,
+    "y": 1.7506855093862055,
+    "impressions": 4741,
+    "engagements": 83,
+    "label": "Point 12"
+  },
+  {
+    "d": "2021-08-13",
+    "x": 12,
+    "y": 1.6129032258064515,
+    "impressions": 7750,
+    "engagements": 125,
+    "label": "Point 13"
+  },
+  {
+    "d": "2021-08-14",
+    "x": 13,
+    "y": 2.6772908366533863,
+    "impressions": 6275,
+    "engagements": 168,
+    "label": "Point 14"
+  },
+  {
+    "d": "2021-08-15",
+    "x": 14,
+    "y": 2.2820800598578375,
+    "impressions": 2673,
+    "engagements": 61,
+    "label": "Point 15"
+  },
+  {
+    "d": "2021-08-16",
+    "x": 15,
+    "y": 1.0933470861268695,
+    "impressions": 9695,
+    "engagements": 106,
+    "label": "Point 16"
+  },
+  {
+    "d": "2021-08-17",
+    "x": 16,
+    "y": 1.7625712804561948,
+    "impressions": 7716,
+    "engagements": 136,
+    "label": "Point 17"
+  },
+  {
+    "d": "2021-08-18",
+    "x": 17,
+    "y": 1.0195164579085347,
+    "impressions": 6866,
+    "engagements": 70,
+    "label": "Point 18"
+  },
+  {
+    "d": "2021-08-19",
+    "x": 18,
+    "y": 0.958410780669145,
+    "impressions": 17216,
+    "engagements": 165,
+    "label": "Point 19"
+  },
+  {
+    "d": "2021-08-20",
+    "x": 19,
+    "y": 0.8598970314382737,
+    "impressions": 18258,
+    "engagements": 157,
+    "label": "Point 20"
+  },
+  {
+    "d": "2021-08-21",
+    "x": 20,
+    "y": 1.092032967032967,
+    "impressions": 14560,
+    "engagements": 159,
+    "label": "Point 21"
+  },
+  {
+    "d": "2021-08-22",
+    "x": 21,
+    "y": 1.140569529420651,
+    "impressions": 13239,
+    "engagements": 151,
+    "label": "Point 22"
+  },
+  {
+    "d": "2021-08-23",
+    "x": 22,
+    "y": 1.131687242798354,
+    "impressions": 20412,
+    "engagements": 231,
+    "label": "Point 23"
+  },
+  {
+    "d": "2021-08-24",
+    "x": 23,
+    "y": 0.8946078431372549,
+    "impressions": 16320,
+    "engagements": 146,
+    "label": "Point 24"
+  },
+  {
+    "d": "2021-08-25",
+    "x": 24,
+    "y": 1.069110347460863,
+    "impressions": 15714,
+    "engagements": 168,
+    "label": "Point 25"
+  },
+  {
+    "d": "2021-08-26",
+    "x": 25,
+    "y": 1.0376473042027323,
+    "impressions": 19178,
+    "engagements": 199,
+    "label": "Point 26"
+  },
+  {
+    "d": "2021-08-27",
+    "x": 26,
+    "y": 1.205736025753585,
+    "impressions": 17085,
+    "engagements": 206,
+    "label": "Point 27"
+  },
+  {
+    "d": "2021-08-28",
+    "x": 27,
+    "y": 1.1163512626111873,
+    "impressions": 16751,
+    "engagements": 187,
+    "label": "Point 28"
+  },
+  {
+    "d": "2021-08-29",
+    "x": 28,
+    "y": 1.101959038290294,
+    "impressions": 17968,
+    "engagements": 198,
+    "label": "Point 29"
+  },
+  {
+    "d": "2021-08-30",
+    "x": 29,
+    "y": 1.1803762449280708,
+    "impressions": 2711,
+    "engagements": 32,
+    "label": "Point 30"
+  },
+  {
+    "d": "2021-08-31",
+    "x": 30,
+    "y": 1.6151795515132508,
+    "impressions": 19131,
+    "engagements": 309,
+    "label": "Point 31"
+  },
+  {
+    "d": "2021-09-01",
+    "x": 31,
+    "y": 1.0833387717809828,
+    "impressions": 15323,
+    "engagements": 166,
+    "label": "Point 32"
+  },
+  {
+    "d": "2021-09-02",
+    "x": 32,
+    "y": 1.204473759678807,
+    "impressions": 13948,
+    "engagements": 168,
+    "label": "Point 33"
+  },
+  {
+    "d": "2021-09-03",
+    "x": 33,
+    "y": 2.2521356458710846,
+    "impressions": 3863,
+    "engagements": 87,
+    "label": "Point 34"
+  },
+  {
+    "d": "2021-09-04",
+    "x": 34,
+    "y": 2.02991452991453,
+    "impressions": 936,
+    "engagements": 19,
+    "label": "Point 35"
+  },
+  {
+    "d": "2021-09-05",
+    "x": 35,
+    "y": 2.49609984399376,
+    "impressions": 641,
+    "engagements": 16,
+    "label": "Point 36"
+  },
+  {
+    "d": "2021-09-06",
+    "x": 36,
+    "y": 3.554386989969812,
+    "impressions": 20538,
+    "engagements": 730,
+    "label": "Point 37"
+  },
+  {
+    "d": "2021-09-07",
+    "x": 37,
+    "y": 3.329623446484882,
+    "impressions": 21564,
+    "engagements": 718,
+    "label": "Point 38"
+  },
+  {
+    "d": "2021-09-08",
+    "x": 38,
+    "y": 3.635998392928887,
+    "impressions": 24890,
+    "engagements": 905,
+    "label": "Point 39"
+  },
+  {
+    "d": "2021-09-09",
+    "x": 39,
+    "y": 3.576375148397309,
+    "impressions": 40432,
+    "engagements": 1446,
+    "label": "Point 40"
+  },
+  {
+    "d": "2021-09-10",
+    "x": 40,
+    "y": 3.0532519132823124,
+    "impressions": 37501,
+    "engagements": 1145,
+    "label": "Point 41"
+  },
+  {
+    "d": "2021-09-11",
+    "x": 41,
+    "y": 3.842313104262176,
+    "impressions": 44062,
+    "engagements": 1693,
+    "label": "Point 42"
+  },
+  {
+    "d": "2021-09-12",
+    "x": 42,
+    "y": 3.453503245061348,
+    "impressions": 42218,
+    "engagements": 1458,
+    "label": "Point 43"
+  },
+  {
+    "d": "2021-09-13",
+    "x": 43,
+    "y": 3.093558587444442,
+    "impressions": 45223,
+    "engagements": 1399,
+    "label": "Point 44"
+  },
+  {
+    "d": "2021-09-14",
+    "x": 44,
+    "y": 2.870340872889455,
+    "impressions": 31390,
+    "engagements": 901,
+    "label": "Point 45"
+  },
+  {
+    "d": "2021-09-15",
+    "x": 45,
+    "y": 3.0862007804185883,
+    "impressions": 25371,
+    "engagements": 783,
+    "label": "Point 46"
+  },
+  {
+    "d": "2021-09-16",
+    "x": 46,
+    "y": 2.9608682995799893,
+    "impressions": 24047,
+    "engagements": 712,
+    "label": "Point 47"
+  },
+  {
+    "d": "2021-09-17",
+    "x": 47,
+    "y": 2.9865890241750486,
+    "impressions": 22668,
+    "engagements": 677,
+    "label": "Point 48"
+  },
+  {
+    "d": "2021-09-18",
+    "x": 48,
+    "y": 3.248480243161094,
+    "impressions": 15792,
+    "engagements": 513,
+    "label": "Point 49"
+  },
+  {
+    "d": "2021-09-19",
+    "x": 49,
+    "y": 3.476592478894858,
+    "impressions": 13030,
+    "engagements": 453,
+    "label": "Point 50"
+  },
+  {
+    "d": "2021-09-20",
+    "x": 50,
+    "y": 2.4901587863240304,
+    "impressions": 45218,
+    "engagements": 1126,
+    "label": "Point 51"
+  },
+  {
+    "d": "2021-09-21",
+    "x": 51,
+    "y": 2.3285899094437257,
+    "impressions": 23190,
+    "engagements": 540,
+    "label": "Point 52"
+  },
+  {
+    "d": "2021-09-22",
+    "x": 52,
+    "y": 3.1015384615384614,
+    "impressions": 24375,
+    "engagements": 756,
+    "label": "Point 53"
+  },
+  {
+    "d": "2021-09-23",
+    "x": 53,
+    "y": 2.9455081001472756,
+    "impressions": 23765,
+    "engagements": 700,
+    "label": "Point 54"
+  },
+  {
+    "d": "2021-09-24",
+    "x": 54,
+    "y": 3.2107390980099697,
+    "impressions": 25477,
+    "engagements": 818,
+    "label": "Point 55"
+  },
+  {
+    "d": "2021-09-25",
+    "x": 55,
+    "y": 3.739178485909007,
+    "impressions": 21716,
+    "engagements": 812,
+    "label": "Point 56"
+  },
+  {
+    "d": "2021-09-26",
+    "x": 56,
+    "y": 3.4843935479365964,
+    "impressions": 14321,
+    "engagements": 499,
+    "label": "Point 57"
+  },
+  {
+    "d": "2021-09-27",
+    "x": 57,
+    "y": 3.4683855125844074,
+    "impressions": 22806,
+    "engagements": 791,
+    "label": "Point 58"
+  },
+  {
+    "d": "2021-09-28",
+    "x": 58,
+    "y": 2.6699401565137335,
+    "impressions": 26068,
+    "engagements": 696,
+    "label": "Point 59"
+  },
+  {
+    "d": "2021-09-29",
+    "x": 59,
+    "y": 3.0556068723443564,
+    "impressions": 27065,
+    "engagements": 827,
+    "label": "Point 60"
+  },
+  {
+    "d": "2021-09-30",
+    "x": 60,
+    "y": 1.0590858416945375,
+    "impressions": 17940,
+    "engagements": 190,
+    "label": "Point 61"
+  },
+  {
+    "d": "2021-10-01",
+    "x": 61,
+    "y": 1.2519561815336464,
+    "impressions": 8946,
+    "engagements": 112,
+    "label": "Point 62"
+  },
+  {
+    "d": "2021-10-02",
+    "x": 62,
+    "y": 0.8045052292839904,
+    "impressions": 1243,
+    "engagements": 10,
+    "label": "Point 63"
+  },
+  {
+    "d": "2021-10-03",
+    "x": 63,
+    "y": 1.111883252258513,
+    "impressions": 1439,
+    "engagements": 16,
+    "label": "Point 64"
+  },
+  {
+    "d": "2021-10-04",
+    "x": 64,
+    "y": 1.2508017960230917,
+    "impressions": 3118,
+    "engagements": 39,
+    "label": "Point 65"
+  },
+  {
+    "d": "2021-10-05",
+    "x": 65,
+    "y": 0.8928571428571429,
+    "impressions": 1344,
+    "engagements": 12,
+    "label": "Point 66"
+  },
+  {
+    "d": "2021-10-06",
+    "x": 66,
+    "y": 2.4364406779661016,
+    "impressions": 944,
+    "engagements": 23,
+    "label": "Point 67"
+  },
+  {
+    "d": "2021-10-07",
+    "x": 67,
+    "y": 0.32599837000814996,
+    "impressions": 1227,
+    "engagements": 4,
+    "label": "Point 68"
+  },
+  {
+    "d": "2021-10-08",
+    "x": 68,
+    "y": 0.9273570324574961,
+    "impressions": 647,
+    "engagements": 6,
+    "label": "Point 69"
+  },
+  {
+    "d": "2021-10-09",
+    "x": 69,
+    "y": 0,
+    "impressions": 313,
+    "engagements": 0,
+    "label": "Point 70"
+  },
+  {
+    "d": "2021-10-10",
+    "x": 70,
+    "y": 0.9090909090909091,
+    "impressions": 330,
+    "engagements": 3,
+    "label": "Point 71"
+  },
+  {
+    "d": "2021-10-11",
+    "x": 71,
+    "y": 2.6970954356846475,
+    "impressions": 3374,
+    "engagements": 91,
+    "label": "Point 72"
+  },
+  {
+    "d": "2021-10-12",
+    "x": 72,
+    "y": 2.3058823529411763,
+    "impressions": 2125,
+    "engagements": 49,
+    "label": "Point 73"
+  },
+  {
+    "d": "2021-10-13",
+    "x": 73,
+    "y": 0,
+    "impressions": 102,
+    "engagements": 0,
+    "label": "Point 74"
+  }
+]
+
+
+	OI.linechart(document.getElementById('twitter-rate'),{
+		'left':50,
+		'right':10,
+		'top':10,
+		'bottom':30,
+		'axis':{
+			'x':{
+				'labels': {
+					31: {'label':'September'},
+					61: {'label':'October'},
+					73: {'label':'End'},
+				},
+				'line':{'stroke': '#0C0C33', 'stroke-width': 1.5}
+			},
+			'y':{
+				'line': {'show':false},
+				'grid': {'show':true, 'stroke': '#0C0C33', 'stroke-width': 1.5},
+				'labels':{
+					1: {'label':'1%'},
+					2: {'label':'2%'},
+					3: {'label':'3%'},
+					4: {'label':'4%'}
+				}
+			}
+		}
+	  }).addSeries(rate,{
+		'title': 'Response rate',
+		'points':{ 'size':4, 'color': 'rgba(61,242,186,1)' },
+		'line':{ 'color': 'rgba(61,242,186,1)' },
+		'tooltip':{
+		  'label': function label(d){
+			return ''+(new Date(d.data.d)).toLocaleDateString()+'\nResponse rate: '+d.data.y.toFixed(1)+'%\nEngagement: '+d.data.engagements.toLocaleString()+'\nImpressions: '+d.data.impressions.toLocaleString()+'';
+		  }
+		}
+	  }).draw();
+	  
+});
+</script>
+
 <pre>
 {{ metrics.twitter.monthly | dump(2) }}
 </pre>
+
+
