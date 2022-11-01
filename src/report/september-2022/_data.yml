@@ -1,19 +1,15 @@
-title: September 2022
 date: 2022-09-20
-report_style: festival
-
 dates:
-  festival:
-    - 2022-09-20
-    - 2022-09-30
   extract:
   - 2022-08-01
   - 2022-10-01
-
-# TODO REPLACE THESE WITH REAL STATS
+  festival:
+  - 2022-09-20
+  - 2022-09-30
+report_style: festival
 statistics:
   events: 213
+  max_attendees: 58
   sponsors: 46
-  total_returns: 3
-  max_attendees: 2
-
+  total_returns: 70
+title: September 2022
