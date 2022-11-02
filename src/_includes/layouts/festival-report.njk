@@ -10,7 +10,11 @@ layout: layouts/page.njk
   to {{ dates.festival[1] | date('HUMAN_DATE') }}.
 </p>
 
-{# Adds a dashboard of based on the report_style setting, which defaults to 'festival' #}
+{#
+  Adds a dashboard of based on the report_style setting, which defaults to whatever is set in
+  `report/_data.yml` in the `report_style` key, but can be overriden using the shared data
+  hierarchy of Lume.
+#}
 {{ comp.report[report_style]({
   dates: dates,
   statistics: statistics,

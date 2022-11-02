@@ -6,7 +6,7 @@ dates:
   festival:
   - 2022-09-20
   - 2022-09-30
-report_style: festival
+report_style: festival_v2
 statistics:
   events: 213
   max_attendees: 58

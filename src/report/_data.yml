@@ -1,4 +1,4 @@
 layout: layouts/festival-report.njk
-report_style: festival
+report_style: festival_v2
 tags:
   - report
