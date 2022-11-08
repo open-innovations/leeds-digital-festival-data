@@ -1,0 +1,50 @@
+---
+css: |
+  .headline {
+    list-style: none;
+    margin-left: 0;
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-gap: 0.5em;
+    margin-bottom: 2em;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    font-size: 3.5vw;
+  }
+
+  @media only screen and (min-width: 30rem) {
+    .headline {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      font-size: 2vw;
+    }
+  }
+  @media only screen and (min-width: 50rem) {
+    .headline {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      font-size: 1.4vw;
+    }
+  }
+  /* Cap the max size of font in the panels */
+  @media only screen and (min-width: 65rem) {
+    .headline { font-size: 0.908rem; }
+  }
+  .headline > li {
+    padding: 1em;
+    background: #0C0C33;
+    color: white;
+    text-align: center;
+    margin-bottom: 0;
+  }
+  .headline > li:focus {
+    outline: 4px solid #061eff;
+  }
+  .headline > li > * {
+    line-height: 1.2em;
+  }
+  .headline > li > span {
+    display: block;
+  }
+---
+
+<ul class="headline">
+  {{ content | safe }}
+</ul>
