@@ -78,8 +78,9 @@ def create_summary():
 def create_summary_metrics():
     START_DATE = '2022-08-01'
     END_DATE = '2022-10-01'
-    os.makedirs(LOCAL_VIEW_DIR, exist_ok=True)
     os.chdir('../../../../')
+    os.makedirs(LOCAL_VIEW_DIR, exist_ok=True)
+    
 
     data = read_existing()
     data.reset_index(inplace=True)
