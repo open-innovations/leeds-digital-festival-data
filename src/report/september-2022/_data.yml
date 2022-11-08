@@ -8,6 +8,9 @@ dates:
   - 2022-09-30
 report_style: festival_v2
 statistics:
+  event_type: 000000
+  hosts: 000000
+  international: 0000
   events: 213
   max_attendees: 58
   sponsors: 46
