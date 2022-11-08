@@ -1,0 +1,68 @@
+---
+title: LinkedIn
+---
+
+<h1>{{title}}</h1>
+
+<p>This page shows the data on Leeds Digital Festival LinkedIn account from 2021 - 2022.</p>
+
+<p>[Some content around Leeds Digital Festival having a year-long impact, more than just through the festival period - this page shows breakdown of metrics throughout the year]</p>
+
+
+<h2>Headlines</h2>
+
+
+{% comp 'metric.headline' %}
+{% comp 'metric.panel' %}
+    <span class="title">Impressions</span>
+    <div class="number">{{ metrics.linkedin.monthly.columns.impressions | sum | localize }}</div>
+  {% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Engagements</span>
+    <div class="number">{{ social.linkedin.engagements | localize }}</div>
+  {% endcomp %}  
+  {% comp 'metric.panel' %}
+    <span class="title">Comments</span>
+    <div class="number">{{ social.linkedin.comments  | localize }}</div>
+  {% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Reactions</span>
+    <div class="number">{{ social.linkedin.reactions  | localize }}</div>
+  {% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Clicks</span>
+    <div class="number">{{ social.linkedin.clicks  | localize }}</div>
+  {% endcomp %}
+    {% comp 'metric.panel' %}
+    <span class="title">Total Page Views</span>
+    <div class="number">{{ social.linkedin.page_views  | localize }}</div>
+  {% endcomp %}
+  {% endcomp %}
+
+
+
+<h3>LinkedIn Statistics</h3>
+
+<p>Throughout 2022, our LinkedIn posts reached <strong>{{ social.linkedin.impressions }}</strong> impressions, with <strong>{{ social.linkedin.reactions }}</strong> reactions and <strong>{{ social.linkedin.comments }}</strong> comments.</p>
+
+<p>The below chart shows the engagement rate (ratio of engagements to impressions) by month over the year:</p>
+
+
+<p> { LINECHART - engagement rate monthly over last year } </p>
+
+
+
+<p> In 2022, we have had <strong>{{ social.linkedin.page_views }}</strong> total page views. The below chart shows the increase in page views over the past year. </p>
+
+<p> { LINECHART - increase in page views over the year } </p>
+
+
+
+
+
+
+{# <pre>
+{{ metrics.linkedin.monthly | dump(2) }}
+</pre>  #}
+
+

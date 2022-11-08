@@ -2,13 +2,52 @@
 title: Twitter
 ---
 
-<style>
-#twitter-rate {
-	height: 400px;
-}
-</style>
+<h1>{{title}}</h1>
 
-<div id="twitter-rate"></div>
+
+<p>This page shows the data on Leeds Digital Festival Twitter account from 2021-2022.</p>
+
+<h2>Headlines</h2>
+
+
+{% comp 'metric.headline' %}
+{% comp 'metric.panel' %}
+    <span class="title">Tweets Published</span>
+    <div class="number">{{ metrics.twitter.monthly.columns.tweets_published | sum | localize }}</div>
+  {% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Impressions</span>
+    <div class="number">{{ metrics.twitter.monthly.columns.impressions | sum | localize }}</div>
+  {% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Engagements</span>
+    <div class="number">{{ metrics.twitter.monthly.columns.engagements | sum | localize }}</div>
+  {% endcomp %}
+  {% endcomp %}
+
+
+
+<h3>Twitter Statistics - 2022</h3>
+
+<p>Throughout 2022, we tweeted <strong>{{ social.twitter.tweets }}</strong> times. These tweets received <strong>{{ social.twitter.impressions }}</strong> 
+impressions and <strong>{{ social.twitter.engagements }}</strong> engagements, including <strong>{{ social.twitter.likes }}</strong> likes and 
+<strong>{{ social.twitter.retweets }}</strong> retweets.</p>
+
+<p>The below chart shows the engagement rate (ratio of engagements to impressions) by month over the year:</p>
+
+
+<p> { LINECHART - engagement rate monthly over last year } </p>
+
+
+
+<p> In 2022, we have gained <strong>{{ social.twitter.followers_gained }}</strong> followers on Twitter. The below chart shows the increase in followers over the course of the year:</p>
+
+<p> { LINECHART - increase in followers over the year } </p>
+
+
+
+
+{# <div id="twitter-rate"></div>
 
 <script src="/docs/oi-linechart-basic.js"></script>
 
@@ -653,6 +692,6 @@ OI.ready(function(){
 
 <pre>
 {{ metrics.twitter.monthly | dump(2) }}
-</pre>
+</pre> #}
 
 

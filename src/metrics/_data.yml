@@ -1,3 +1,23 @@
 layout: layouts/page.njk
 tags:
   - metric
+
+social:
+  twitter:
+    tweets: 0
+    impressions: 0
+    engagements: 0
+    retweets: 0
+    likes: 0
+    followers_gained: 0
+  linkedin:
+    impressions: 0
+    engagements: 0
+    comments: 0
+    reactions: 0
+    page_views: 0
+    clicks: 0
+  website: 
+    page_views: 0
+    unique_page_views: 0 
+    users: 0 
