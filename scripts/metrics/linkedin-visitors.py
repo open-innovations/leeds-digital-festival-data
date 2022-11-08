@@ -70,7 +70,8 @@ def create_summary():
     data['month'] = data.date.dt.to_period('M')
     monthly = data.groupby('month')
     monthly_summary = pd.DataFrame({
-        'unique_visitors': monthly["total_unique_visitors_(total)"].sum()
+        'unique_visitors': monthly["total_unique_visitors_(total)"].sum(),
+        'total_views' : monthly["total_page_views_(total)"].sum()
     })
     monthly_summary.to_csv('monthly-visitors.csv')
 
