@@ -8,7 +8,7 @@ import xlrd
 
 WORKING_DIR = os.path.join('working', 'linkedin')
 DATA_DIR = os.path.join('data', 'social')
-RAW_FILE = os.path.join(DATA_DIR, 'linkedin.csv')
+RAW_FILE = os.path.join(DATA_DIR, 'linkedin-updates.csv')
 VIEW_DIR = os.path.join('src', '_data', 'metrics', 'linkedin')
 LOCAL_VIEW_DIR = os.path.join('src','report','september-2022','_data')
 
@@ -73,9 +73,12 @@ def create_summary():
     monthly = data.groupby('month')
     monthly_summary = pd.DataFrame({
         'impressions': monthly["impressions_(total)"].sum(),
-        'engagements': monthly["engagements_total"].sum()
+        'engagements': monthly["engagements_total"].sum(),
+        'commnents' : monthly["comments_(total)"].sum(),
+        'reactions' : monthly["reactions_(total)"].sum(),
+        'clicks' : monthly["clicks_(total)"].sum() ,
     })
-    monthly_summary.to_csv('monthly.csv')
+    monthly_summary.to_csv('monthly-updates.csv')
 
 
 def create_summary_metrics():
