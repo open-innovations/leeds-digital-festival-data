@@ -12,9 +12,22 @@
     <p class="footnote">{{ festival_period }}</p>
   {% endcomp %}
   {% comp 'report.panel' %}
+    <span class="title">Event Type Breakdown</span>
+    <div class="number">{{ statistics.event_type | localize }}</div>
+    <p class="footnote">{{ festival_period }}</p>
+  {% endcomp %}
+  {% comp 'report.panel' %}
     <span class="title">Sponsors</span>
     <div class="number">{{ statistics.sponsors | localize }}</div>
     <p class="footnote">Premier/Executive/Associate/Partner</p>
+  {% endcomp %}
+    {% comp 'report.panel' %}
+    <span class="title">Number of Hosts</span>
+    <div class="number">{{ statistics.hosts | localize }}</div>
+  {% endcomp %}
+  {% comp 'report.panel' %}
+    <span class="title">Events with International Attendees</span>
+    <div class="number">{{ statistics.international | localize }}</div>
   {% endcomp %}
   {% comp 'report.panel', { rows: 3 } %}
     <span class="title">Map</span>
@@ -64,12 +77,4 @@
     <div class="number">{{ social.mailing_list.recipients | localize }}</div>
     <p class="footnote">{{ festival_context_period }}</p>
   {% endcomp %}
-
-  {% comp 'report.panel' %}
-    <span class="title">ANOTHER THING</span>
-    <div class="number">42</div>
-    <p class="footnote">{{ festival_context_period }}</p>
-  {% endcomp %}
-
-
 {% endcomp %}
