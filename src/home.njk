@@ -2,4 +2,30 @@
 url: /home/
 ---
 
-NEW HOMEPAGE
+
+{% comp 'home.headline' %}
+{% comp 'home.panel' %}
+    <span class="title">Total Attendees</span>
+    <div class="number">{{ summary.total_attendees | localize }}</div>
+  {% endcomp %} 
+  {% comp 'home.panel' %}
+    <span class="title">Total Events</span>
+    <div class="number">{{ summary.total_events | localize }}</div>
+  {% endcomp %}
+  {% comp 'home.panel' %}
+    <span class="title">Total Number of Event Hosts</span>
+    <div class="number">{{ summary.total_event_hosts | localize }}</div>
+  {% endcomp %}
+    {% comp 'home.panel' %}
+    <span class="title">Total Online Impressions</span>
+    <div class="number">{{ summary.total_online_impressions | localize }}</div>
+  {% endcomp %}
+    {% comp 'home.panel' %}
+    <span class="title">Total Online Engagements</span>
+    <div class="number">{{ summary.total_online_engagements | localize }}</div>
+  {% endcomp %}
+      {% comp 'home.panel' %}
+    <span class="title">Current Sponsors</span>
+    <div class="number">{{ summary.current_sponsors | localize }}</div>
+  {% endcomp %}
+  {% endcomp %}
