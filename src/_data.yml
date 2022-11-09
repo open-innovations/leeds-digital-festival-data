@@ -1,1 +1,9 @@
 layout: layouts/page.njk
+
+summary:
+  total_attendees: 0 
+  total_events: 0
+  total_event_hosts: 0
+  total_online_impressions: 0
+  total_online_engagements: 0
+  current_sponsors: 0
