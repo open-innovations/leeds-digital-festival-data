@@ -65,3 +65,8 @@
   border: 0.5rem solid #ffffff00;
   border-bottom-color: var(--bg-colour);
 }
+
+.chart-container .chart {
+  height: auto;
+  
+}

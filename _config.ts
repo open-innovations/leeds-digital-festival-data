@@ -4,6 +4,8 @@ import date from "lume/plugins/date.ts";
 import esbuild from 'lume/plugins/esbuild.ts';
 import inline from "lume/plugins/inline.ts";
 
+import oiCharts from 'oi-lume-charts/mod.ts';
+
 import csvLoader from 'oi-lume-utils/loaders/csv-loader.ts';
 import autoDependency from 'oi-lume-utils/processors/auto-dependency.ts';
 
@@ -33,6 +35,10 @@ site.use(esbuild({
     treeShaking: true,
   },
 }));
+site.use(oiCharts({
+  assetPath: 'assets/oi',
+  componentNamespace: 'oi.charts',
+}));
 
 // Add filters
 site.filter('localize', (num) => Number(num).toLocaleString())
@@ -52,5 +58,6 @@ site.copy('/assets/images')
 
 // Register data loaders
 site.loadData([".csv"], csvLoader);
+
 
 export default site;

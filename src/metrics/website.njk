@@ -2,6 +2,8 @@
 title: Website
 ---
 
+{% from 'macros.njk' import dateFormatterNoDay %}
+
 <h1>{{title}}</h1>
 
 <p>This page shows the data on Leeds Digital Festival website analytics from 2021 - 2022.</p>
@@ -42,7 +44,46 @@ title: Website
 
 <p> In 2022, we have had <strong>{{ social.linkedin.page_views }}</strong> total page views. The below chart shows the increase in page views over the past year. </p>
 
-<p> { LINECHART - increase in page views over the year } </p>
+<div class="chart-container">
+{{ comp.oi.charts.graph.line({
+  categories: metrics.website.monthly.columns.month,
+  width: 25,
+  height: 6,
+  text: { colour: '#eee' },
+  xAxis: {
+    title: 'Month',
+    titleOffset: 3,
+    labelRotate: 35,
+    majorTick: 2,
+    formatter: dateFormatterNoDay
+  },
+  yAxis: {
+    title: 'Page Views',
+    titleOffset: 3,
+    majorTick: 50000
+  },
+  plotArea: {
+    yMin: 0,
+    yMax: 100000,
+    colour: '#0C0C33'
+  },
+  padding: {
+    left: 4,
+    bottom: 4
+  },
+  series: [
+    {
+      id: "all", label: "All",
+      yValues: metrics.website.monthly.columns.page_views,
+      colour: '#35d0a6',
+      markerOptions: { s: 5 }
+    }
+  ],
+  legend: {
+    width: "20em"
+  }
+}) | safe }}
+</div>
 
 {# <pre>
 {{ metrics.website.monthly | dump(2) }}
