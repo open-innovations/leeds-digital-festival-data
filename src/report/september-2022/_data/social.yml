@@ -5,9 +5,14 @@ linkedin:
 mailing_list:
   recipients: 31396
 twitter:
+  engagement_rate: 1
   engagements: 3098
+  follows: 13
   impressions: 113768
+  likes: 660
+  retweets: 211
   tweets_published: 220
+  user_profile_clicks: 512
 website:
   pageviews: 147749
   unique_page_views: 25838

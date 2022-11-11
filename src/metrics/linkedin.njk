@@ -6,8 +6,6 @@ title: LinkedIn
 
 <h1>{{title}}</h1>
 
-<p>This page shows the data on Leeds Digital Festival LinkedIn account from 2021 - 2022.</p>
-
 <h2>Headlines</h2>
 
 
@@ -48,6 +46,47 @@ title: LinkedIn
 
 
 <p> { LINECHART - engagement rate monthly over last year } </p>
+
+<div class="chart-container">
+{{ comp.oi.charts.graph.line({
+  categories: metrics.linkedin.monthly_updates.columns.month,
+  width: 25,
+  height: 6,
+  text: { colour: '#eee' },
+  xAxis: {
+    title: 'Month',
+    titleOffset: 3,
+    labelRotate: 35,
+    majorTick: 2,
+    formatter: dateFormatterNoDay
+  },
+  yAxis: {
+    title: 'Engagement Rate (%)',
+    titleOffset: 2,
+    majorTick: 50000
+  },
+  plotArea: {
+    yMin: 0,
+    yMax: 2,
+    colour: '#0C0C33'
+  },
+  padding: {
+    left: 3,
+    bottom: 4
+  },
+  series: [
+    {
+      id: "all", label: "All",
+      yValues: metrics.linkedin.monthly_updates.columns.engagement_rate,
+      colour: '#35d0a6',
+      markerOptions: { s: 5 }
+    }
+  ],
+  legend: {
+    width: "20em"
+  }
+}) | safe }}
+</div>
 
 
 

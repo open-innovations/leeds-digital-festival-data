@@ -6,7 +6,7 @@ import yaml
 import xlrd
 
 
-WORKING_DIR = os.path.join('working', 'linkedin')
+WORKING_DIR = os.path.join('working', 'linkedin', 'updates')
 DATA_DIR = os.path.join('data', 'social')
 RAW_FILE = os.path.join(DATA_DIR, 'linkedin-updates.csv')
 VIEW_DIR = os.path.join('src', '_data', 'metrics', 'linkedin')
@@ -56,8 +56,6 @@ def update_raw_data():
 def post_combine_process(data):
     data["engagements_total"] = round(data["impressions_(total)"] * data["engagement_rate_(total)"])
     return (data.sort_values(by=['date']))
-                
-
 
 def create_summary():
     os.makedirs(VIEW_DIR, exist_ok=True)
@@ -74,11 +72,12 @@ def create_summary():
     monthly_summary = pd.DataFrame({
         'impressions': monthly["impressions_(total)"].sum(),
         'engagements': monthly["engagements_total"].sum(),
-        'commnents' : monthly["comments_(total)"].sum(),
+        'comments' : monthly["comments_(total)"].sum(),
         'reactions' : monthly["reactions_(total)"].sum(),
-        'clicks' : monthly["clicks_(total)"].sum() ,
+        'clicks' : monthly["clicks_(total)"].sum(),
+        'engagement_rate' : monthly["engagement_rate_(total)"].sum(),
     })
-    monthly_summary.to_csv('monthly-updates.csv')
+    monthly_summary.to_csv('monthly_updates.csv')
 
 
 def create_summary_metrics():

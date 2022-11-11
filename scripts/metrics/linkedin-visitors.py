@@ -73,7 +73,7 @@ def create_summary():
         'unique_visitors': monthly["total_unique_visitors_(total)"].sum(),
         'total_views' : monthly["total_page_views_(total)"].sum()
     })
-    monthly_summary.to_csv('monthly-visitors.csv')
+    monthly_summary.to_csv('monthly_visitors.csv')
 
 
 def create_summary_metrics():
