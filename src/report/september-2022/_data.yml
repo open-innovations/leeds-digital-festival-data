@@ -8,11 +8,12 @@ dates:
   - 2022-09-30
 report_style: festival_v2
 statistics:
-  event_type: 000000
+  event_type: 0
+  events: 213
   hosts: 158
   international: 11
-  events: 213
-  max_attendees: 58
+  max_attendees: 61
   sponsors: 46
-  total_returns: 70
+  total_returns: 69
+  total_returns_region: 64
 title: September 2022
