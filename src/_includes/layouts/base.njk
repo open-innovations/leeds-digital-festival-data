@@ -8,10 +8,6 @@
 	<link rel="StyleSheet" href="https://use.typekit.net/inj1tmf.css" type="text/css" />
   <link rel="stylesheet" href="/style/components.css">
   <link rel="stylesheet" href="/style/dashboard.css">
-
-  {% for header_part in header_parts %}
-    {{ comp.header_parts[header_part]() | safe }}
-  {% endfor -%}
 </head>
 
 <body>
