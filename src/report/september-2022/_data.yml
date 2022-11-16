@@ -8,7 +8,11 @@ dates:
   - 2022-09-30
 report_style: festival_v2
 statistics:
-  event_type: 0
+  event_type:
+    hybrid_event: 7
+    physical_event: 41
+    total: 70
+    virtual_event: 22
   events: 213
   hosts: 158
   international: 11

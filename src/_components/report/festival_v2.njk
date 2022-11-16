@@ -13,7 +13,11 @@
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Event Type Breakdown</span>
-    <div class="number">{{ statistics.event_type | localize }}</div>
+    <br>
+    <span class="subtext">Physical: {{ ((statistics.event_type.physical_event / statistics.event_type.total) * 100) | round(1) | localize }}%</span>
+    <span class="subtext">Virtual: {{ ((statistics.event_type.virtual_event / statistics.event_type.total) * 100) | round(1) | localize }}%</span>
+    <span class="subtext">Hybrid: {{ ((statistics.event_type.hybrid_event / statistics.event_type.total) * 100) | round(1) | localize }}%</span>
+    <br>
     <p class="footnote">{{ festival_period }}</p>
   {% endcomp %}
     {% comp 'report.panel' %}
