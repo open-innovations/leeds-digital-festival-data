@@ -1,22 +1,4 @@
 ---
-layout: layouts/base.njk
-header_parts:
-  - dashboard
-  - iframe-style
+layout: layouts/bare.njk
 ---
-<div id="report-area"></div>
-<script>
-  window.addEventListener('DOMContentLoaded', function () {
-    var body = document.querySelector('body');
-    function reportWindowSize() {
-      var rect = body.getBoundingClientRect();
-      window.parent.postMessage({ height: Math.ceil(rect.height) }, '*');
-    }
-    var report = new OI.report(document.getElementById('report-area'), {
-      siteRoot: '{{ "/" | url }}',
-      showCharts: false,
-      resizeCallback: reportWindowSize,
-    });
-    window.addEventListener('resize', reportWindowSize);
-  })
-</script>
+{{- search.page('dashboard compatibility-with-old-site').content | safe -}}
