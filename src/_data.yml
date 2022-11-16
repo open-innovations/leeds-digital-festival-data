@@ -1,9 +1,7 @@
 layout: layouts/page.njk
 
-dashboard_figures:
-  sept_2021:
-    - 
-  
+mergedKeys:
+  metas: object
 
 summary:
   total_events: 518

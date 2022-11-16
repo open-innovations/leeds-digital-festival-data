@@ -3,6 +3,7 @@ import base_path from "lume/plugins/base_path.ts";
 import date from "lume/plugins/date.ts";
 import esbuild from 'lume/plugins/esbuild.ts';
 import inline from "lume/plugins/inline.ts";
+import metas from "lume/plugins/metas.ts";
 
 import oiCharts from 'oi-lume-charts/mod.ts';
 
@@ -39,6 +40,7 @@ site.use(oiCharts({
   assetPath: 'assets/oi',
   componentNamespace: 'oi.charts',
 }));
+site.use(metas());
 
 // Add filters
 site.filter('localize', (num) => Number(num).toLocaleString())
