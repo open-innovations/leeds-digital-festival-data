@@ -1,5 +1,5 @@
 ---
-title: Social Media
+title: Digital Engagements
 ---
 
 {% from 'macros.njk' import dateFormatterNoDay %}
@@ -27,11 +27,12 @@ title: Social Media
 impressions and had <strong>{{ metrics.twitter.monthly.columns.engagements | sum | localize }}</strong> engagements, including <strong>{{ metrics.twitter.monthly.columns.likes | sum | localize }}</strong> likes and 
 <strong>{{ metrics.twitter.monthly.columns.retweets | sum | localize }}</strong> retweets.</p>
 
+<br>
 <p>The below chart shows <strong>engagement rate</strong> (ratio of impressions to engagements) over the year:
 
 <div class="chart-container">
 {{ comp.oi.charts.graph.line({
-  categories: metrics.twitter.monthly.columns.engagement_rate,
+  categories: metrics.twitter.monthly.columns.month,
   width: 25,
   height: 6,
   text: { colour: '#eee' },
@@ -70,6 +71,7 @@ impressions and had <strong>{{ metrics.twitter.monthly.columns.engagements | sum
 }) | safe }}
 </div>
 
+<br>
 <p>The below chart shows <strong>impressions</strong> by month over the year:</p>
 
 <div class="chart-container">
@@ -113,11 +115,6 @@ impressions and had <strong>{{ metrics.twitter.monthly.columns.engagements | sum
 }) | safe }}
 </div>
 
-<p> In 2022, we have gained <strong>{{ social.twitter.followers_gained }}</strong> followers on Twitter. The below chart shows the increase in followers over the course of the year:</p>
-
-<p> { LINECHART - increase in followers over the year } </p>
-
-
 
 <br><br>
 
@@ -150,6 +147,7 @@ impressions and had <strong>{{ metrics.twitter.monthly.columns.engagements | sum
   {% endcomp %}
   {% endcomp %}
 
+<br>
 <p>Throughout 2022, our LinkedIn posts reached <strong>{{ metrics.linkedin.monthly_updates.columns.impressions | sum | localize  }}</strong> impressions, with <strong>{{ metrics.linkedin.monthly_updates.columns.reactions | sum | localize }}</strong> reactions and <strong>{{ metrics.linkedin.monthly_updates.columns.comments | sum  | localize }}</strong> comments.</p>
 
 <p>The below chart shows the engagement rate (ratio of engagements to impressions) by month over the year:</p>
@@ -197,7 +195,7 @@ impressions and had <strong>{{ metrics.twitter.monthly.columns.engagements | sum
 </div>
 
 
-
+<br><br>
 <p> In 2022, we have had <strong>{{ metrics.linkedin.monthly_visitors.columns.total_views | sum | localize }}</strong> total page views. The below chart shows the increase in page views over the past year. </p>
 
 <div class="chart-container">
@@ -250,15 +248,15 @@ impressions and had <strong>{{ metrics.twitter.monthly.columns.engagements | sum
 {% comp 'report.panels' %}
 {% comp 'report.panel' %}
     <span class="title">Page Views</span>
-    <div class="number">{{ social.website.page_views | localize }}</div>
+    <div class="number">{{ metrics.website.monthly.columns.page_views | sum | localize }}</div>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Unique Page Views</span>
-    <div class="number">{{ social.website.unique_page_views  | localize }}</div>
+    <div class="number">{{ metrics.website.monthly.columns.unique_page_views | sum | localize }}</div>
   {% endcomp %}
   {% comp 'report.panel' %}
     <span class="title">Users</span>
-    <div class="number">{{ social.website.users  | localize }}</div>
+    <div class="number">{{ metrics.website.monthly.columns.users | sum  | localize }}</div>
   {% endcomp %}
   {% endcomp %}
 
@@ -266,16 +264,9 @@ impressions and had <strong>{{ metrics.twitter.monthly.columns.engagements | sum
 
 <h3>Website Statistics</h3>
 
-<p>Throughout 2022, the Leeds Digital Festival website has received <strong>{{social.website.page_views}}</strong> total page views, of which <strong>{{social.website.unique_page_views}}</strong> views are unique from <strong>{{social.website.users}}</strong> users.</p>
+<p>Throughout 2022, the Leeds Digital Festival website has received <strong>{{metrics.website.monthly.columns.page_views | sum | localize}}</strong> total page views, of which <strong>{{metrics.website.monthly.columns.unique_page_views | sum | localize}}</strong> views are unique from <strong>{{metrics.website.monthly.columns.users | sum  | localize}}</strong> users.</p>
 
-<p>The below chart shows the engagement rate (ratio of engagements to impressions) by month over the year:</p>
-
-
-<p> { LINECHART - engagement rate monthly over last year } </p>
-
-
-
-<p> In 2022, we have had <strong>{{ social.linkedin.page_views }}</strong> total page views. The below chart shows the increase in page views over the past year. </p>
+<p>The below chart shows the increase in page views over the past year:</p>
 
 <div class="chart-container">
 {{ comp.oi.charts.graph.line({

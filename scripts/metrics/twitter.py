@@ -4,7 +4,6 @@ import pandas as pd
 import glob
 import yaml
 
-
 WORKING_DIR = os.path.join('working', 'twitter')
 DATA_DIR = os.path.join('data', 'social')
 RAW_FILE = os.path.join(DATA_DIR, 'twitter.csv')
@@ -69,6 +68,11 @@ def create_summary():
         'tweets_published': monthly.tweets_published.sum(),
         'impressions': monthly.impressions.sum(),
         'engagements': monthly.engagements.sum(),
+        'engagement_rate': monthly.engagement_rate.sum(),
+        'retweets': monthly.retweets.sum(),
+        'likes': monthly.likes.sum(),
+        'user_profile_clicks': monthly.user_profile_clicks.sum(),
+        'follows': monthly.follows.sum(),
     })
     monthly_summary.to_csv('monthly.csv')
 
@@ -89,6 +93,11 @@ def create_summary_metrics():
     metrics['twitter']['impressions'] = int(data.impressions.sum())
     metrics['twitter']['engagements'] = int(data.engagements.sum())
     metrics['twitter']['tweets_published'] = int(data.tweets_published.sum())
+    metrics['twitter']['engagement_rate'] = int(data.engagement_rate.sum())
+    metrics['twitter']['retweets'] = int(data.retweets.sum())
+    metrics['twitter']['likes'] = int(data.likes.sum())
+    metrics['twitter']['user_profile_clicks'] = int(data.user_profile_clicks.sum())
+    metrics['twitter']['follows'] = int(data.follows.sum())
 
     
     with open('social.yml','w') as metrics_file:

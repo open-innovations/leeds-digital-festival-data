@@ -1,16 +1,29 @@
 ---
-layout: layouts/base.njk
-header_parts:
-  - dashboard
+
 ---
-<div class="holder">
-  <h1>Leeds Digital Festival Report - September 2021</h1>
-  <div id="report-area">
-  
-  </div>
-</div>
-<script>
-  window.addEventListener('DOMContentLoaded', function () {
-    report = new OI.report(document.getElementById('report-area'));
-  });
-</script>
+{% comp 'home.headline' %}
+  {% comp 'home.panel' %}
+    <span class="title">Events so far</span>
+    <div class="number">{{ summary.total_events | localize }}</div>
+  {% endcomp %}
+  {% comp 'home.panel' %} 
+    <span class="title">Total event hosts</span>
+    <div class="number">{{ summary.total_event_hosts | localize }}</div>
+  {% endcomp %}
+    {% comp 'home.panel' %}
+    <span class="title">Online impressions</span>
+    <div class="number">{{ summary.total_online_impressions | localize }}</div>
+  {% endcomp %}
+    {% comp 'home.panel' %}
+    <span class="title">Online engagements</span>
+    <div class="number">{{ summary.total_online_engagements | localize }}</div>
+  {% comp 'home.panel' %}
+    <span class="title">Total website views</span>
+    <div class="number">{{ summary.total_website_views | localize }}</div>
+  {% endcomp %}
+  {% endcomp %}
+    {% comp 'home.panel' %}
+    <span class="title">Current sponsors</span>
+    <div class="number">{{ summary.current_sponsors | localize }}</div>
+  {% endcomp %}
+{% endcomp %}

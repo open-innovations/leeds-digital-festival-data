@@ -2,30 +2,29 @@
 url: /home/
 ---
 
-
 {% comp 'home.headline' %}
-{% comp 'home.panel' %}
-    <span class="title">Total Attendees</span>
-    <div class="number">{{ summary.total_attendees | localize }}</div>
-  {% endcomp %} 
   {% comp 'home.panel' %}
-    <span class="title">Total Events</span>
+    <span class="title">Events so far</span>
     <div class="number">{{ summary.total_events | localize }}</div>
   {% endcomp %}
-  {% comp 'home.panel' %}
-    <span class="title">Total Number of Event Hosts</span>
+  {% comp 'home.panel' %} 
+    <span class="title">Total event hosts</span>
     <div class="number">{{ summary.total_event_hosts | localize }}</div>
   {% endcomp %}
     {% comp 'home.panel' %}
-    <span class="title">Total Online Impressions</span>
+    <span class="title">Online impressions</span>
     <div class="number">{{ summary.total_online_impressions | localize }}</div>
   {% endcomp %}
     {% comp 'home.panel' %}
-    <span class="title">Total Online Engagements</span>
+    <span class="title">Online engagements</span>
     <div class="number">{{ summary.total_online_engagements | localize }}</div>
+  {% comp 'home.panel' %}
+    <span class="title">Total website views</span>
+    <div class="number">{{ summary.total_website_views | localize }}</div>
   {% endcomp %}
-      {% comp 'home.panel' %}
-    <span class="title">Current Sponsors</span>
+  {% endcomp %}
+    {% comp 'home.panel' %}
+    <span class="title">Current sponsors</span>
     <div class="number">{{ summary.current_sponsors | localize }}</div>
   {% endcomp %}
-  {% endcomp %}
+{% endcomp %}
