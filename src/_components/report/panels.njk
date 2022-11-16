@@ -24,14 +24,16 @@ css: |
     }
   }
   /* Cap the max size of font in the panels */
-  @media only screen and (min-width: 65rem) {
-    .panels { font-size: 0.908rem; }
+  @media only screen and (min-width: 85rem) {
+    .panels { font-size: 1.2rem; }
   }
   .panels > li {
     padding: 1em;
     background: #0C0C33;
     color: white;
     text-align: center;
+    display: grid;
+    align-items: center;
     margin-bottom: 0;
   }
   .panels > li:focus {
