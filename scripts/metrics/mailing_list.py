@@ -74,8 +74,8 @@ def create_summary():
     monthly_summary.to_csv('monthly.csv')
 
 def create_summary_metrics():
-    START_DATE = '2022-08-01'
-    END_DATE = '2022-10-01'
+    START_DATE = '2021-10-01'
+    END_DATE = '2022-10-31'
     os.makedirs(LOCAL_VIEW_DIR, exist_ok=True)
     os.chdir('../../../../')
 

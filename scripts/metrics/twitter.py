@@ -1,5 +1,4 @@
 import os
-from tkinter import W
 import pandas as pd
 import glob
 import yaml
@@ -64,7 +63,7 @@ def create_summary():
     # Create monthly summary
     data['month'] = data.date.dt.to_period('M')
     START_DATE = '2021-10-01'
-    END_DATE = '2022-10-01'
+    END_DATE = '2022-10-31'
     data = data[data.date.between(START_DATE,END_DATE)]
     monthly = data.groupby('month')
     monthly_summary = pd.DataFrame({
