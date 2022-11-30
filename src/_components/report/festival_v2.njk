@@ -22,7 +22,8 @@
   {% endcomp %}
     {% comp 'report.panel' %}
     <span class="title">Events with International Attendees</span>
-    <div class="number">{{ statistics.international | localize }}</div>
+    <div class="number">{{ statistics.international | localize }}%</div>
+    <p class="footnote">Number of event hosts that reported attendees from outside the UK</p>
   {% endcomp %}
     {% comp 'report.panel' %}
     <span class="title">Number of Hosts</span>
