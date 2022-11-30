@@ -5,7 +5,7 @@ from cmath import isnan
 import yaml
 ### Needs xlrd
 
-WORKING_DIR = os.path.join('working', 'linkedin-visitors')
+WORKING_DIR = os.path.join('working', 'linkedin','visitors')
 DATA_DIR = os.path.join('data', 'social')
 RAW_FILE = os.path.join(DATA_DIR, 'linkedin-visitors.csv')
 VIEW_DIR = os.path.join('src', '_data', 'metrics', 'linkedin')
@@ -67,6 +67,9 @@ def create_summary():
     # Save summaries
     os.chdir(VIEW_DIR)
     # Create monthly summary
+    START_DATE = '2021-10-01'
+    END_DATE = '2022-10-31'
+    data = data[data.date.between(START_DATE,END_DATE)]
     data['month'] = data.date.dt.to_period('M')
     monthly = data.groupby('month')
     monthly_summary = pd.DataFrame({
@@ -77,8 +80,8 @@ def create_summary():
 
 
 def create_summary_metrics():
-    START_DATE = '2021-10-01'
-    END_DATE = '2022-10-31'
+    START_DATE = '2022-08-01'
+    END_DATE = '2022-10-01'
     os.chdir('../../../../')
     os.makedirs(LOCAL_VIEW_DIR, exist_ok=True)
     

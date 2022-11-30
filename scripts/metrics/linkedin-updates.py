@@ -52,6 +52,7 @@ def update_raw_data():
     
     save_existing(data)
 
+
 def post_combine_process(data):
     data["engagements_total"] = round(data["impressions_(total)"] * data["engagement_rate_(total)"])
     return (data.sort_values(by=['date']))
@@ -66,6 +67,9 @@ def create_summary():
     # Save summaries
     os.chdir(VIEW_DIR)
     # Create monthly summary
+    START_DATE = '2021-10-01'
+    END_DATE = '2022-10-31'
+    data = data[data.date.between(START_DATE,END_DATE)]
     data['month'] = data.date.dt.to_period('M')
     monthly = data.groupby('month')
     monthly_summary = pd.DataFrame({
@@ -80,8 +84,8 @@ def create_summary():
 
 
 def create_summary_metrics():
-    START_DATE = '2021-10-01'
-    END_DATE = '2022-10-31'
+    START_DATE = '2022-08-01'
+    END_DATE = '2022-10-01'
     os.chdir('../../../../')
     os.makedirs(LOCAL_VIEW_DIR, exist_ok=True)
     

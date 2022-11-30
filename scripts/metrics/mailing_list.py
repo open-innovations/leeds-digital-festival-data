@@ -66,6 +66,9 @@ def create_summary():
     # Save summaries
     os.chdir(VIEW_DIR)
     # Create monthly summary
+    START_DATE = '2021-10-01'
+    END_DATE = '2022-10-31'
+    data = data[data.datecreated.between(START_DATE,END_DATE)]
     data['month'] = data.datecreated.dt.to_period('M')
     monthly = data.groupby('month')
     monthly_summary = pd.DataFrame({
@@ -74,8 +77,8 @@ def create_summary():
     monthly_summary.to_csv('monthly.csv')
 
 def create_summary_metrics():
-    START_DATE = '2021-10-01'
-    END_DATE = '2022-10-31'
+    START_DATE = '2022-08-01'
+    END_DATE = '2022-10-01'
     os.makedirs(LOCAL_VIEW_DIR, exist_ok=True)
     os.chdir('../../../../')
 
