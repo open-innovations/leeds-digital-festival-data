@@ -1,3 +1,12 @@
-<li style="{% if rows %}grid-row:auto/span {{ rows }};{% endif %}" tabindex="0">
+---
+css: |
+
+  .panel {
+    height:15rem;
+    font-size: 1.5em;
+  }
+---
+
+<li class="panel" style="{% if rows %}grid-row:auto/span {{ rows }};{% endif %}" tabindex="0">
   {{ content | safe }}
 </li>
