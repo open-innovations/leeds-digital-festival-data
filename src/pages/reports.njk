@@ -7,9 +7,11 @@ url: /reports/
 {% for report in search.pages('report layout!=layouts/plain-dashboard.njk', 'date=desc')%}
   {% comp 'layout.block', { link: report.data.url } %}
     <article>
-      <h2>{{ report.data.title }}</h2>
-      <p>{{ report.data.date | date('HUMAN_DATE') }}</p>
+      <h2 style = "margin-top: 2em;">{{ report.data.title }}</h2>
     </article>
+      <button class="home-button" style="margin:2em; height: 4em; background-color: #35d0a6; font-weight: bold; color: white; border-radius: 20px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); border-color: #68258f; position: relative; bottom: -30px; font-size: 0.8em; letter-spacing: 0.8px;">
+        View the report
+      </button>
   {% endcomp %}
 {% endfor %}
 {% endcomp %}
