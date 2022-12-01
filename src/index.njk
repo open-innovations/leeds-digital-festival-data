@@ -3,14 +3,20 @@ layout: layouts/homepage.njk
 metas:
   title: Home - Leeds Digital Festival data microsite
 ---
-{% comp 'home.headline' %}
+
+
+{% comp 'home.home-grid', { columns: 2 } %}
   {% comp 'home.panel' %}
-    <span class="title">Events so far</span>
+    <span class="title">Events hosted</span>
     <div class="number">{{ summary.total_events | localize }}</div>
   {% endcomp %}
   {% comp 'home.panel' %} 
-    <span class="title">Total event hosts</span>
+    <span class="title">Event hosts</span>
     <div class="number">{{ summary.total_event_hosts | localize }}</div>
+  {% endcomp %}
+    {% comp 'home.panel' %}
+    <span class="title">Current sponsors</span>
+    <div class="number">{{ summary.current_sponsors | localize }}</div>
   {% endcomp %}
     {% comp 'home.panel' %}
     <span class="title">Online impressions</span>
@@ -23,9 +29,5 @@ metas:
     <span class="title">Total website views</span>
     <div class="number">{{ summary.total_website_views | localize }}</div>
   {% endcomp %}
-  {% endcomp %}
-    {% comp 'home.panel' %}
-    <span class="title">Current sponsors</span>
-    <div class="number">{{ summary.current_sponsors | localize }}</div>
   {% endcomp %}
 {% endcomp %}
