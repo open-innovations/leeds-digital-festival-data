@@ -3,12 +3,24 @@ css: |
   .grid {
     --auto-grid-min-size: 16rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--auto-grid-min-size)), 1fr));
+    grid-template-columns: repeat(2, minmax(min(100%, var(--auto-grid-min-size)), 1fr));
     grid-gap: 1rem;
   }
   .grid > * {
     display: block;
   }
+
+    @media only screen and (min-width: 30rem) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      font-size: 3vw;
+    }
+  }
+  @media only screen and (min-width: 50rem) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      font-size: 2vw;
+    }
 ---
 <{{ tag or 'div' }} class='grid {{ class }}'>
   {{ content | safe }}

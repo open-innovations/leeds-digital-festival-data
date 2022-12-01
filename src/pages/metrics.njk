@@ -2,13 +2,320 @@
 title: Metrics
 url: /metrics/
 ---
+{% from 'macros.njk' import dateFormatterNoDay %}
 
-{% comp 'layout.grid' %}
-{% for metric in search.pages('metric', 'title')%}
-  {% comp 'layout.block', { link: metric.data.url } %}
-    <article>
-      <h2>{{ metric.data.title }}</h2>
-    </article>
+<h1>Digital Engagement Metrics</h1>
+
+<h2>Twitter</h2>
+
+{% comp 'metric.headline' %}
+{% comp 'metric.panel' %}
+    <span class="title">Tweets Published</span>
+    <div class="number">{{ metrics.twitter.monthly.columns.tweets_published | sum | localize }}</div>
   {% endcomp %}
-{% endfor %}
-{% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Impressions</span>
+    <div class="number">{{ metrics.twitter.monthly.columns.impressions | sum | localize }}</div>
+  {% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Engagements</span>
+    <div class="number">{{ metrics.twitter.monthly.columns.engagements | sum | localize }}</div>
+  {% endcomp %}
+  {% endcomp %}
+
+<p>From October 2021 to October 2022, we tweeted <strong>{{ metrics.twitter.monthly.columns.tweets_published | sum | localize }}</strong> times. These tweets made <strong>{{ metrics.twitter.monthly.columns.impressions | sum | localize }}</strong> 
+impressions and had <strong>{{ metrics.twitter.monthly.columns.engagements | sum | localize }}</strong> engagements, including <strong>{{ metrics.twitter.monthly.columns.likes | sum | localize }}</strong> likes and 
+<strong>{{ metrics.twitter.monthly.columns.retweets | sum | localize }}</strong> retweets.</p>
+
+<br>
+<p>The below chart shows <strong>engagement rate</strong> (ratio of impressions to engagements) over the year:
+
+<div class="chart-container">
+{{ comp.oi.charts.graph.line({
+  title: 'Twitter Engagement Rate',
+  titleOffset: 1.3,
+  categories: metrics.twitter.monthly.columns.month,
+  width: 25,
+  height: 6,
+  text: { colour: '#eee' },
+  xAxis: {
+    title: 'Month',
+    titleOffset: 3,
+    labelRotate: 35,
+    majorTick: 2,
+    formatter: dateFormatterNoDay
+  },
+  yAxis: {
+    title: 'Engagement Rate (%)',
+    titleOffset: 2,
+    majorTick: 50000
+  },
+  plotArea: {
+    yMin: 0,
+    yMax: 1,
+    colour: '#0C0C33'
+  },
+  padding: {
+    left: 3,
+    bottom: 4
+  },
+  series: [
+    {
+      id: "all", label: "All",
+      yValues: metrics.twitter.monthly.columns.engagement_rate,
+      colour: '#35d0a6',
+      markerOptions: { s: 5 }
+    }
+  ],
+  legend: {
+    width: "20em"
+  }
+}) | safe }}
+</div>
+
+<br>
+<p>The below chart shows <strong>impressions</strong> by month over the year:</p>
+
+<div class="chart-container">
+{{ comp.oi.charts.graph.line({
+  title: 'Twitter Impressions',
+  titleOffset: 1.3,
+  categories: metrics.twitter.monthly.columns.month,
+  width: 25,
+  height: 7,
+  text: { colour: '#eee' },
+  xAxis: {
+    title: 'Month',
+    titleOffset: 3,
+    labelRotate: 35,
+    majorTick: 2,
+    formatter: dateFormatterNoDay
+  },
+  yAxis: {
+    title: 'Impressions',
+    titleOffset: 3,
+    majorTick: 50000
+  },
+  plotArea: {
+    yMin: 0,
+    yMax: 215000,
+    colour: '#0C0C33'
+  },
+  padding: {
+    left: 5,
+    bottom: 4
+  },
+  series: [
+    {
+      id: "all", label: "All",
+      yValues: metrics.twitter.monthly.columns.impressions,
+      colour: '#35d0a6',
+      markerOptions: { s: 5 }
+    }
+  ],
+  legend: {
+    width: "20em"
+  }
+}) | safe }}
+</div>
+
+
+<br><br>
+
+<h2>LinkedIn</h2>
+
+{% comp 'metric.headline' %}
+{% comp 'metric.panel' %}
+    <span class="title">Impressions</span>
+    <div class="number">{{ metrics.linkedin.monthly_updates.columns.impressions | sum | localize  }}</div>
+  {% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Engagements</span>
+    <div class="number">{{ metrics.linkedin.monthly_updates.columns.engagements | sum | localize }}</div>
+  {% endcomp %}  
+  {% comp 'metric.panel' %}
+    <span class="title">Comments</span>
+    <div class="number">{{ metrics.linkedin.monthly_updates.columns.comments | sum  | localize }}</div>
+  {% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Reactions</span>
+    <div class="number">{{ metrics.linkedin.monthly_updates.columns.reactions | sum | localize }}</div>
+  {% endcomp %}
+  {% comp 'metric.panel' %}
+    <span class="title">Clicks</span>
+    <div class="number">{{ metrics.linkedin.monthly_updates.columns.clicks | sum | localize }}</div>
+  {% endcomp %}
+    {% comp 'metric.panel' %}
+    <span class="title">Total Page Views</span>
+    <div class="number">{{ metrics.linkedin.monthly_visitors.columns.total_views | sum | localize }}</div>
+  {% endcomp %}
+  {% endcomp %}
+
+<br>
+<p>From October 2021 to October 2022, our LinkedIn posts reached <strong>{{ metrics.linkedin.monthly_updates.columns.impressions | sum | localize  }}</strong> impressions, with <strong>{{ metrics.linkedin.monthly_updates.columns.reactions | sum | localize }}</strong> reactions and <strong>{{ metrics.linkedin.monthly_updates.columns.comments | sum  | localize }}</strong> comments.</p>
+
+<p>The below chart shows the engagement rate (ratio of engagements to impressions) by month over the year:</p>
+
+
+<div class="chart-container">
+{{ comp.oi.charts.graph.line({
+  title: 'LinkedIn Engagement Rate',
+  titleOffset: 1.3,
+  categories: metrics.linkedin.monthly_updates.columns.month,
+  width: 25,
+  height: 6,
+  text: { colour: '#eee' },
+  xAxis: {
+    title: 'Month',
+    titleOffset: 3,
+    labelRotate: 35,
+    majorTick: 2,
+    formatter: dateFormatterNoDay
+  },
+  yAxis: {
+    title: 'Engagement Rate (%)',
+    titleOffset: 2,
+    majorTick: 50000
+  },
+  plotArea: {
+    yMin: 0,
+    yMax: 2,
+    colour: '#0C0C33'
+  },
+  padding: {
+    left: 3,
+    bottom: 4
+  },
+  series: [
+    {
+      id: "all", label: "All",
+      yValues: metrics.linkedin.monthly_updates.columns.engagement_rate,
+      colour: '#35d0a6',
+      markerOptions: { s: 5 }
+    }
+  ],
+  legend: {
+    width: "20em"
+  }
+}) | safe }}
+</div>
+
+
+<br><br>
+<p>We have had <strong>{{ metrics.linkedin.monthly_visitors.columns.total_views | sum | localize }}</strong> total page views. The below chart shows the increase in page views over the past year. </p>
+
+<div class="chart-container">
+{{ comp.oi.charts.graph.line({
+  title: 'LinkedIn Page Views',
+  titleOffset: 1.3,
+  categories: metrics.linkedin.monthly_visitors.columns.month,
+  width: 25,
+  height: 6,
+  text: { colour: '#eee' },
+  xAxis: {
+    title: 'Month',
+    titleOffset: 3,
+    labelRotate: 35,
+    majorTick: 2,
+    formatter: dateFormatterNoDay
+  },
+  yAxis: {
+    title: 'Page Views',
+    titleOffset: 2,
+    majorTick: 50000
+  },
+  plotArea: {
+    yMin: 0,
+    yMax: 7500,
+    colour: '#0C0C33'
+  },
+  padding: {
+    left: 3,
+    bottom: 4
+  },
+  series: [
+    {
+      id: "all", label: "All",
+      yValues: metrics.linkedin.monthly_visitors.columns.total_views,
+      colour: '#35d0a6',
+      markerOptions: { s: 5 }
+    }
+  ],
+  legend: {
+    width: "20em"
+  }
+}) | safe }}
+</div>
+
+
+<br><br>
+
+<h2>Website Analytics</h2>
+
+
+{% comp 'report.panels' %}
+{% comp 'report.panel' %}
+    <span class="title">Page Views</span>
+    <div class="number">{{ metrics.website.monthly.columns.page_views | sum | localize }}</div>
+  {% endcomp %}
+  {% comp 'report.panel' %}
+    <span class="title">Unique Page Views</span>
+    <div class="number">{{ metrics.website.monthly.columns.unique_page_views | sum | localize }}</div>
+  {% endcomp %}
+  {% comp 'report.panel' %}
+    <span class="title">Users</span>
+    <div class="number">{{ metrics.website.monthly.columns.users | sum  | localize }}</div>
+  {% endcomp %}
+  {% endcomp %}
+
+
+
+<h3>Website Statistics</h3>
+
+<p>From October 2021 to October 2022, the Leeds Digital Festival website has received <strong>{{metrics.website.monthly.columns.page_views | sum | localize}}</strong> total page views, of which <strong>{{metrics.website.monthly.columns.unique_page_views | sum | localize}}</strong> views are unique from <strong>{{metrics.website.monthly.columns.users | sum  | localize}}</strong> users.</p>
+
+<p>The below chart shows the increase in page views over the past year:</p>
+
+<div class="chart-container">
+{{ comp.oi.charts.graph.line({
+  title: 'Website Views',
+  titleOffset: 1.3,
+  categories: metrics.website.monthly.columns.month,
+  width: 25,
+  height: 6,
+  text: { colour: '#eee' },
+  xAxis: {
+    title: 'Month',
+    titleOffset: 3,
+    labelRotate: 35,
+    majorTick: 2,
+    formatter: dateFormatterNoDay
+  },
+  yAxis: {
+    title: 'Page Views',
+    titleOffset: 3,
+    majorTick: 50000
+  },
+  plotArea: {
+    yMin: 0,
+    yMax: 100000,
+    colour: '#0C0C33'
+  },
+  padding: {
+    left: 4,
+    bottom: 4
+  },
+  series: [
+    {
+      id: "all", label: "All",
+      yValues: metrics.website.monthly.columns.page_views,
+      colour: '#35d0a6',
+      markerOptions: { s: 5 }
+    }
+  ],
+  legend: {
+    width: "20em"
+  }
+}) | safe }}
+</div>
+
