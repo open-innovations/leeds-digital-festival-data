@@ -3,11 +3,21 @@ css: |
   .block {
     background: #0C0C33;
     color:white;
+    min-height: 20rem;
+    min-width: 20rem;
     padding: 1rem;
+    margin-left: 0em;
+    margin-bottom: 6em;
+    align-items: left;  
+    text-align: center;
+    display: grid;
+    grid-gap: 0.5em;
+    font-size: 1.2vw;
   }
   .block:focus {
     outline: 4px solid #061eff;
   }
+
 ---
 {% if link %}<a href="{{ link }}">{% endif %}
 <div class='block'>
