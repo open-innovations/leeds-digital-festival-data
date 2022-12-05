@@ -5,7 +5,7 @@ metas:
 ---
 
 
-{% comp 'home.home-grid', { columns: 2 } %}
+{% comp 'home.home-grid'%}
   {% comp 'home.panel' %}
     <span class="title">Events hosted</span>
     <div class="number">{{ summary.total_events | localize }}</div>
@@ -19,12 +19,12 @@ metas:
     <div class="number">{{ summary.current_sponsors | localize }}</div>
   {% endcomp %}
     {% comp 'home.panel' %}
-    <span class="title">Online impressions</span>
-    <div class="number">{{ summary.total_online_impressions | localize }}</div>
+    <span class="title">Twitter impressions</span>
+    <div class="number">{{ summary.total_twitter_impressions | localize }}</div>
   {% endcomp %}
     {% comp 'home.panel' %}
-    <span class="title">Online engagements</span>
-    <div class="number">{{ summary.total_online_engagements | localize }}</div>
+    <span class="title">Twitter engagements</span>
+    <div class="number">{{ summary.total_twitter_engagements | localize }}</div>
   {% comp 'home.panel' %}
     <span class="title">Total website views</span>
     <div class="number">{{ summary.total_website_views | localize }}</div>
