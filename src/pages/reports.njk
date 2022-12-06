@@ -2,16 +2,41 @@
 title: Reports
 url: /reports/
 ---
+<style>
+  .grid a {
+    text-decoration: none;
+  }
+
+  .grid a:hover .home-button {
+    text-decoration: underline;
+  }
+
+  .home-button {
+    margin:2em; 
+    padding: 1.5em;
+    background-color: #35d0a6; 
+    font-weight: bold; 
+    color: #0C0C33; 
+    border-radius: 20px; 
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); 
+    border-color: #68258f; 
+  }
+
+  .home-button:hover {
+    background-color: white;
+  }
+</style>
+
 
 {% comp 'layout.grid' %}
 {% for report in search.pages('report layout!=layouts/plain-dashboard.njk', 'date=desc')%}
   {% comp 'layout.block', { link: report.data.url } %}
-    <article>
+    <div>
       <h2 style = "margin-top: 2em;">{{ report.data.title }}</h2>
-    </article>
-      <button class="home-button" style="margin:2em; height: 4em; background-color: #35d0a6; font-weight: bold; color: white; border-radius: 20px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); border-color: #68258f; position: relative; bottom: -30px; font-size: 0.8em; letter-spacing: 0.8px;">
+      <div class="home-button">
         View the report
-      </button>
+      </div>
+    </div>
   {% endcomp %}
 {% endfor %}
 {% endcomp %}
