@@ -13,7 +13,7 @@ LOCAL_VIEW_DIR = os.path.join('src','report','september-2022','_data')
 
 def read_existing():
     try:
-        data = pd.read_csv(RAW_FILE, index_col=['id'], parse_dates=['datecreated'])
+        data = pd.read_csv(RAW_FILE, index_col=['stageid'], parse_dates=['datecreated'])
     except:
         data = pd.DataFrame(None)
     return data
@@ -25,7 +25,7 @@ def save_existing(data):
 
 
 def load_file(filename):
-    data = pd.read_csv(filename, parse_dates=['DateCreated'], index_col=['Id'], na_values=['-'])
+    data = pd.read_csv(filename, parse_dates=['DateCreated'], index_col=['StageId'], na_values=['-'])
     data.index = data.index.set_names(
         [x.lower().replace('\s+', '_') for x in data.index.names])
     data.columns = data.columns.str.lower().str.replace('\s+', '_', regex=True)
@@ -52,7 +52,7 @@ def update_raw_data():
     save_existing(data)
 
 def post_combine_process(data): 
-    return (data.sort_values(by=['datecreated']))
+    return (data.sort_values(by=['datecreated','campaignname','stageid']))
                 
 
 
