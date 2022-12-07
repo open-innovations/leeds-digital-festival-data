@@ -54,7 +54,7 @@ def update_raw_data():
 
 
 def post_combine_process(data):
-    data["engagements_total"] = round(data["impressions_(total)"] * data["engagement_rate_(total)"])
+    data["engagements_total"] = (round(data["impressions_(total)"] * data["engagement_rate_(total)"])).astype('Int64')
     return (data.sort_values(by=['date']))
 
 def create_summary():
