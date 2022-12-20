@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'src/**'
-      - '_config.yml'
+      - '_config.ts'
       - 'deno.json'
       - 'import_map.json'
       - '.github/workflows/deploy-site.yml'
