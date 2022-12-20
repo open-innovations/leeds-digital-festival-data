@@ -11,7 +11,7 @@ import csvLoader from 'oi-lume-utils/loaders/csv-loader.ts';
 import autoDependency from 'oi-lume-utils/processors/auto-dependency.ts';
 
 const site = lume({
-  location: new URL("https://open-innovations.github.io/leeds-digital-festival-data/"),
+  location: new URL("https://data.leedsdigitalfestival.org/"),
   src: "./src",
   components: {
     cssFile: '/style/components.css'
