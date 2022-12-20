@@ -53,6 +53,7 @@ site.copy('data');
 
 // Prevent gh-pages from using jekyll
 site.copy('.nojekyll')
+site.copy('CNAME')
 
 // Provision images
 site.remoteFile('/assets/images/logo.svg', 'https://leedsdigitalfestival.org/wp-content/themes/leeds-digital-festival/assets/images/logo.svg');
