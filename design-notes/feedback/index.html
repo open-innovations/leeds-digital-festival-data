@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>Leeds Digital Festival Data Microsite</title>
+	<link rel="shortcut icon" type="image/png" href="https://leedsdigitalfestival.org/wp-content/themes/leeds-digital-festival/assets/images/favicon.png">
+	<link rel="StyleSheet" href="https://use.typekit.net/inj1tmf.css" type="text/css">
+  <link rel="stylesheet" href="/style/components.css">
+  <link rel="stylesheet" href="/style/dashboard.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leeds Digital Festival Data Microsite">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="https://data.leedsdigitalfestival.org/design-notes/feedback/">
+<meta property="og:image" content="https://data.leedsdigitalfestival.org/assets/images/logo.svg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://data.leedsdigitalfestival.org/assets/images/logo.svg">
+<meta name="twitter:site" content="@LeedsDigiFest">
+<meta itemprop="image" content="https://data.leedsdigitalfestival.org/assets/images/logo.svg">
+<meta name="generator" content="Lume v1.14.2">
+</head>
+
+<body>
+  <div class="holder">
+  <style>
+  p, ul, table {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  ul {
+    list-style: disc;
+    padding-left: 2rem;
+  }
+  td, th {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid black;
+  }
+</style>
+<h1>Feedback Form Design</h1>
+<p>The feedback form has two purposes:</p>
+<ul>
+<li>Understanding the host's experience</li>
+<li>Assessing the coverage of events</li>
+</ul>
+<p>One problem from earlier versions of the form that people who hosted multiple events were
+unable to distinguish between their events. On that basis, we recommend separating Host
+and Event feedback into two separate forms - the host form needs to be sent in once only,
+and the event sent in for each event.</p>
+<p>The design of each form should be simple and clear to navigate, with field validation and
+minimising the fields that the user needs to submit.</p>
+<h2>Host Feedback</h2>
+<p>The host feedback items are as follows. These are mostly OK, and are not used to drive the
+data dashboard. A little bit of cleaning up may be required.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Number</th>
+<th>Question</th>
+<th style="text-align:center">Details</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Q1</td>
+<td>Name</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q2</td>
+<td>Role</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q3</td>
+<td>Organisation</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q3</td>
+<td>Email</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q4</td>
+<td>Was this your first time hosting an event(s) as part of Leeds Digital Festival?</td>
+<td style="text-align:center">Yes, No (Hosted at last festival), No (Hosted a year ago), No (Hosted at other time)</td>
+<td>These are OK</td>
+</tr>
+<tr>
+<td style="text-align:center">Q6.1</td>
+<td>Based on your hosting experience, are you planning to submit an event for next year's Festival?</td>
+<td style="text-align:center">Y/N</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q6.2</td>
+<td>Why?</td>
+<td style="text-align:center">Optional Text</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q7</td>
+<td>Based on your experience this year, if hosting an event at next year's Festival, what event format would you select?</td>
+<td style="text-align:center">Physical, Virtual, Multiple, Any, Undecided</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q8</td>
+<td>Was the involvement valuable to your organisation?</td>
+<td style="text-align:center">Y / N / Other</td>
+<td>Wonder about the wisdom of Other here?</td>
+</tr>
+<tr>
+<td style="text-align:center">Q9</td>
+<td>Do you have any additional comments or feedback about your experience of hosting an event at Leeds Digital Festival?</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q10</td>
+<td>Do you have any tips for organisations looking to host a Leeds Digital Festival event?</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q11</td>
+<td>How did you hear about Leeds Digital Festival?</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q12</td>
+<td>Would you be interested in finding out more about sponsorship opportunities for the 2022 Festival</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q13</td>
+<td>Were you satisfied with the number of people who registered for your events?</td>
+<td style="text-align:center">Y/N</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q14</td>
+<td>Were you satisfied with the number of people who attended your events?</td>
+<td style="text-align:center">Y/N</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q15</td>
+<td>What, if anything, do you feel could have increased the number of people who attended your events?</td>
+<td style="text-align:center">Optional Text</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Event Feedback</h2>
+<p>The contents in the table are more or less OK.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Number</th>
+<th>Question</th>
+<th style="text-align:center">Details</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Q0.1</td>
+<td>Your email address</td>
+<td style="text-align:center">Text</td>
+<td>Allows linking to host. Could this be pre-filled as a customised link?</td>
+</tr>
+<tr>
+<td style="text-align:center">Q0.2</td>
+<td>Event title</td>
+<td style="text-align:center">Text</td>
+<td>Allows linking to CMS. Make optional?</td>
+</tr>
+<tr>
+<td style="text-align:center">Q0.3</td>
+<td>Date / Time of event</td>
+<td style="text-align:center">Datetime</td>
+<td>Allows linking to CMS. Make optional?</td>
+</tr>
+<tr>
+<td style="text-align:center">Q1</td>
+<td>What format was your event?</td>
+<td style="text-align:center">Physical / Virtual / Hybrid</td>
+<td>Per-event means that the options about multiple events can be removed</td>
+</tr>
+<tr>
+<td style="text-align:center">Q2.1</td>
+<td>If you hosted a Virtual or Hybrid event, which platform did you use to host your event?</td>
+<td style="text-align:center">Pick list of common platforms 'Other' option</td>
+<td>Conditional on Q1, if possible</td>
+</tr>
+<tr>
+<td style="text-align:center">Q2.2</td>
+<td>Why did you chose this platform?</td>
+<td style="text-align:center">Optional text</td>
+<td>Conditional on Q1, if possible</td>
+</tr>
+<tr>
+<td style="text-align:center">Q3</td>
+<td>How many people were registered for your event?</td>
+<td style="text-align:center">Optional Numeric</td>
+<td>Text to suggest this can be approximate</td>
+</tr>
+<tr>
+<td style="text-align:center">Q4</td>
+<td>How many people attended your event?</td>
+<td style="text-align:center">Optional Numeric</td>
+<td>Text to suggest this can be approximate</td>
+</tr>
+<tr>
+<td style="text-align:center">Q5</td>
+<td>Please outline the age break-down of your audience</td>
+<td style="text-align:center">Mostly older - Largely older - Balanced - Largely younger - Mostly younger</td>
+<td>This was not useful before. Needs a simple coding.</td>
+</tr>
+<tr>
+<td style="text-align:center">Q6</td>
+<td>Please outline the gender break-down of your audience</td>
+<td style="text-align:center">Mostly male - largely male - balanced - largely female - mostly female</td>
+<td>This was not useful before. Needs a simple coding.</td>
+</tr>
+<tr>
+<td style="text-align:center">Q7</td>
+<td>Please identify the regions within the UK that your event welcomed attendees</td>
+<td style="text-align:center">LIST OF UK REGIONS</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Q8</td>
+<td>Did your event welcome any attendees from outside of the UK?</td>
+<td style="text-align:center">LIST OF: Europe, North America, South America, Australasia, Far East, India</td>
+<td>Is there a good right-sized list? Do we need an Other box?</td>
+</tr>
+</tbody>
+</table>
+<p>There are some refinements that could do with being made to these fields:</p>
+<ul>
+<li>Please provide any further information on the demography of your audience, where possible:</li>
+<li>Were you satisfied with the demographic that your event attracted?</li>
+</ul>
+
+</div>
+
+
+
+</body></html>
